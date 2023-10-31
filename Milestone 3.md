@@ -34,9 +34,6 @@ those. This database will facilitate the efficient management of guest informati
 ||Debug|ALL|
 ||Double checking the project with rubric|ALL|
 ||Team check-in + in-person meeting (date)|ALL|
-
-# Dec 1: Project Implementation (Milestone 4) Deadline
-
-# Dec 5: Project Demo (Milestone 5) Deadline
-
-# Dec 6: Individual And Peer Assessment (Milestone 6) Deadline
+|December 1|Project Implementation (Milestone 4) Deadline|ALL|
+|December 5|Project Demo (Milestone 5) Deadline|ALL|
+|December 6|Individual and Peer Assessment (Milestone 6)|ALL|
