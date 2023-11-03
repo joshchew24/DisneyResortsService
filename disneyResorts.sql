@@ -1,3 +1,4 @@
+
 CREATE TABLE DisneyResortAddress(
     disneyResortName VARCHAR PRIMARY KEY,
     address VARCHAR
