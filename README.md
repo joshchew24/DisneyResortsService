@@ -1,4 +1,4 @@
-# CPSC 304 Project Group 90 - Term 1, 2023 
+# CPSC 304 Project Group 90 - 2023 Winter Session Term 1
 
 | Name         | Student Number | CS Aliases (Userid) | Preferred E-mail Address  |
 |--------------|----------------|---------------------|---------------------------|
