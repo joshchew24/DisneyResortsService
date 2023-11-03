@@ -1,4 +1,4 @@
-# CPSC 304 Project Group 90
+# CPSC 304 Project Group 90 - Term 1, 2023 
 
 | Name         | Student Number | CS Aliases (Userid) | Preferred E-mail Address  |
 |--------------|----------------|---------------------|---------------------------|
@@ -13,3 +13,4 @@ The domain of this application is the entertainment industry, specifically focus
 ### [Milestone 1](https://github.students.cs.ubc.ca/CPSC304-2023W-T1/project_g4l8c_i8w2b_u9b3b/blob/main/Milestone%201.pdf)
 ### [Milestone 2](https://github.students.cs.ubc.ca/CPSC304-2023W-T1/project_g4l8c_i8w2b_u9b3b/blob/main/Milestone%202.pdf)
 ### [Milestone 3](https://github.students.cs.ubc.ca/CPSC304-2023W-T1/project_g4l8c_i8w2b_u9b3b/blob/main/Milestone%203.md)
+
