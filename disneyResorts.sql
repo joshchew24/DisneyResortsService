@@ -156,7 +156,7 @@ CREATE TABLE FeatureRestaurant(
 );
 
 CREATE TABLE Food(
-    foodName VARCHAR(100) PRIMARY KEY,
+    name VARCHAR(100) PRIMARY KEY,
     price INT
 );
 
@@ -166,13 +166,13 @@ CREATE TABLE Serve(
     PRIMARY KEY (restaurantId, foodName),
     FOREIGN KEY (restaurantId) REFERENCES FeatureRestaurant ON DELETE CASCADE,
     -- ON UPDATE CASCADE,
-    FOREIGN KEY (foodName) REFERENCES Food ON DELETE CASCADE
+    FOREIGN KEY (foodName) REFERENCES Food(name) ON DELETE CASCADE
     -- ON UPDATE CASCADE
 );
 
 CREATE TABLE Account(
     accountId INT PRIMARY KEY,
-    a_name VARCHAR(100),
+    name VARCHAR(100),
     email VARCHAR(100) UNIQUE NOT NULL,
     birthDate INT
 );
@@ -215,7 +215,7 @@ CREATE TABLE TicketAtDisneyResortOwnedByAccount(
 
 CREATE TABLE OpenStore(
     storeId INT PRIMARY KEY,
-    storeName VARCHAR(100),
+    name VARCHAR(100),
     themeParkId INT,
     landId INT,
     FOREIGN KEY (themeParkId, landId) REFERENCES LandTheme ON DELETE CASCADE
