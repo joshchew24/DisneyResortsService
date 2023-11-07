@@ -174,13 +174,13 @@ CREATE TABLE Account(
     accountId INT PRIMARY KEY,
     name VARCHAR(100),
     email VARCHAR(100) UNIQUE NOT NULL,
-    birthDate INT
+    birthDate DATE
 );
 
 CREATE TABLE Reserve(
     accountId INT,
     restaurantId INT,
-    time INT,
+    time DATE,
     PRIMARY KEY (accountId, restaurantId),
     FOREIGN KEY (accountId) REFERENCES Account ON DELETE CASCADE,
     -- ON UPDATE CASCADE,
@@ -191,7 +191,7 @@ CREATE TABLE Reserve(
 CREATE TABLE TicketAtDisneyResortOwnedByAccount(
     ticketId INT,
     disneyResortName VARCHAR(100),
-    entryDate INT,
+    entryDate DATE,
     accountId INT NOT NULL,
     PRIMARY KEY (ticketId, disneyResortName),
     FOREIGN KEY (disneyResortName) REFERENCES DisneyResortAddress,
@@ -417,23 +417,23 @@ INSERT INTO Serve VALUES (1, 'BBQ Chicken Salad');
 INSERT INTO Serve VALUES (1, 'Pumpkin Churro Funnel Cake');
 INSERT INTO Serve VALUES (1, 'French Fries');
 
-INSERT INTO Account VALUES (001, 'Celine', 'celine@ubc.ca', 20031114);
-INSERT INTO Account VALUES (002, 'Brandon', 'brandon@ubc.ca', 20010629);
-INSERT INTO Account VALUES (003, 'Josh', 'josh@ubc.ca', 20010424);
-INSERT INTO Account VALUES (004, 'Melissa', 'melissa@ubc.ca', 20010925);
-INSERT INTO Account VALUES (005, 'Rachael', 'rachael@ubc.ca', 19750101);
+INSERT INTO Account VALUES (001, 'Celine', 'celine@ubc.ca', TO_DATE('2003-11-14', 'YYYY-MM-DD'));
+INSERT INTO Account VALUES (002, 'Brandon', 'brandon@ubc.ca', TO_DATE('2001-06-29', 'YYYY-MM-DD'));
+INSERT INTO Account VALUES (003, 'Josh', 'josh@ubc.ca', TO_DATE('2001-04-24', 'YYYY-MM-DD'));
+INSERT INTO Account VALUES (004, 'Melissa', 'melissa@ubc.ca', TO_DATE('2001-09-15', 'YYYY-MM-DD'));
+INSERT INTO Account VALUES (005, 'Rachael', 'rachael@ubc.ca', TO_DATE('1975-01-01', 'YYYY-MM-DD'));
 
-INSERT INTO Reserve VALUES (001, 1, 1200);
-INSERT INTO Reserve VALUES (002, 5, 2015);
-INSERT INTO Reserve VALUES (003, 3, 1400);
-INSERT INTO Reserve VALUES (001, 4, 1700);
-INSERT INTO Reserve VALUES (001, 5, 1800);
+INSERT INTO Reserve VALUES (001, 1, TO_DATE('2023-11-06 19:00:00', 'YYYY-MM-DD HH24:MI:SS'));
+INSERT INTO Reserve VALUES (002, 5, TO_DATE('2023-12-08 20:15:00', 'YYYY-MM-DD HH24:MI:SS'));
+INSERT INTO Reserve VALUES (003, 3, TO_DATE('2024-06-29 18:30:00', 'YYYY-MM-DD HH24:MI:SS'));
+INSERT INTO Reserve VALUES (001, 4, TO_DATE('2024-01-12 10:30:00', 'YYYY-MM-DD HH24:MI:SS'));
+INSERT INTO Reserve VALUES (001, 5, TO_DATE('2025-05-30 20:45:00', 'YYYY-MM-DD HH24:MI:SS'));
 
-INSERT INTO TicketAtDisneyResortOwnedByAccount VALUES (111, 'Shanghai Disneyland Resort', 20231114, 001);
-INSERT INTO TicketAtDisneyResortOwnedByAccount VALUES (112, 'Shanghai Disneyland Resort', 20231115, 001);
-INSERT INTO TicketAtDisneyResortOwnedByAccount VALUES (113, 'Disneyland Paris', 20231020, 003);
-INSERT INTO TicketAtDisneyResortOwnedByAccount VALUES (114, 'Disneyland Resort', 20191221, 002);
-INSERT INTO TicketAtDisneyResortOwnedByAccount VALUES (115, 'Shanghai Disneyland Resort', 20241021, 003);
+INSERT INTO TicketAtDisneyResortOwnedByAccount VALUES (111, 'Shanghai Disneyland Resort', TO_DATE('2023-11-14', 'YYYY-MM-DD'), 001);
+INSERT INTO TicketAtDisneyResortOwnedByAccount VALUES (112, 'Shanghai Disneyland Resort', TO_DATE('2023-11-15', 'YYYY-MM-DD'), 001);
+INSERT INTO TicketAtDisneyResortOwnedByAccount VALUES (113, 'Disneyland Paris', TO_DATE('2023-10-20', 'YYYY-MM-DD'), 003);
+INSERT INTO TicketAtDisneyResortOwnedByAccount VALUES (114, 'Disneyland Resort', TO_DATE('2019-12-21', 'YYYY-MM-DD'), 002);
+INSERT INTO TicketAtDisneyResortOwnedByAccount VALUES (115, 'Shanghai Disneyland Resort', TO_DATE('2024-10-21', 'YYYY-MM-DD'), 003);
 
 INSERT INTO OpenStore VALUES (01, 'World of Disney®', NULL, NULL);
 INSERT INTO OpenStore VALUES (02, 'Emporium', 1, 1);
