@@ -112,7 +112,7 @@ async function countDemotable() {
 
 async function insertReservation(accountId, restaurantId, date, time) {
     return await withOracleDB(async (connection) => {
-        const dateTimeString = date + " " + time + ":00";
+        const dateTimeString = date + "T" + time + ":00";
         console.log(dateTimeString);
         let dateTime = new Date(Date.parse(dateTimeString));
         console.log(dateTime);
