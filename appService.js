@@ -110,22 +110,16 @@ async function countDemotable() {
     });
 }
 
-async function insertReservation(accountId, restaurantId, date, time) {
+async function insertReservation(accountId, restaurantId, partySize, date, time) {
     return await withOracleDB(async (connection) => {
         const dateTimeString = date + "T" + time + ":00";
         console.log(dateTimeString);
         let dateTime = new Date(Date.parse(dateTimeString));
         console.log(dateTime);
 
-        // const result = await connection.execute(
-        //     `INSERT INTO RESERVE (accountId, restaurantId, dateTimeString) VALUES (:accountId, :restaurantId, :TO_DATE(dateTimeString, 'YYYY-MM-DD HH24:MI:SS'))`,
-        //     [accountId, restaurantId, dateTimeString],
-        //     { autoCommit: true }
-        // );
-
         const result = await connection.execute(
-            `INSERT INTO RESERVE VALUES (:accountId, :restaurantId, :dateTime)`,
-            [accountId, restaurantId, dateTime],
+            `INSERT INTO RESERVE VALUES (:accountId, :restaurantId, :partySize, :dateTime)`,
+            [accountId, restaurantId, partySize, dateTime],
             { autoCommit: true }
         );
 

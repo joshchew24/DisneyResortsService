@@ -160,6 +160,7 @@ async function insertReservation(event) {
 
     const accountIdValue = document.getElementById('insertAccountId').value;
     const restaurantIdValue = document.getElementById('insertRestaurantId').value;
+    const partySizeValue = document.getElementById('insertPartySize').value;
     const dateValue = document.getElementById('insertDate').value;
     const timeValue = document.getElementById('insertTime').value;
 
@@ -171,6 +172,7 @@ async function insertReservation(event) {
         body: JSON.stringify({
             accountId: accountIdValue,
             restaurantId: restaurantIdValue,
+            partySize: partySizeValue,
             date: dateValue,
             time: timeValue
         })
