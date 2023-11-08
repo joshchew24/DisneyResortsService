@@ -116,7 +116,7 @@ async function insertReservation(accountId, restaurantId, date, time) {
         console.log(dateTime);
 
         const result = await connection.execute(
-            `INSERT INTO RESERVE VALUES (:accountId, :restaurantId, :TO_DATE(dateTime, 'YYYY-MM-DD HH24:MI:SS'))`,
+            `INSERT INTO RESERVE (accountId, restaurantId, dateTime) VALUES (:accountId, :restaurantId, :TO_DATE(dateTime, 'YYYY-MM-DD HH24:MI:SS'))`,
             [accountId, restaurantId, date],
             { autoCommit: true }
         );
