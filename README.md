@@ -14,4 +14,22 @@ The domain of this application is the entertainment industry, specifically focus
 ### [Milestone 2](https://github.students.cs.ubc.ca/CPSC304-2023W-T1/project_g4l8c_i8w2b_u9b3b/blob/main/docs/Milestone%202.pdf)
 ### [Milestone 3](https://github.students.cs.ubc.ca/CPSC304-2023W-T1/project_g4l8c_i8w2b_u9b3b/blob/main/docs/Milestone%203.md)
 
-### [Deployment Guide](https://www.students.cs.ubc.ca/~cs-304/resources/javascript-oracle-resources/node-setup.html)
+## [Deployment Guide](https://www.students.cs.ubc.ca/~cs-304/resources/javascript-oracle-resources/node-setup.html)
+
+1. `ssh remote`
+2. navigate to project repo directory
+3. `sh ./remote-start.sh`
+4. open new terminal
+5. navigate to project repo directory
+6. build tunnel to remote node application
+    - Mac users:
+      - `sh ./scripts/mac/server-tunnel.sh`
+    - Windows users:
+      - `.\scripts\win\server-tunnel.cmd`
+
+## Killing the Server
+1. open server tunnel
+2. `lsof -i`
+3. identify your server processes (name should match port specified when building server, command should be 'node')
+4. note the associated PIDs
+5. `kill <pid>`
