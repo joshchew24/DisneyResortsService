@@ -14,3 +14,4 @@ The domain of this application is the entertainment industry, specifically focus
 ### [Milestone 2](https://github.students.cs.ubc.ca/CPSC304-2023W-T1/project_g4l8c_i8w2b_u9b3b/blob/main/docs/Milestone%202.pdf)
 ### [Milestone 3](https://github.students.cs.ubc.ca/CPSC304-2023W-T1/project_g4l8c_i8w2b_u9b3b/blob/main/docs/Milestone%203.md)
 
+### [Deployment Guide](https://www.students.cs.ubc.ca/~cs-304/resources/javascript-oracle-resources/node-setup.html)
