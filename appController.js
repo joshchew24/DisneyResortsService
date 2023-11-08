@@ -64,5 +64,15 @@ router.get('/count-demotable', async (req, res) => {
     }
 });
 
+router.post("/insert-reservation", async (req, res) => {
+    const { accountId, restaurantId, partySize, date, time} = req.body;
+    const insertResult = await appService.insertReservation(accountId, restaurantId, partySize, date, time);
+    if (insertResult) {
+        res.json({ success: true });
+    } else {
+        res.status(500).json({ success: false });
+    }
+});
+
 
 module.exports = router;
