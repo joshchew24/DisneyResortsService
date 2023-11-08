@@ -154,6 +154,40 @@ async function countDemotable() {
     }
 }
 
+// Inserts new reservation into the table
+async function insertReservation(event) {
+    event.preventDefault();
+
+    const accountIdValue = document.getElementById('insertAccountId').value;
+    const restaurantIdValue = document.getElementById('insertRestaurantId').value;
+    const dateValue = document.getElementById('insertDate').value;
+    const timeValue = document.getElementById('insertTime').value;
+
+    const response = await fetch('/insert-reservation', {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({
+            accountId: accountIdValue,
+            restaurantId: restaurantIdValue,
+            date: dateValue,
+            time: timeValue
+        })
+    });
+
+    const responseData = await response.json();
+    const messageElement = document.getElementById('insertReservationResultMsg');
+
+    if (responseData.success) {
+        messageElement.textContent = "Data inserted successfully!";
+        fetchTableData();
+    } else {
+        messageElement.textContent = "Error inserting data!";
+    }
+}
+
+
 
 // ---------------------------------------------------------------
 // Initializes the webpage functionalities.
@@ -165,6 +199,7 @@ window.onload = function() {
     document.getElementById("insertDemotable").addEventListener("submit", insertDemotable);
     document.getElementById("updataNameDemotable").addEventListener("submit", updateNameDemotable);
     document.getElementById("countDemotable").addEventListener("click", countDemotable);
+    document.getElementById("insertReservation").addEventListener("submit", insertReservation);
 };
 
 // General function to refresh the displayed table data. 

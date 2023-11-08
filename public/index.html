@@ -78,6 +78,19 @@
     <!-- A placeholder to display the count result. -->
     <div id="countResultMsg"></div> <br>
 
+    <br><hr><br> <!-- ========================================================================= -->
+
+    <h2> Insert Values into DemoTable </h2>
+    <form id="insertReservation">
+        AccountId: <input type="number" id="insertAccountId" placeholder="Enter Account ID" required> <br><br>
+        RestaurantId: <input type="number" id="insertRestaurantId" placeholder="Enter Restaurant ID" required> <br><br>
+        Date: <input type="date" id="insertDate" placeholder="Enter Date" required> <br><br>
+        Date: <input type="time" id="insertTime" placeholder="Enter Time" required> <br><br>
+
+        <button type="submit"> insert </button> <br>
+    </form>
+    <div id="insertReservationResultMsg"></div>
+
     <!-- ===================================================================================== -->
     <!-- External JavaScript file that contains the functionality/logic for the operations above. -->
     <script src="scripts.js"></script>

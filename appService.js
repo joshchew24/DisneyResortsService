@@ -110,11 +110,38 @@ async function countDemotable() {
     });
 }
 
+async function insertReservation(accountId, restaurantId, date, time) {
+    return await withOracleDB(async (connection) => {
+        // TODO construct
+        const dateTime = TO_DATE(date + time, 'YYYY-MM-DD HH24:MI:SS');
+
+        const result = await connection.execute(
+            `INSERT INTO RESERVE (accountId, restaurantId, dateTime) VALUES (:accountId, :restaurantId, :dateTime)`,
+            [accountId, restaurantId, date],
+            { autoCommit: true }
+        );
+
+        return result.rowsAffected && result.rowsAffected > 0;
+    }).catch(() => {
+        return false;
+    });
+}
+
+async function selectAttractionFromThemPark(id) {
+    return await withOracleDB(async (connection) => {
+        const result = await connection.execute('SELECT * FROM IsPartOf WHERE themeParkId=id');
+        return result.rows[0][0];
+    }).catch(() => {
+        return -1;
+    });
+}
+
 module.exports = {
     testOracleConnection,
     fetchDemotableFromDb,
     initiateDemotable, 
-    insertDemotable, 
+    insertDemotable,
+    insertReservation,
     updateNameDemotable, 
     countDemotable
 };
