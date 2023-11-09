@@ -190,8 +190,16 @@ async function insertReservation(event) {
 }
 
 async function selectAttraction() {
+    const whereClause = document.getElementById('whereClause').value;
+
     const response = await fetch("/select-attraction", {
-        method: 'GET'
+        method: 'GET',
+        headers: {
+            'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({
+            whereClause: whereClause
+        })
     });
 
     const responseData = await response.json();
