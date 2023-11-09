@@ -189,6 +189,22 @@ async function insertReservation(event) {
     }
 }
 
+async function selectAttraction() {
+    const response = await fetch("/select-attraction", {
+        method: 'GET'
+    });
+
+    const responseData = await response.json();
+    const messageElement = document.getElementById('selectAttractionResultMsg');
+
+    if (responseData.success) {
+        const tupleCount = responseData;
+        messageElement.textContent = `These attraction are available: ${responseData}`;
+    } else {
+        alert("Error in select Attraction!");
+    }
+}
+
 
 
 // ---------------------------------------------------------------
