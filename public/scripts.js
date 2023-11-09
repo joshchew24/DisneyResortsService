@@ -202,6 +202,7 @@ window.onload = function() {
     document.getElementById("updataNameDemotable").addEventListener("submit", updateNameDemotable);
     document.getElementById("countDemotable").addEventListener("click", countDemotable);
     document.getElementById("insertReservation").addEventListener("submit", insertReservation);
+    document.getElementById("selectAttraction").addEventListener("click", insertReservation);
 };
 
 // General function to refresh the displayed table data. 

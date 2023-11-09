@@ -127,9 +127,12 @@ async function insertReservation(accountId, restaurantId, partySize, date, time)
     });
 }
 
-async function selectAttractionFromThemPark(id) {
+async function selectAttractionFromThemePark(whereClause) {
     return await withOracleDB(async (connection) => {
-        const result = await connection.execute('SELECT * FROM IsPartOf WHERE themeParkId=id');
+        const result = await connection.execute(
+            'SELECT * FROM IsPartOf WHERE :whereClause',
+            [whereClause]
+        );
         return result.rows[0][0];
     }).catch(() => {
         return -1;
