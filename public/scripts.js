@@ -190,7 +190,7 @@ async function insertReservation(event) {
 }
 
 async function selectAttraction() {
-    const whereClause = document.getElementById('whereClause').value;
+    const whereClauseValue = document.getElementById('whereClause').value;
 
     const response = await fetch("/select-attraction", {
         method: 'GET',
@@ -198,7 +198,7 @@ async function selectAttraction() {
             'Content-Type': 'application/json'
         },
         body: JSON.stringify({
-            whereClause: whereClause
+            whereClause: whereClauseValue
         })
     });
 
@@ -206,8 +206,8 @@ async function selectAttraction() {
     const messageElement = document.getElementById('selectAttractionResultMsg');
 
     if (responseData.success) {
-        const tupleCount = responseData;
-        messageElement.textContent = `These attraction are available: ${responseData}`;
+        const result = responseData.result;
+        messageElement.textContent = `These attraction are available: ${result}`;
     } else {
         alert("Error in select Attraction!");
     }

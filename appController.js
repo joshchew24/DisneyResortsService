@@ -74,11 +74,14 @@ router.post("/insert-reservation", async (req, res) => {
     }
 });
 
-router.post("/select-attraction", async (req, res) => {
+router.get("/select-attraction", async (req, res) => {
     const { whereClause } = req.body;
-    const insertResult = await appService.insertReservation(whereClause);
-    if (insertResult) {
-        res.json({ success: true });
+    const selectResult = await appService.selectAttraction(whereClause);
+    if (selectResult) {
+        res.json({ 
+            success: true, 
+            result: selectResult
+        });
     } else {
         res.status(500).json({ success: false });
     }
