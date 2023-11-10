@@ -181,6 +181,7 @@ CREATE TABLE Reserve(
     accountId INT,
     restaurantId INT,
     time DATE,
+    partySize INT,
     PRIMARY KEY (accountId, restaurantId),
     FOREIGN KEY (accountId) REFERENCES Account ON DELETE CASCADE,
     -- ON UPDATE CASCADE,
