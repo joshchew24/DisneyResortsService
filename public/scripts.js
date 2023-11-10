@@ -189,17 +189,13 @@ async function insertReservation(event) {
     }
 }
 
-async function selectAttraction() {
-    const whereClauseValue = document.getElementById('whereClause').value;
+async function selectAttraction(event) {
+    event.preventDefault();
 
-    const response = await fetch("/select-attraction", {
-        method: 'GET',
-        headers: {
-            'Content-Type': 'application/json'
-        },
-        body: JSON.stringify({
-            whereClause: whereClauseValue
-        })
+    const whereClauseValue = document.getElementById('insertWhereClause').value;
+
+    const response = await fetch(`/select-attraction?where=${whereClauseValue}`, {
+        method: 'GET'
     });
 
     const responseData = await response.json();
@@ -207,7 +203,8 @@ async function selectAttraction() {
 
     if (responseData.success) {
         const result = responseData.result;
-        messageElement.textContent = `These attraction are available: ${result}`;
+        messageElement.textContent = `These attractions are available: ${result.join(', ')}`;
+
     } else {
         alert("Error in select Attraction!");
     }

@@ -128,12 +128,10 @@ async function insertReservation(accountId, restaurantId, partySize, date, time)
 }
 
 async function selectAttraction(whereClause) {
-    console.log("got to here");
     return await withOracleDB(async (connection) => {
-        const result = await connection.execute(
-            'SELECT * FROM IsPartOf WHERE :whereClause',
-            [whereClause]
-        );
+        const query = 'SELECT * FROM IsPartOf WHERE ' + whereClause;
+        // const query = 'SELECT * FROM IsPartOf WHERE THEMEPARKID=1';
+        const result = await connection.execute(query);
         console.log(result);
         return result.rows;
     }).catch(() => {

@@ -75,7 +75,7 @@ router.post("/insert-reservation", async (req, res) => {
 });
 
 router.get("/select-attraction", async (req, res) => {
-    const { whereClause } = req.body;
+    const whereClause = req.query.where;
     const selectResult = await appService.selectAttraction(whereClause);
     if (selectResult) {
         res.json({ 
