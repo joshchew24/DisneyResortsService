@@ -28,8 +28,10 @@ The domain of this application is the entertainment industry, specifically focus
       - `.\scripts\win\server-tunnel.cmd`
 
 ## Killing the Server
-1. open server tunnel
+1. `ssh remote`
 2. `lsof -i`
 3. identify your server processes (name should match port specified when building server, command should be 'node')
 4. note the associated PIDs
 5. `kill <pid>`
+
+*alternatively* `kill $(lsof -i:<your port number>)`
