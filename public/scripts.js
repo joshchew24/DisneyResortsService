@@ -165,7 +165,7 @@ async function updateReservation(event) {
 
     if (responseData.success) {
         messageElement.textContent = "Reservation updated successfully!";
-        fetchTableData();
+        // fetchTableData();
     } else {
         messageElement.textContent = "Error updating reservation!";
     }
@@ -256,6 +256,7 @@ window.onload = function() {
     document.getElementById("resetDemotable").addEventListener("click", resetDemotable);
     document.getElementById("insertDemotable").addEventListener("submit", insertDemotable);
     document.getElementById("updataNameDemotable").addEventListener("submit", updateNameDemotable);
+    document.getElementById("updateReservation").addEventListener("submit", updateReservation);
     document.getElementById("countDemotable").addEventListener("click", countDemotable);
     document.getElementById("insertReservation").addEventListener("submit", insertReservation);
     document.getElementById("selectAttraction").addEventListener("submit", selectAttraction);

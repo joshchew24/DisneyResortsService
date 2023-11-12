@@ -55,6 +55,7 @@ router.post("/update-reservation", async (req, res) => {
     const updateResult = await reservationService.updateReservation(accountId, restaurantId, newPartySize, newDate, newTime);
     if (updateResult) {
         res.json({ success: true });
+        console.log(updateResult);
     } else {
         res.status(500).json({ success: false });
     }

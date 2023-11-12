@@ -1,16 +1,16 @@
 const appService = require("./appService.js");
 
-async function updateReservation(accountId, restaurantId, newPartySize, newTime) {
-    return await withOracleDB(async (connection) => {
-        const dateTimeString = date + "T" + time + ":00";
+async function updateReservation(accountId, restaurantId, newPartySize, newDate, newTime) {
+    return await appService.withOracleDB(async (connection) => {
+        const dateTimeString = newDate + "T" + newTime + ":00";
         let dateTime = new Date(Date.parse(dateTimeString));
         const result = await connection.execute(
             `
             UPDATE Reserve 
             SET partySize=:newPartySize, time=:dateTime
-            WHERE accountId=:accountId, restaurantId=:restaurantId
+            WHERE accountId=:accountId AND restaurantId=:restaurantId
             `,
-            [newPartySize, dateTime],
+            [newPartySize, dateTime, accountId, restaurantId],
             { autoCommit: true }
         );
 
