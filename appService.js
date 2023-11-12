@@ -127,10 +127,12 @@ async function insertReservation(accountId, restaurantId, partySize, date, time)
     });
 }
 
-async function selectAttractionFromThemPark(id) {
+async function selectAttraction(whereClause) {
     return await withOracleDB(async (connection) => {
-        const result = await connection.execute('SELECT * FROM IsPartOf WHERE themeParkId=id');
-        return result.rows[0][0];
+        const query = 'SELECT * FROM IsPartOf WHERE ' + whereClause;
+        const result = await connection.execute(query);
+        console.log(result);
+        return result.rows;
     }).catch(() => {
         return -1;
     });
@@ -143,5 +145,6 @@ module.exports = {
     insertDemotable,
     insertReservation,
     updateNameDemotable, 
-    countDemotable
+    countDemotable,
+    selectAttraction
 };

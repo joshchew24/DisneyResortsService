@@ -65,10 +65,23 @@ router.get('/count-demotable', async (req, res) => {
 });
 
 router.post("/insert-reservation", async (req, res) => {
-    const { accountId, restaurantId, partySize, date, time} = req.body;
+    const { accountId, restaurantId, partySize, date, time } = req.body;
     const insertResult = await appService.insertReservation(accountId, restaurantId, partySize, date, time);
     if (insertResult) {
         res.json({ success: true });
+    } else {
+        res.status(500).json({ success: false });
+    }
+});
+
+router.get("/select-attraction", async (req, res) => {
+    const whereClause = req.query.where;
+    const selectResult = await appService.selectAttraction(whereClause);
+    if (selectResult) {
+        res.json({ 
+            success: true, 
+            result: selectResult
+        });
     } else {
         res.status(500).json({ success: false });
     }

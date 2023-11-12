@@ -189,6 +189,27 @@ async function insertReservation(event) {
     }
 }
 
+async function selectAttraction(event) {
+    event.preventDefault();
+
+    const whereClauseValue = document.getElementById('insertWhereClause').value;
+
+    const response = await fetch(`/select-attraction?where=${whereClauseValue}`, {
+        method: 'GET'
+    });
+
+    const responseData = await response.json();
+    const messageElement = document.getElementById('selectAttractionResultMsg');
+
+    if (responseData.success) {
+        const result = responseData.result;
+        messageElement.textContent = `These attractions are available: ${result.join(', ')}`;
+
+    } else {
+        alert("Error in select Attraction!");
+    }
+}
+
 
 
 // ---------------------------------------------------------------
@@ -202,6 +223,7 @@ window.onload = function() {
     document.getElementById("updataNameDemotable").addEventListener("submit", updateNameDemotable);
     document.getElementById("countDemotable").addEventListener("click", countDemotable);
     document.getElementById("insertReservation").addEventListener("submit", insertReservation);
+    document.getElementById("selectAttraction").addEventListener("submit", selectAttraction);
 };
 
 // General function to refresh the displayed table data. 
