@@ -1,6 +1,7 @@
 const express = require('express');
 const appService = require('./service/appService');
 const databaseService = require('./service/databaseService');
+const reservationService = require('./service/reservationService');
 const router = express.Router();
 
 // ----------------------------------------------------------
@@ -42,6 +43,16 @@ router.post("/insert-demotable", async (req, res) => {
 router.post("/update-name-demotable", async (req, res) => {
     const { oldName, newName } = req.body;
     const updateResult = await appService.updateNameDemotable(oldName, newName);
+    if (updateResult) {
+        res.json({ success: true });
+    } else {
+        res.status(500).json({ success: false });
+    }
+});
+
+router.post("/update-reservation", async (req, res) => {
+    const { accountId, restaurantId, newPartySize, newDate, newTime } = req.body;
+    const updateResult = await reservationService.updateReservation(accountId, restaurantId, newPartySize, newDate, newTime);
     if (updateResult) {
         res.json({ success: true });
     } else {
