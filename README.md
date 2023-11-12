@@ -34,4 +34,4 @@ The domain of this application is the entertainment industry, specifically focus
 4. note the associated PIDs
 5. `kill <pid>`
 
-*alternatively* `kill $(lsof -i:<your port number>)`
+*alternatively* `kill $(lsof -ti:<your port number>)`
