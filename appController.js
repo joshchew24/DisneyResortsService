@@ -1,6 +1,6 @@
 const express = require('express');
-const appService = require('./appService');
-
+const appService = require('./service/appService');
+const databaseService = require('./service/databaseService');
 const router = express.Router();
 
 // ----------------------------------------------------------
@@ -78,8 +78,8 @@ router.get("/select-attraction", async (req, res) => {
     const whereClause = req.query.where;
     const selectResult = await appService.selectAttraction(whereClause);
     if (selectResult) {
-        res.json({ 
-            success: true, 
+        res.json({
+            success: true,
             result: selectResult
         });
     } else {
