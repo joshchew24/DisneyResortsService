@@ -136,6 +136,41 @@ async function updateNameDemotable(event) {
     }
 }
 
+// updates reservation under accountId/restaurantId with given party size and time
+async function updateReservation(event) {
+    event.preventDefault();
+
+    const accountId = document.getElementById('accountId').value;
+    const restaurantId = document.getElementById('restaurantId').value;
+    const newPartySize = document.getElementById('newPartySize').value;
+    const newDate = document.getElementById('newDate').value;
+    const newTime = document.getElementById('newTime').value;
+
+    const response = await fetch('/update-reservation', {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({
+            accountId: accountId,
+            restaurantId: restaurantId,
+            newPartySize: newPartySize,
+            newDate: newDate,
+            newTime: newTime
+        })
+    });
+
+    const responseData = await response.json();
+    const messageElement = document.getElementById('updateReservationResultMsg');
+
+    if (responseData.success) {
+        messageElement.textContent = "Reservation updated successfully!";
+        fetchTableData();
+    } else {
+        messageElement.textContent = "Error updating reservation!";
+    }
+}
+
 // Counts rows in the demotable.
 // Modify the function accordingly if using different aggregate functions or procedures.
 async function countDemotable() {
