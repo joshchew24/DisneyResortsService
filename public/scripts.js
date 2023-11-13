@@ -78,6 +78,34 @@ async function resetDemotable() {
     }
 }
 
+// Celine: This function fetches data from the database and displayes into the foodtable.
+
+async function projectFoodtable() {
+
+    //fetch is fetching from appController.js
+    const response = await fetch("/project-foodtable", {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({
+            id: idValue,
+            name: nameValue
+        })
+    });
+
+    const tableBody = document.getElementById('foodTable').getElementsByTagName('tbody')[0]
+    const responseData = await response.json();
+    const messageElement = document.getElementById('insertResultMsg');
+
+    if (responseData.success) {
+        messageElement.textContent = "table projected successfully!";
+        fetchTableData();
+    } else {
+        messageElement.textContent = "Error projecting data!";
+    }
+}
+
 // Inserts new records into the demotable.
 async function insertDemotable(event) {
     event.preventDefault();
@@ -202,6 +230,7 @@ window.onload = function() {
     document.getElementById("updataNameDemotable").addEventListener("submit", updateNameDemotable);
     document.getElementById("countDemotable").addEventListener("click", countDemotable);
     document.getElementById("insertReservation").addEventListener("submit", insertReservation);
+    document.getElementById('projectFoodtable').addEventListener('click', projectFoodtable); //Celine: projection
 };
 
 // General function to refresh the displayed table data. 

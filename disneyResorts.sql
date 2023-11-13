@@ -26,36 +26,36 @@ DROP TABLE DisneyResortPostal;
 DROP TABLE DisneyResortAddress;
 
 CREATE TABLE DisneyResortAddress(
-    disneyResortName VARCHAR(100) PRIMARY KEY,
-    address VARCHAR(100)
+    disneyResortName VARCHAR(40) PRIMARY KEY,
+    address VARCHAR(40)
 );
 
 CREATE TABLE DisneyResortPostal(
-    disneyResortName VARCHAR(100) PRIMARY KEY,
-    postalCode VARCHAR(100)
+    disneyResortName VARCHAR(40) PRIMARY KEY,
+    postalCode VARCHAR(40)
 );
 
 CREATE TABLE AddressCityCountry(
-    disneyResortName VARCHAR(100) PRIMARY KEY,
-    address VARCHAR(100),
-    city VARCHAR(100),
-    country VARCHAR(100)
+    disneyResortName VARCHAR(40) PRIMARY KEY,
+    address VARCHAR(40),
+    city VARCHAR(40),
+    country VARCHAR(40)
 );
 
 CREATE TABLE PostalCodeCity(
-    postalCode VARCHAR(100) PRIMARY KEY,
-    city VARCHAR(100)
+    postalCode VARCHAR(40) PRIMARY KEY,
+    city VARCHAR(40)
 );
 
 CREATE TABLE PostalCodeCountry(
-    postalCode VARCHAR(100) PRIMARY KEY,
-    country VARCHAR(100)
+    postalCode VARCHAR(40) PRIMARY KEY,
+    country VARCHAR(40)
 );
 
 CREATE TABLE ComprisingThemePark(
     themeParkId INT PRIMARY KEY,
-    name VARCHAR(100) UNIQUE NOT NULL,
-    disneyResortName VARCHAR(100) NOT NULL,
+    name VARCHAR(40) UNIQUE NOT NULL,
+    disneyResortName VARCHAR(40) NOT NULL,
     FOREIGN KEY (disneyResortName) REFERENCES DisneyResortAddress ON DELETE CASCADE
     -- ON UPDATE CASCADE
 );
@@ -63,7 +63,7 @@ CREATE TABLE ComprisingThemePark(
 CREATE TABLE LandTheme(
     themeParkId INT,
     landId INT,
-    theme VARCHAR(100),
+    theme VARCHAR(40),
     PRIMARY KEY(themeParkId, landId),
     FOREIGN KEY (themeParkId) REFERENCES ComprisingThemePark ON DELETE CASCADE
     -- ON UPDATE CASCADE
@@ -72,7 +72,7 @@ CREATE TABLE LandTheme(
 CREATE TABLE LandYearOpen(
     themeParkId INT,
     landId INT,
-    theme VARCHAR(100),
+    theme VARCHAR(40),
     PRIMARY KEY(themeParkId, landId),
     FOREIGN KEY (themeParkId) REFERENCES ComprisingThemePark ON DELETE CASCADE
     -- ON UPDATE CASCADE
@@ -80,8 +80,8 @@ CREATE TABLE LandYearOpen(
 
 CREATE TABLE ThemeParkThemeName(
     themeParkId INT,
-    theme VARCHAR(100),
-    name VARCHAR(100),
+    theme VARCHAR(40),
+    name VARCHAR(40),
     PRIMARY KEY (themeParkId, theme),
     FOREIGN KEY (themeParkId) REFERENCES ComprisingThemePark ON DELETE CASCADE
     -- ON UPDATE CASCADE
@@ -89,7 +89,7 @@ CREATE TABLE ThemeParkThemeName(
 
 CREATE TABLE Attraction(
     attractionId INT PRIMARY KEY,
-    name VARCHAR(100) UNIQUE NOT NULL
+    name VARCHAR(40) UNIQUE NOT NULL
 );
 
 CREATE TABLE IsPartOf(
@@ -119,12 +119,12 @@ CREATE TABLE RideAvgWaitTime(
 
 CREATE TABLE MinimumHeightRideType(
     minimumHeight INT PRIMARY KEY,
-    rideType VARCHAR(100)
+    rideType VARCHAR(40)
 );
 
 CREATE TABLE Event_(
     attractionId INT PRIMARY KEY,
-    eventType VARCHAR(100),
+    eventType VARCHAR(40),
     FOREIGN KEY (attractionId) REFERENCES Attraction ON DELETE CASCADE
     -- ON UPDATE CASCADE
 );
@@ -147,7 +147,7 @@ CREATE TABLE ShowtimeDuration(
 
 CREATE TABLE FeatureRestaurant(
     restaurantId INT PRIMARY KEY,
-    restaurantName VARCHAR(100) NOT NULL,
+    restaurantName VARCHAR(40) NOT NULL,
     maxOccupancy INT,
     themeParkId INT,
     landId INT,
@@ -156,13 +156,13 @@ CREATE TABLE FeatureRestaurant(
 );
 
 CREATE TABLE Food(
-    name VARCHAR(100) PRIMARY KEY,
+    name VARCHAR(40) PRIMARY KEY,
     price INT
 );
 
 CREATE TABLE Serve(
     restaurantId INT,
-    foodName VARCHAR(100),
+    foodName VARCHAR(40),
     PRIMARY KEY (restaurantId, foodName),
     FOREIGN KEY (restaurantId) REFERENCES FeatureRestaurant ON DELETE CASCADE,
     -- ON UPDATE CASCADE,
@@ -172,8 +172,8 @@ CREATE TABLE Serve(
 
 CREATE TABLE Account(
     accountId INT PRIMARY KEY,
-    name VARCHAR(100),
-    email VARCHAR(100) UNIQUE NOT NULL,
+    name VARCHAR(40),
+    email VARCHAR(40) UNIQUE NOT NULL,
     birthDate DATE
 );
 
@@ -191,7 +191,7 @@ CREATE TABLE Reserve(
 
 CREATE TABLE TicketAtDisneyResortOwnedByAccount(
     ticketId INT,
-    disneyResortName VARCHAR(100),
+    disneyResortName VARCHAR(40),
     entryDate DATE,
     accountId INT NOT NULL,
     PRIMARY KEY (ticketId, disneyResortName),
@@ -204,7 +204,7 @@ CREATE TABLE TicketAtDisneyResortOwnedByAccount(
 -- Oracle doesn't support DEFAULT/ON DELETE SET DEFAULT????
 -- CREATE TABLE TicketAtDisneyResortOwnedByAccount(
 --     ticketId INT,
---     disneyResortName VARCHAR(100) DEFAULT 'none',
+--     disneyResortName VARCHAR(4) DEFAULT 'none',
 --     entryDate INT,
 --     accountId INT NOT NULL DEFAULT -1,
 --     PRIMARY KEY (ticketId, disneyResortName),
@@ -216,7 +216,7 @@ CREATE TABLE TicketAtDisneyResortOwnedByAccount(
 
 CREATE TABLE OpenStore(
     storeId INT PRIMARY KEY,
-    name VARCHAR(100),
+    name VARCHAR(40),
     themeParkId INT,
     landId INT,
     FOREIGN KEY (themeParkId, landId) REFERENCES LandTheme ON DELETE CASCADE
@@ -225,7 +225,7 @@ CREATE TABLE OpenStore(
 
 CREATE TABLE Merchandise(
     sku INT PRIMARY KEY,
-    name VARCHAR(100) UNIQUE NOT NULL,
+    name VARCHAR(40) UNIQUE NOT NULL,
     price FLOAT NOT NULL
 );
 
@@ -251,7 +251,7 @@ INSERT INTO DisneyResortPostal VALUES ('Walt Disney World Resort', '98264');
 INSERT INTO DisneyResortPostal VALUES ('Tokyo Disney Resort', '279-0031');
 INSERT INTO DisneyResortPostal VALUES ('Disneyland Paris', '77700');
 INSERT INTO DisneyResortPostal VALUES ('Hong Kong Disneyland Resort', 'HKG');
-INSERT INTO DisneyResortPostal VALUES ('Shanghai Disneyland Resort', '10011005');
+INSERT INTO DisneyResortPostal VALUES ('Shanghai Disneyland Resort', '4145');
 
 INSERT INTO AddressCityCountry VALUES ('Disneyland Resort', '1313 Disneyland Dr', 'Anaheim', 'USA');
 INSERT INTO AddressCityCountry VALUES ('Walt Disney World Resort', '1375 East Buena Vista Drive', 'Bay Lake', 'USA');
@@ -265,14 +265,14 @@ INSERT INTO PostalCodeCity VALUES ('98264', 'Bay Lake');
 INSERT INTO PostalCodeCity VALUES ('279-0031', 'Chiba');
 INSERT INTO PostalCodeCity VALUES ('77700', 'Coupvray');
 INSERT INTO PostalCodeCity VALUES ('HKG', 'Hong Kong');
-INSERT INTO PostalCodeCity VALUES ('10011005', 'Shanghai');
+INSERT INTO PostalCodeCity VALUES ('4145', 'Shanghai');
 
 INSERT INTO PostalCodeCountry VALUES ('92802', 'USA');
 INSERT INTO PostalCodeCountry VALUES ('98264', 'USA');
 INSERT INTO PostalCodeCountry VALUES ('279-0031', 'Japan');
 INSERT INTO PostalCodeCountry VALUES ('77700', 'France');
 INSERT INTO PostalCodeCountry VALUES ('HKG', 'Hong Kong SAR');
-INSERT INTO PostalCodeCountry VALUES ('10011005', 'China');
+INSERT INTO PostalCodeCountry VALUES ('4145', 'China');
 
 INSERT INTO ComprisingThemePark VALUES (1, 'Disneyland Park', 'Disneyland Resort');
 INSERT INTO ComprisingThemePark VALUES (2, 'Disney California Adventure Park', 'Disneyland Resort');
@@ -386,7 +386,7 @@ INSERT INTO Event_ VALUES (10, 'Fireworks');
 
 INSERT INTO ShowtimeEvent VALUES (6, 0800, 0815);
 INSERT INTO ShowtimeEvent VALUES (6, 0930, 0945);
-INSERT INTO ShowtimeEvent VALUES (7, 2100, 2115);
+INSERT INTO ShowtimeEvent VALUES (7, 24, 2115);
 INSERT INTO ShowtimeEvent VALUES (8, 1300, 1340);
 INSERT INTO ShowtimeEvent VALUES (9, 1015, 1045);
 INSERT INTO ShowtimeEvent VALUES (9, 1115, 1145);
@@ -394,7 +394,7 @@ INSERT INTO ShowtimeEvent VALUES (10, 2030, 2040);
 
 INSERT INTO ShowtimeDuration VALUES (0800, 0815, 15);
 INSERT INTO ShowtimeDuration VALUES (0930, 0945, 15);
-INSERT INTO ShowtimeDuration VALUES (2100, 2115, 15);
+INSERT INTO ShowtimeDuration VALUES (24, 2115, 15);
 INSERT INTO ShowtimeDuration VALUES (1300, 1340, 40);
 INSERT INTO ShowtimeDuration VALUES (1015, 1045, 30);
 INSERT INTO ShowtimeDuration VALUES (1115, 1145, 30);

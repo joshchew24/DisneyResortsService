@@ -73,6 +73,19 @@ async function initiateDemotable() {
     });
 }
 
+async function projectFoodtable() {
+    return await withOracleDB(async (connection) => {
+    
+        const result = await connection.execute(`
+            SELECT * FROM food;
+        `);
+        return true;
+    }).catch(() => {
+        return false;
+    });
+}
+
+
 async function insertDemotable(id, name) {
     return await withOracleDB(async (connection) => {
         const result = await connection.execute(
