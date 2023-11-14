@@ -10,37 +10,17 @@ DROP TABLE FeatureRestaurant;
 DROP TABLE ShowtimeDuration;
 DROP TABLE ShowtimeEvent;
 DROP TABLE Event_;
-DROP TABLE MinimumHeightRideType;
 DROP TABLE RideAvgWaitTime;
-DROP TABLE RideMinimumHeight;
+DROP TABLE RideTypeMinimumHeight;
 DROP TABLE IsPartOf;
 DROP TABLE Attraction;
-DROP TABLE ThemeParkThemeName;
-DROP TABLE LandYearOpen;
-DROP TABLE LandTheme;
+DROP TABLE ThemeParkLand;
+DROP TABLE ThemeName;
 DROP TABLE ComprisingThemePark;
+DROP TABLE DisneyResortAddress;
 DROP TABLE PostalCodeCountry;
 DROP TABLE PostalCodeCity;
-DROP TABLE AddressCityCountry;
-DROP TABLE DisneyResortPostal;
-DROP TABLE DisneyResortAddress;
 
-CREATE TABLE DisneyResortAddress(
-    disneyResortName VARCHAR(100) PRIMARY KEY,
-    address VARCHAR(100)
-);
-
-CREATE TABLE DisneyResortPostal(
-    disneyResortName VARCHAR(100) PRIMARY KEY,
-    postalCode VARCHAR(100)
-);
-
-CREATE TABLE AddressCityCountry(
-    disneyResortName VARCHAR(100) PRIMARY KEY,
-    address VARCHAR(100),
-    city VARCHAR(100),
-    country VARCHAR(100)
-);
 
 CREATE TABLE PostalCodeCity(
     postalCode VARCHAR(100) PRIMARY KEY,
@@ -49,7 +29,15 @@ CREATE TABLE PostalCodeCity(
 
 CREATE TABLE PostalCodeCountry(
     postalCode VARCHAR(100) PRIMARY KEY,
-    country VARCHAR(100)
+    country VARCHAR(100),
+    FOREIGN KEY (postalCode) REFERENCES PostalCodeCity ON DELETE CASCADE
+);
+
+CREATE TABLE DisneyResortAddress(
+    disneyResortName VARCHAR(100) PRIMARY KEY,
+    address VARCHAR(100),
+    postalCode VARCHAR(100),
+    FOREIGN KEY (postalCode) REFERENCES PostalCodeCountry ON DELETE CASCADE
 );
 
 CREATE TABLE ComprisingThemePark(
@@ -60,30 +48,19 @@ CREATE TABLE ComprisingThemePark(
     -- ON UPDATE CASCADE
 );
 
-CREATE TABLE LandTheme(
-    themeParkId INT,
-    landId INT,
-    theme VARCHAR(100),
-    PRIMARY KEY(themeParkId, landId),
-    FOREIGN KEY (themeParkId) REFERENCES ComprisingThemePark ON DELETE CASCADE
-    -- ON UPDATE CASCADE
+CREATE TABLE ThemeName(
+    name VARCHAR(100) PRIMARY KEY,
+    theme VARCHAR(100)
 );
 
-CREATE TABLE LandYearOpen(
+CREATE TABLE ThemeParkLand(
     themeParkId INT,
     landId INT,
-    theme VARCHAR(100),
-    PRIMARY KEY(themeParkId, landId),
-    FOREIGN KEY (themeParkId) REFERENCES ComprisingThemePark ON DELETE CASCADE
-    -- ON UPDATE CASCADE
-);
-
-CREATE TABLE ThemeParkThemeName(
-    themeParkId INT,
-    theme VARCHAR(100),
     name VARCHAR(100),
-    PRIMARY KEY (themeParkId, theme),
-    FOREIGN KEY (themeParkId) REFERENCES ComprisingThemePark ON DELETE CASCADE
+    YearOpen INT,
+    PRIMARY KEY (themeParkId, landId),
+    FOREIGN KEY (themeParkId) REFERENCES ComprisingThemePark ON DELETE CASCADE,
+    FOREIGN KEY (name) REFERENCES ThemeName ON DELETE CASCADE
     -- ON UPDATE CASCADE
 );
 
@@ -97,29 +74,24 @@ CREATE TABLE IsPartOf(
     landId INT,
     attractionId INT,
     PRIMARY KEY (themeParkId, landId, attractionId),
-    FOREIGN KEY (themeParkId, landId) REFERENCES LandTheme ON DELETE CASCADE,
+    FOREIGN KEY (themeParkId, landId) REFERENCES ThemeParkLand ON DELETE CASCADE,
     -- ON UPDATE CASCADE,
     FOREIGN KEY (attractionId) REFERENCES Attraction ON DELETE CASCADE
      -- ON UPDATE CASCADE
 );
 
-CREATE TABLE RideMinimumHeight(
-    attractionId INT PRIMARY KEY,
-    minimumHeight INT,
-    FOREIGN KEY (attractionId) REFERENCES Attraction ON DELETE CASCADE
-    -- ON UPDATE CASCADE
+CREATE TABLE RideTypeMinimumHeight(
+    minimumHeight INT PRIMARY KEY,
+    rideType VARCHAR(100)
 );
 
 CREATE TABLE RideAvgWaitTime(
     attractionId INT PRIMARY KEY,
+    minimumHeight INT,
     avgWaitTime INT,
-    FOREIGN KEY (attractionId) REFERENCES Attraction ON DELETE CASCADE
+    FOREIGN KEY (attractionId) REFERENCES Attraction ON DELETE CASCADE,
+    FOREIGN KEY (minimumHeight) REFERENCES RideTypeMinimumHeight
     -- ON UPDATE CASCADE
-);
-
-CREATE TABLE MinimumHeightRideType(
-    minimumHeight INT PRIMARY KEY,
-    rideType VARCHAR(100)
 );
 
 CREATE TABLE Event_(
@@ -151,7 +123,7 @@ CREATE TABLE FeatureRestaurant(
     maxOccupancy INT,
     themeParkId INT,
     landId INT,
-    FOREIGN KEY (themeParkId, landId) REFERENCES LandTheme ON DELETE CASCADE
+    FOREIGN KEY (themeParkId, landId) REFERENCES ThemeParkLand ON DELETE CASCADE
     -- ON UPDATE CASCADE,
 );
 
@@ -219,7 +191,7 @@ CREATE TABLE OpenStore(
     name VARCHAR(100),
     themeParkId INT,
     landId INT,
-    FOREIGN KEY (themeParkId, landId) REFERENCES LandTheme ON DELETE CASCADE
+    FOREIGN KEY (themeParkId, landId) REFERENCES ThemeParkLand ON DELETE CASCADE
     -- ON UPDATE CASCADE
 );
 
@@ -239,27 +211,6 @@ CREATE TABLE Sell(
     -- ON UPDATE CASCADE,
 );
 
-INSERT INTO DisneyResortAddress VALUES ('Disneyland Resort', '1313 Disneyland Dr');
-INSERT INTO DisneyResortAddress	VALUES ('Walt Disney World Resort', '1375 East Buena Vista Drive');
-INSERT INTO DisneyResortAddress	VALUES ('Tokyo Disney Resort', '1-1 Maihama');
-INSERT INTO DisneyResortAddress	VALUES ('Disneyland Paris', 'Bd de Parc');
-INSERT INTO DisneyResortAddress	VALUES ('Hong Kong Disneyland Resort', 'Park Promenade');
-INSERT INTO DisneyResortAddress	VALUES ('Shanghai Disneyland Resort', 'No. 310 Huang Zhao Road');
-
-INSERT INTO DisneyResortPostal VALUES ('Disneyland Resort', '92802');
-INSERT INTO DisneyResortPostal VALUES ('Walt Disney World Resort', '98264');
-INSERT INTO DisneyResortPostal VALUES ('Tokyo Disney Resort', '279-0031');
-INSERT INTO DisneyResortPostal VALUES ('Disneyland Paris', '77700');
-INSERT INTO DisneyResortPostal VALUES ('Hong Kong Disneyland Resort', 'HKG');
-INSERT INTO DisneyResortPostal VALUES ('Shanghai Disneyland Resort', '10011005');
-
-INSERT INTO AddressCityCountry VALUES ('Disneyland Resort', '1313 Disneyland Dr', 'Anaheim', 'USA');
-INSERT INTO AddressCityCountry VALUES ('Walt Disney World Resort', '1375 East Buena Vista Drive', 'Bay Lake', 'USA');
-INSERT INTO AddressCityCountry VALUES ('Tokyo Disney Resort', '1-1 Maihama', 'Chiba', 'Japan');
-INSERT INTO AddressCityCountry VALUES ('Disneyland Paris', 'Bd de Parc', 'Coupvray', 'France');
-INSERT INTO AddressCityCountry VALUES ('Hong Kong Disneyland Resort', 'Park Promenade', 'Hong Kong', 'Hong Kong SAR');
-INSERT INTO AddressCityCountry VALUES ('Shanghai Disneyland Resort', 'No. 310 Huang Zhao Road', 'Shanghai', 'China');
-
 INSERT INTO PostalCodeCity VALUES ('92802', 'Anaheim');
 INSERT INTO PostalCodeCity VALUES ('98264', 'Bay Lake');
 INSERT INTO PostalCodeCity VALUES ('279-0031', 'Chiba');
@@ -274,6 +225,13 @@ INSERT INTO PostalCodeCountry VALUES ('77700', 'France');
 INSERT INTO PostalCodeCountry VALUES ('HKG', 'Hong Kong SAR');
 INSERT INTO PostalCodeCountry VALUES ('10011005', 'China');
 
+INSERT INTO DisneyResortAddress VALUES ('Disneyland Resort', '1313 Disneyland Dr', '92802');
+INSERT INTO DisneyResortAddress	VALUES ('Walt Disney World Resort', '1375 East Buena Vista Drive', '98264');
+INSERT INTO DisneyResortAddress	VALUES ('Tokyo Disney Resort', '1-1 Maihama', '279-0031');
+INSERT INTO DisneyResortAddress	VALUES ('Disneyland Paris', 'Bd de Parc', '77700');
+INSERT INTO DisneyResortAddress	VALUES ('Hong Kong Disneyland Resort', 'Park Promenade', 'HKG');
+INSERT INTO DisneyResortAddress	VALUES ('Shanghai Disneyland Resort', 'No. 310 Huang Zhao Road', '10011005');
+
 INSERT INTO ComprisingThemePark VALUES (1, 'Disneyland Park', 'Disneyland Resort');
 INSERT INTO ComprisingThemePark VALUES (2, 'Disney California Adventure Park', 'Disneyland Resort');
 INSERT INTO ComprisingThemePark VALUES (3, 'Magic Kingdom Park', 'Walt Disney World Resort');
@@ -287,60 +245,41 @@ INSERT INTO ComprisingThemePark VALUES (10, 'Walt Disney Studios Park', 'Disneyl
 INSERT INTO ComprisingThemePark VALUES (11, 'Hong Kong Disneyland', 'Hong Kong Disneyland Resort');
 INSERT INTO ComprisingThemePark VALUES (12, 'Shanghai Disneyland Park', 'Shanghai Disneyland Resort');
 
-INSERT INTO LandTheme VALUES (1, 1, 'American small towns during the early 20th Century');
-INSERT INTO LandTheme VALUES (1, 2, 'Remote jungles of Asia, Africa, South America, Oceania, the Caribbean Islands and the Middle East');
-INSERT INTO LandTheme VALUES (1, 3, '19th Century American Frontier, American History and North America');
-INSERT INTO LandTheme VALUES (1, 4, 'Disney''s animated fairy tale films, Fantasy, the towns and villages of Europe');
-INSERT INTO LandTheme VALUES (1, 5, 'Future, technology, outer space, discovery and science fiction');
-INSERT INTO LandTheme VALUES (1, 6, '19th Century New Orleans');
-INSERT INTO LandTheme VALUES (1, 7, 'Land of bears and other animals');
-INSERT INTO LandTheme VALUES (1, 8, 'Mickey Mouse universe');
-INSERT INTO LandTheme VALUES (1, 9, 'Star Wars');
-INSERT INTO LandTheme VALUES (2, 10, '20th Century Art Deco/Mission street');
-INSERT INTO LandTheme VALUES (2, 11, 'Pixar/A Victorian era seaside amusement park');
-INSERT INTO LandTheme VALUES (2, 12, 'A Victorian era seaside amusement park');
-INSERT INTO LandTheme VALUES (2, 13, '1950s National Recreation Area');
-INSERT INTO LandTheme VALUES (2, 14, '1930s Hollywood');
-INSERT INTO LandTheme VALUES (2, 15, 'Cars, Radiator Springs');
-INSERT INTO LandTheme VALUES (2, 16, 'Marvel Cinematic Universe');
-INSERT INTO LandTheme VALUES (3, 5, 'Future, technology, outer space, discovery and science fiction');
+INSERT INTO ThemeName VALUES ('Main Street, U.S.A.', 'American small towns during the early 20th Century');
+INSERT INTO ThemeName VALUES ('Adventureland', 'Remote jungles of Asia, Africa, South America, Oceania, the Caribbean Islands and the Middle East');
+INSERT INTO ThemeName VALUES ('Frontierland', '19th Century American Frontier, American History and North America');
+INSERT INTO ThemeName VALUES ('Fantasyland', 'Disney''s animated fairy tale films, Fantasy, the towns and villages of Europe');
+INSERT INTO ThemeName VALUES ('Tomorrowland', 'Future, technology, outer space, discovery and science fiction');
+INSERT INTO ThemeName VALUES ('New Orleans Square', '19th Century New Orleans');
+INSERT INTO ThemeName VALUES ('Critter Country', 'Land of bears and other animals');
+INSERT INTO ThemeName VALUES ('Mickey’s Toontown', 'Mickey Mouse universe');
+INSERT INTO ThemeName VALUES ('Star Wars: Galaxy’s Edge', 'Star Wars');
+INSERT INTO ThemeName VALUES ('Buena Vista Street', '20th Century Art Deco/Mission street');
+INSERT INTO ThemeName VALUES ('Pixar Pier', 'Pixar/A Victorian era seaside amusement park');
+INSERT INTO ThemeName VALUES ('Paradise Gardens Park', 'A Victorian era seaside amusement park');
+INSERT INTO ThemeName VALUES ('Grizzly Peak', '1950s National Recreation Area');
+INSERT INTO ThemeName VALUES ('Hollywood Land', '1930s Hollywood');
+INSERT INTO ThemeName VALUES ('Avengers Campus', 'Marvel Cinematic Universe');
+INSERT INTO ThemeName VALUES ('Cars Land', 'Cars, Radiator Springs');
+INSERT INTO ThemeName VALUES ('Adventure Isle', 'Remote jungles of Asia, Africa, South America, Oceania, the Caribbean Islands and the Middle East');
 
-INSERT INTO LandYearOpen VALUES (1, 1, 1955);
-INSERT INTO LandYearOpen VALUES (1, 2, 1955);
-INSERT INTO LandYearOpen VALUES (1, 3, 1955);
-INSERT INTO LandYearOpen VALUES (1, 4, 1955);
-INSERT INTO LandYearOpen VALUES (1, 5, 1955);
-INSERT INTO LandYearOpen VALUES (1, 6, 1966);
-INSERT INTO LandYearOpen VALUES (1, 7, 1972);
-INSERT INTO LandYearOpen VALUES (1, 8, 1993);
-INSERT INTO LandYearOpen VALUES (1, 9, 2019);
-INSERT INTO LandYearOpen VALUES (2, 10, 2001);
-INSERT INTO LandYearOpen VALUES (2, 11, 2001);
-INSERT INTO LandYearOpen VALUES (2, 12, 2001);
-INSERT INTO LandYearOpen VALUES (2, 13, 2001);
-INSERT INTO LandYearOpen VALUES (2, 14, 2001);
-INSERT INTO LandYearOpen VALUES (2, 15, 2012);
-INSERT INTO LandYearOpen VALUES (2, 16, 2021);
-INSERT INTO LandYearOpen VALUES (3, 5, 1971);
-
-INSERT INTO ThemeParkThemeName VALUES (1, 'American small towns during the early 20th Century', 'Main Street, U.S.A.');
-INSERT INTO ThemeParkThemeName VALUES (1, 'Remote jungles of Asia, Africa, South America, Oceania, the Caribbean Islands and the Middle East', 'Adventureland');
-INSERT INTO ThemeParkThemeName VALUES (1, '19th Century American Frontier, American History and North America', 'Frontierland');
-INSERT INTO ThemeParkThemeName VALUES (1, 'Disney''s animated fairy tale films, Fantasy, the towns and villages of Europe', 'Fantasyland');
-INSERT INTO ThemeParkThemeName VALUES (1, 'Future, technology, outer space, discovery and science fiction', 'Tomorrowland');
-INSERT INTO ThemeParkThemeName VALUES (1, '19th Century New Orleans', 'New Orleans Square');
-INSERT INTO ThemeParkThemeName VALUES (1, 'Land of bears and other animals', 'Critter Country');
-INSERT INTO ThemeParkThemeName VALUES (1, 'Mickey Mouse universe', 'Mickey’s Toontown');
-INSERT INTO ThemeParkThemeName VALUES (1, 'Star Wars', 'Star Wars: Galaxy’s Edge');
-INSERT INTO ThemeParkThemeName VALUES (2, '20th Century Art Deco/Mission street', 'Buena Vista Street');
-INSERT INTO ThemeParkThemeName VALUES (2, 'Pixar/A Victorian era seaside amusement park', 'Pixar Pier');
-INSERT INTO ThemeParkThemeName VALUES (2, 'A Victorian era seaside amusement park', 'Paradise Gardens Park');
-INSERT INTO ThemeParkThemeName VALUES (2, '1950s National Recreation Area', 'Grizzly Peak');
-INSERT INTO ThemeParkThemeName VALUES (2, '1930s Hollywood', 'Hollywood Land');
-INSERT INTO ThemeParkThemeName VALUES (2, 'Marvel Cinematic Universe', 'Avengers Campus');
-INSERT INTO ThemeParkThemeName VALUES (2, 'Cars, Radiator Springs', 'Cars Land');
-INSERT INTO ThemeParkThemeName VALUES (3, 'Future, technology, outer space, discovery and science fiction', 'Tomorrowland');
-INSERT INTO ThemeParkThemeName VALUES (12, 'Remote jungles of Asia, Africa, South America, Oceania, the Caribbean Islands and the Middle East', 'Adventure Isle');
+INSERT INTO ThemeParkLand VALUES (1, 1, 'Main Street, U.S.A.', 1955);
+INSERT INTO ThemeParkLand VALUES (1, 2, 'Adventureland', 1955);
+INSERT INTO ThemeParkLand VALUES (1, 3, 'Frontierland', 1955);
+INSERT INTO ThemeParkLand VALUES (1, 4, 'Fantasyland', 1955);
+INSERT INTO ThemeParkLand VALUES (1, 5, 'Tomorrowland', 1955);
+INSERT INTO ThemeParkLand VALUES (1, 6, 'New Orleans Square', 1966);
+INSERT INTO ThemeParkLand VALUES (1, 7, 'Critter Country', 1972);
+INSERT INTO ThemeParkLand VALUES (1, 8, 'Mickey’s Toontown', 1993);
+INSERT INTO ThemeParkLand VALUES (1, 9, 'Star Wars: Galaxy’s Edge', 2019);
+INSERT INTO ThemeParkLand VALUES (2, 10, 'Buena Vista Street', 2001);
+INSERT INTO ThemeParkLand VALUES (2, 11, 'Pixar Pier', 2001);
+INSERT INTO ThemeParkLand VALUES (2, 12, 'Paradise Gardens Park', 2001);
+INSERT INTO ThemeParkLand VALUES (2, 13, 'Grizzly Peak', 2001);
+INSERT INTO ThemeParkLand VALUES (2, 14, 'Hollywood Land', 2001);
+INSERT INTO ThemeParkLand VALUES (2, 15, 'Cars Land', 2012);
+INSERT INTO ThemeParkLand VALUES (2, 16, 'Avengers Campus', 2021);
+INSERT INTO ThemeParkLand VALUES (3, 5, 'Tomorrowland', 1971);
 
 INSERT INTO Attraction VALUES (1, 'Space Mountain');
 INSERT INTO Attraction VALUES (2, 'Incredicoaster');
@@ -360,23 +299,17 @@ INSERT INTO IsPartOf VALUES (1, 6, 4);
 INSERT INTO IsPartOf VALUES (2, 11, 2);
 INSERT INTO IsPartOf VALUES (3, 5, 1);
 
-INSERT INTO RideMinimumHeight VALUES (1, 102);
-INSERT INTO RideMinimumHeight VALUES (2, 122);
-INSERT INTO RideMinimumHeight VALUES (3, 102);
-INSERT INTO RideMinimumHeight VALUES (4, 0);
-INSERT INTO RideMinimumHeight VALUES (5, 0);
+INSERT INTO RideTypeMinimumHeight VALUES (122, 'Big Drops');
+INSERT INTO RideTypeMinimumHeight VALUES (117, 'Medium Drops');
+INSERT INTO RideTypeMinimumHeight VALUES (107, 'Small Drops');
+INSERT INTO RideTypeMinimumHeight VALUES (102, 'Mini Drops');
+INSERT INTO RideTypeMinimumHeight VALUES (0, 'All Heights');
 
-INSERT INTO RideAvgWaitTime VALUES (1, 50);
-INSERT INTO RideAvgWaitTime VALUES (2, 50);
-INSERT INTO RideAvgWaitTime VALUES (3, 35);
-INSERT INTO RideAvgWaitTime VALUES (4, 40);
-INSERT INTO RideAvgWaitTime VALUES (5, 25);
-
-INSERT INTO MinimumHeightRideType VALUES (122, 'Big Drops');
-INSERT INTO MinimumHeightRideType VALUES (117, 'Medium Drops');
-INSERT INTO MinimumHeightRideType VALUES (107, 'Small Drops');
-INSERT INTO MinimumHeightRideType VALUES (102, 'Mini Drops');
-INSERT INTO MinimumHeightRideType VALUES (0, 'All Heights');
+INSERT INTO RideAvgWaitTime VALUES (1, 102, 50);
+INSERT INTO RideAvgWaitTime VALUES (2, 122, 50);
+INSERT INTO RideAvgWaitTime VALUES (3, 102, 35);
+INSERT INTO RideAvgWaitTime VALUES (4, 0, 40);
+INSERT INTO RideAvgWaitTime VALUES (5, 0, 25);
 
 INSERT INTO Event_ VALUES (6, 'Show');
 INSERT INTO Event_ VALUES (7, 'Fireworks');
