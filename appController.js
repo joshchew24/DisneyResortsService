@@ -74,5 +74,12 @@ router.post("/insert-reservation", async (req, res) => {
     }
 });
 
+//celine 
+
+router.get('/project-foodtable', async (req, res) => {
+    const tableContent = await appService.fetchafoodtableFromDb();
+    res.json({data: tableContent}); 
+});
+
 
 module.exports = router;

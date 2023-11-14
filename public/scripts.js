@@ -81,29 +81,63 @@ async function resetDemotable() {
 // Celine: This function fetches data from the database and displayes into the foodtable.
 
 async function projectFoodtable() {
+    const tableElement = document.getElementById('foodTable');
+    const tableBody = tableElement.querySelector('tbody');
 
     //fetch is fetching from appController.js
-    const response = await fetch("/project-foodtable", {
-        method: 'POST',
-        headers: {
-            'Content-Type': 'application/json'
-        },
-        body: JSON.stringify({
-            id: idValue,
-            name: nameValue
-        })
+    const response = await fetch('/project-foodtable', {
+        method: 'GET'
     });
 
-    const tableBody = document.getElementById('foodTable').getElementsByTagName('tbody')[0]
     const responseData = await response.json();
-    const messageElement = document.getElementById('insertResultMsg');
+    const demotableContent = responseData.data;
 
-    if (responseData.success) {
-        messageElement.textContent = "table projected successfully!";
-        fetchTableData();
-    } else {
-        messageElement.textContent = "Error projecting data!";
+    // Always clear old, already fetched data before new fetching process.
+    if (tableBody) {
+        tableBody.innerHTML = '';
     }
+
+    demotableContent.forEach(user => {
+        const row = tableBody.insertRow();
+        user.forEach((field, index) => {
+            const cell = row.insertCell(index);
+            cell.textContent = field;
+        });
+    });
+
+
+    // //fetch is fetching from appController.js
+    // const response = await fetch("/project-foodtable", {
+    //     method: 'GET',
+    //     headers: {
+    //         'Content-Type': 'application/json'
+    //     },
+    // });
+
+    // const tableBody = document.getElementById('foodTable').getElementsByTagName('tbody')[0]
+    // const responseData = await response.json();
+    // const messageElement = document.getElementById('insertResultMsg');
+
+    
+
+    // if (responseData.success) {
+    //     messageElement.textContent = "table projected successfully!";
+
+    //     // Clear existing table data
+    //     tableBody.innerHTML = '';
+
+    //     // Assuming responseData.data is an array of food items
+    //      responseData.data.forEach(food => {
+    //         let row = tableBody.insertRow();
+    //         let cellName = row.insertCell(0);
+    //         let cellPrice = row.insertCell(1);
+    //         cellName.textContent = food.name;
+    //         cellPrice.textContent = food.price;
+    //     });
+
+    // } else {
+    //     messageElement.textContent = "Error projecting data!";
+    // }
 }
 
 // Inserts new records into the demotable.
@@ -230,7 +264,7 @@ window.onload = function() {
     document.getElementById("updataNameDemotable").addEventListener("submit", updateNameDemotable);
     document.getElementById("countDemotable").addEventListener("click", countDemotable);
     document.getElementById("insertReservation").addEventListener("submit", insertReservation);
-    document.getElementById('projectFoodtable').addEventListener('click', projectFoodtable); //Celine: projection
+    document.getElementById('projectButton').addEventListener('click', projectFoodtable); //Celine: projection
 };
 
 // General function to refresh the displayed table data. 

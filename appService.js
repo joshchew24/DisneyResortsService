@@ -73,17 +73,16 @@ async function initiateDemotable() {
     });
 }
 
-async function projectFoodtable() {
+async function fetchafoodtableFromDb() {
     return await withOracleDB(async (connection) => {
     
-        const result = await connection.execute(`
-            SELECT * FROM food;
-        `);
-        return true;
+        const result = await connection.execute(`SELECT * FROM FOOD`);
+        return result.rows;
     }).catch(() => {
-        return false;
+        return [];
     });
 }
+
 
 
 async function insertDemotable(id, name) {
@@ -156,5 +155,6 @@ module.exports = {
     insertDemotable,
     insertReservation,
     updateNameDemotable, 
-    countDemotable
+    countDemotable,
+    fetchafoodtableFromDb
 };
