@@ -73,6 +73,22 @@
 
     <br><hr><br> <!-- ========================================================================= -->
 
+    <h2>Update Reservation</h2>
+    <p>The values are case sensitive and if you enter in the wrong case, the update statement will not do anything.</p>
+    <form id="updateReservation">
+        Account ID: <input type="number" id="accountId" placeholder="Enter Account Id" required> <br><br>
+        Restaurant ID: <input type="number" id="restaurantId" placeholder="Enter Restaurant Id" required> <br><br>
+        New Party Size: <input type="text" id="newPartySize" placeholder="Enter New Party Size" required> <br><br>
+        New Date: <input type="date" id="newDate" placeholder="Enter Date" required> <br><br>
+        New Time: <input type="time" id="newTime" placeholder="Enter New Time" required> <br><br>
+
+        <button type="submit"> update </button> <br>
+    </form>
+    <!-- A placeholder to display messages related to the update operation. -->
+    <div id="updateReservationResultMsg"></div>
+
+    <br><hr><br> <!-- ========================================================================= -->
+
     <h2>Count the Tuples in DemoTable</h2>
     <button id="countDemotable"> count </button> <br><br>
     <!-- A placeholder to display the count result. -->

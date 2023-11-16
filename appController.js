@@ -1,6 +1,7 @@
 const express = require('express');
-const appService = require('./appService');
-
+const appService = require('./service/appService');
+const databaseService = require('./service/databaseService');
+const reservationService = require('./service/reservationService');
 const router = express.Router();
 
 // ----------------------------------------------------------
@@ -49,6 +50,17 @@ router.post("/update-name-demotable", async (req, res) => {
     }
 });
 
+router.post("/update-reservation", async (req, res) => {
+    const { accountId, restaurantId, newPartySize, newDate, newTime } = req.body;
+    const updateResult = await reservationService.updateReservation(accountId, restaurantId, newPartySize, newDate, newTime);
+    if (updateResult) {
+        res.json({ success: true });
+        console.log(updateResult);
+    } else {
+        res.status(500).json({ success: false });
+    }
+});
+
 router.get('/count-demotable', async (req, res) => {
     const tableCount = await appService.countDemotable();
     if (tableCount >= 0) {
@@ -78,8 +90,8 @@ router.get("/select-attraction", async (req, res) => {
     const whereClause = req.query.where;
     const selectResult = await appService.selectAttraction(whereClause);
     if (selectResult) {
-        res.json({ 
-            success: true, 
+        res.json({
+            success: true,
             result: selectResult
         });
     } else {

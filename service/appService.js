@@ -1,5 +1,6 @@
 const oracledb = require('oracledb');
-const loadEnvFile = require('./utils/envUtil');
+const loadEnvFile = require('../utils/envUtil');
+const fs = require('fs');
 
 const envVariables = loadEnvFile('./.env');
 
@@ -146,5 +147,6 @@ module.exports = {
     insertReservation,
     updateNameDemotable, 
     countDemotable,
-    selectAttraction
+    selectAttraction,
+    withOracleDB
 };
