@@ -279,7 +279,13 @@ INSERT INTO ThemeParkLand VALUES (2, 13, 'Grizzly Peak', 2001);
 INSERT INTO ThemeParkLand VALUES (2, 14, 'Hollywood Land', 2001);
 INSERT INTO ThemeParkLand VALUES (2, 15, 'Cars Land', 2012);
 INSERT INTO ThemeParkLand VALUES (2, 16, 'Avengers Campus', 2021);
-INSERT INTO ThemeParkLand VALUES (3, 5, 'Tomorrowland', 1971);
+INSERT INTO ThemeParkLand VALUES (3, 6, 'Fantasyland', 1971);
+INSERT INTO ThemeParkLand VALUES (3, 7, 'Tomorrowland', 1971);
+INSERT INTO ThemeParkLand VALUES (7, 5, 'Fantasyland', 1983);
+INSERT INTO ThemeParkLand VALUES (9, 4, 'Fantasyland', 1992);
+INSERT INTO ThemeParkLand VALUES (11, 3, 'Fantasyland', 2005);
+INSERT INTO ThemeParkLand VALUES (12, 3, 'Fantasyland', 2016);
+
 
 INSERT INTO Attraction VALUES (1, 'Space Mountain');
 INSERT INTO Attraction VALUES (2, 'Incredicoaster');
@@ -297,7 +303,7 @@ INSERT INTO IsPartOf VALUES (1, 5, 5);
 INSERT INTO IsPartOf VALUES (1, 3, 3);
 INSERT INTO IsPartOf VALUES (1, 6, 4);
 INSERT INTO IsPartOf VALUES (2, 11, 2);
-INSERT INTO IsPartOf VALUES (3, 5, 1);
+INSERT INTO IsPartOf VALUES (3, 7, 1);
 
 INSERT INTO RideTypeMinimumHeight VALUES (122, 'Big Drops');
 INSERT INTO RideTypeMinimumHeight VALUES (117, 'Medium Drops');
@@ -386,3 +392,29 @@ INSERT INTO Sell VALUES (01, 66666);
 INSERT INTO Sell VALUES (01, 77777);
 INSERT INTO Sell VALUES (01, 88888);
 INSERT INTO Sell VALUES (01, 99999);
+
+
+-- SELECT T.name as LandName
+-- FROM ThemeParkLand T
+-- WHERE NOT EXISTS (
+--     SELECT D.disneyResortName
+--     FROM DisneyResortAddress D
+--     EXCEPT
+--     SELECT C.disneyResortName
+--     FROM ComprisingThemePark C
+--     WHERE C.themeParkId = T.themeParkId
+-- );
+
+SELECT DISTINCT T.name
+FROM ThemeParkLand T
+WHERE NOT EXISTS (
+    SELECT D.disneyResortName
+    FROM DisneyResortAddress D
+    WHERE NOT EXISTS (
+        SELECT C.name
+        FROM ComprisingThemePark C
+        WHERE C.themeParkId = T.themeParkId
+          AND C.disneyResortName = D.disneyResortName
+    )
+);
+
