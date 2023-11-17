@@ -1,9 +1,8 @@
 const appService = require("./appService.js");
 
 async function findLandsInAllDisneyResorts() {
-    console.log("got here in landsService");
     return await appService.withOracleDB(async (connection) => {
-        const result = await connection.execute(
+        const query = 
             `
             SELECT TN.name
             FROM ThemeName TN
@@ -15,9 +14,13 @@ async function findLandsInAllDisneyResorts() {
             FROM ComprisingThemePark C, ThemeParkLand T
             WHERE C.themeParkId = T.themeParkId AND TN.name = T.name)
             `
-        );
+        ;
 
-        console.log(`Result: ${result}`);
+        console.log(`Query: ${query}`);
+        const result = await connection.execute(query);
+
+        console.log(`findLandsInAllDisneyResorts Result: ${result.rows}`);
+        result.rows
         return result.rows;
     }).catch(() => {
         return -1;
