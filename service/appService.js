@@ -132,7 +132,7 @@ async function selectAttraction(whereClause) {
     return await withOracleDB(async (connection) => {
         const query = 'SELECT * FROM IsPartOf WHERE ' + whereClause;
         const result = await connection.execute(query);
-        console.log(result);
+        console.log(`Result: ${result}`);
         return result.rows;
     }).catch(() => {
         return -1;

@@ -2,6 +2,7 @@ const express = require('express');
 const appService = require('./service/appService');
 const databaseService = require('./service/databaseService');
 const reservationService = require('./service/reservationService');
+const landsService = require('./service/landsService');
 const router = express.Router();
 
 // ----------------------------------------------------------
@@ -98,6 +99,20 @@ router.get("/select-attraction", async (req, res) => {
         res.status(500).json({ success: false });
     }
 });
+
+router.get('/find-lands-that-appear-in-all-disney-resorts', async (req, res) => {
+    const lands = await landsService.findLandsInAllDisneyResorts();
+    if (lands) {
+        res.json({
+            success: true,
+            result: lands
+        });
+    } else {
+        res.status(500).json({ success: false });
+    }
+});
+
+router.get("")
 
 
 module.exports = router;

@@ -252,8 +252,8 @@ INSERT INTO ThemeName VALUES ('Fantasyland', 'Disney''s animated fairy tale film
 INSERT INTO ThemeName VALUES ('Tomorrowland', 'Future, technology, outer space, discovery and science fiction');
 INSERT INTO ThemeName VALUES ('New Orleans Square', '19th Century New Orleans');
 INSERT INTO ThemeName VALUES ('Critter Country', 'Land of bears and other animals');
-INSERT INTO ThemeName VALUES ('Mickey’s Toontown', 'Mickey Mouse universe');
-INSERT INTO ThemeName VALUES ('Star Wars: Galaxy’s Edge', 'Star Wars');
+INSERT INTO ThemeName VALUES ('Mickey''s Toontown', 'Mickey Mouse universe');
+INSERT INTO ThemeName VALUES ('Star Wars: Galaxy''s Edge', 'Star Wars');
 INSERT INTO ThemeName VALUES ('Buena Vista Street', '20th Century Art Deco/Mission street');
 INSERT INTO ThemeName VALUES ('Pixar Pier', 'Pixar/A Victorian era seaside amusement park');
 INSERT INTO ThemeName VALUES ('Paradise Gardens Park', 'A Victorian era seaside amusement park');
@@ -270,8 +270,8 @@ INSERT INTO ThemeParkLand VALUES (1, 4, 'Fantasyland', 1955);
 INSERT INTO ThemeParkLand VALUES (1, 5, 'Tomorrowland', 1955);
 INSERT INTO ThemeParkLand VALUES (1, 6, 'New Orleans Square', 1966);
 INSERT INTO ThemeParkLand VALUES (1, 7, 'Critter Country', 1972);
-INSERT INTO ThemeParkLand VALUES (1, 8, 'Mickey’s Toontown', 1993);
-INSERT INTO ThemeParkLand VALUES (1, 9, 'Star Wars: Galaxy’s Edge', 2019);
+INSERT INTO ThemeParkLand VALUES (1, 8, 'Mickey''s Toontown', 1993);
+INSERT INTO ThemeParkLand VALUES (1, 9, 'Star Wars: Galaxy''s Edge', 2019);
 INSERT INTO ThemeParkLand VALUES (2, 10, 'Buena Vista Street', 2001);
 INSERT INTO ThemeParkLand VALUES (2, 11, 'Pixar Pier', 2001);
 INSERT INTO ThemeParkLand VALUES (2, 12, 'Paradise Gardens Park', 2001);
@@ -393,28 +393,13 @@ INSERT INTO Sell VALUES (01, 77777);
 INSERT INTO Sell VALUES (01, 88888);
 INSERT INTO Sell VALUES (01, 99999);
 
-
--- SELECT T.name as LandName
--- FROM ThemeParkLand T
+-- SELECT TN.name as LandName
+-- FROM ThemeName TN
 -- WHERE NOT EXISTS (
 --     SELECT D.disneyResortName
 --     FROM DisneyResortAddress D
---     EXCEPT
+--     MINUS
 --     SELECT C.disneyResortName
---     FROM ComprisingThemePark C
---     WHERE C.themeParkId = T.themeParkId
+--     FROM ComprisingThemePark C, ThemeParkLand T
+--     WHERE C.themeParkId = T.themeParkId AND TN.name = T.name
 -- );
-
-SELECT DISTINCT T.name
-FROM ThemeParkLand T
-WHERE NOT EXISTS (
-    SELECT D.disneyResortName
-    FROM DisneyResortAddress D
-    WHERE NOT EXISTS (
-        SELECT C.name
-        FROM ComprisingThemePark C
-        WHERE C.themeParkId = T.themeParkId
-          AND C.disneyResortName = D.disneyResortName
-    )
-);
-
