@@ -392,14 +392,3 @@ INSERT INTO Sell VALUES (01, 66666);
 INSERT INTO Sell VALUES (01, 77777);
 INSERT INTO Sell VALUES (01, 88888);
 INSERT INTO Sell VALUES (01, 99999);
-
--- SELECT TN.name as LandName
--- FROM ThemeName TN
--- WHERE NOT EXISTS (
---     SELECT D.disneyResortName
---     FROM DisneyResortAddress D
---     MINUS
---     SELECT C.disneyResortName
---     FROM ComprisingThemePark C, ThemeParkLand T
---     WHERE C.themeParkId = T.themeParkId AND TN.name = T.name
--- );
