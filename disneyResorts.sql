@@ -386,3 +386,5 @@ INSERT INTO Sell VALUES (01, 66666);
 INSERT INTO Sell VALUES (01, 77777);
 INSERT INTO Sell VALUES (01, 88888);
 INSERT INTO Sell VALUES (01, 99999);
+
+-- Find the name of the ride for each rideType with minimumHeight = 0 with at least 2 such rides
