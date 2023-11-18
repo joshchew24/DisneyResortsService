@@ -224,6 +224,7 @@ async function insertReservation(event) {
     }
 }
 
+// Selects attraction based on where clause
 async function selectAttraction(event) {
     event.preventDefault();
 
@@ -245,6 +246,22 @@ async function selectAttraction(event) {
     }
 }
 
+// Finds all Lands that appear in all Disney Resorts
+async function findLandsInAllDisneyResorts() {
+    console.log("got here in script.js");
+    const response = await fetch("/find-lands-that-appear-in-all-disney-resorts", {
+        method: 'GET'
+    });
+
+    const responseData = await response.json();
+    const messageElement = document.getElementById('findAllLandsResultMsg');
+
+    if (responseData.success) {
+        messageElement.textContent = `The Lands that appear in all Disney Resorts: ${responseData.result}`;
+    } else {
+        alert("Error in find lands that appear in all Disney Resorts!");
+    }
+}
 
 
 // ---------------------------------------------------------------
@@ -260,6 +277,7 @@ window.onload = function() {
     document.getElementById("countDemotable").addEventListener("click", countDemotable);
     document.getElementById("insertReservation").addEventListener("submit", insertReservation);
     document.getElementById("selectAttraction").addEventListener("submit", selectAttraction);
+    document.getElementById("findAllLands").addEventListener("click", findLandsInAllDisneyResorts);
 };
 
 // General function to refresh the displayed table data. 
