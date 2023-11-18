@@ -96,6 +96,22 @@
 
     <br><hr><br> <!-- ========================================================================= -->
 
+    <h2>Update Reservation</h2>
+    <p>The values are case sensitive and if you enter in the wrong case, the update statement will not do anything.</p>
+    <form id="updateReservation">
+        Account ID: <input type="number" id="accountId" placeholder="Enter Account Id" required> <br><br>
+        Restaurant ID: <input type="number" id="restaurantId" placeholder="Enter Restaurant Id" required> <br><br>
+        New Party Size: <input type="text" id="newPartySize" placeholder="Enter New Party Size" required> <br><br>
+        New Date: <input type="date" id="newDate" placeholder="Enter Date" required> <br><br>
+        New Time: <input type="time" id="newTime" placeholder="Enter New Time" required> <br><br>
+
+        <button type="submit"> update </button> <br>
+    </form>
+    <!-- A placeholder to display messages related to the update operation. -->
+    <div id="updateReservationResultMsg"></div>
+
+    <br><hr><br> <!-- ========================================================================= -->
+
     <h2>Count the Tuples in DemoTable</h2>
     <button id="countDemotable"> count </button> <br><br>
     <!-- A placeholder to display the count result. -->
@@ -114,6 +130,22 @@
         <button type="submit"> insert </button> <br>
     </form>
     <div id="insertReservationResultMsg"></div>
+
+    <br><hr><br> <!-- ========================================================================= -->
+
+    <h2> Select Attraction </h2>
+    <form id="selectAttraction">
+        WhereClause: <input type="text" id="insertWhereClause" placeholder="Enter Where Clause" required> <br><br>
+
+        <button type="submit"> select </button> <br>
+    </form>
+    <div id="selectAttractionResultMsg"></div>
+
+    <br><hr><br> <!-- ========================================================================= -->
+
+    <h2> Find All Lands That Appear In All Disney Resorts</h2>
+    <button id="findAllLands"> find </button> <br>
+    <div id="findAllLandsResultMsg"></div>
 
     <!-- ===================================================================================== -->
     <!-- External JavaScript file that contains the functionality/logic for the operations above. -->

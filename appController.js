@@ -1,6 +1,8 @@
 const express = require('express');
-const appService = require('./appService');
-
+const appService = require('./service/appService');
+const databaseService = require('./service/databaseService');
+const reservationService = require('./service/reservationService');
+const landsService = require('./service/landsService');
 const router = express.Router();
 
 // ----------------------------------------------------------
@@ -49,6 +51,17 @@ router.post("/update-name-demotable", async (req, res) => {
     }
 });
 
+router.post("/update-reservation", async (req, res) => {
+    const { accountId, restaurantId, newPartySize, newDate, newTime } = req.body;
+    const updateResult = await reservationService.updateReservation(accountId, restaurantId, newPartySize, newDate, newTime);
+    if (updateResult) {
+        res.json({ success: true });
+        console.log(updateResult);
+    } else {
+        res.status(500).json({ success: false });
+    }
+});
+
 router.get('/count-demotable', async (req, res) => {
     const tableCount = await appService.countDemotable();
     if (tableCount >= 0) {
@@ -65,7 +78,7 @@ router.get('/count-demotable', async (req, res) => {
 });
 
 router.post("/insert-reservation", async (req, res) => {
-    const { accountId, restaurantId, partySize, date, time} = req.body;
+    const { accountId, restaurantId, partySize, date, time } = req.body;
     const insertResult = await appService.insertReservation(accountId, restaurantId, partySize, date, time);
     if (insertResult) {
         res.json({ success: true });
@@ -74,12 +87,39 @@ router.post("/insert-reservation", async (req, res) => {
     }
 });
 
-//celine 
+router.get("/select-attraction", async (req, res) => {
+    const whereClause = req.query.where;
+    const selectResult = await appService.selectAttraction(whereClause);
+    if (selectResult) {
+        res.json({
+            success: true,
+            result: selectResult
+        });
+    } else {
+        res.status(500).json({ success: false });
+    }
+});
+
+router.get('/find-lands-that-appear-in-all-disney-resorts', async (req, res) => {
+    const lands = await landsService.findLandsInAllDisneyResorts();
+    if (lands) {
+        res.json({
+            success: true,
+            result: lands
+        });
+    } else {
+        res.status(500).json({ success: false });
+    }
+});
+
+//celine
 
 router.get('/project-foodtable', async (req, res) => {
     const tableContent = await appService.fetchafoodtableFromDb();
-    res.json({data: tableContent}); 
+    res.json({data: tableContent});
 });
+
+router.get("")
 
 
 module.exports = router;

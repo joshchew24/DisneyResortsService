@@ -118,7 +118,7 @@ async function projectFoodtable() {
     // const responseData = await response.json();
     // const messageElement = document.getElementById('insertResultMsg');
 
-    
+
 
     // if (responseData.success) {
     //     messageElement.textContent = "table projected successfully!";
@@ -198,6 +198,41 @@ async function updateNameDemotable(event) {
     }
 }
 
+// updates reservation under accountId/restaurantId with given party size and time
+async function updateReservation(event) {
+    event.preventDefault();
+
+    const accountId = document.getElementById('accountId').value;
+    const restaurantId = document.getElementById('restaurantId').value;
+    const newPartySize = document.getElementById('newPartySize').value;
+    const newDate = document.getElementById('newDate').value;
+    const newTime = document.getElementById('newTime').value;
+
+    const response = await fetch('/update-reservation', {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({
+            accountId: accountId,
+            restaurantId: restaurantId,
+            newPartySize: newPartySize,
+            newDate: newDate,
+            newTime: newTime
+        })
+    });
+
+    const responseData = await response.json();
+    const messageElement = document.getElementById('updateReservationResultMsg');
+
+    if (responseData.success) {
+        messageElement.textContent = "Reservation updated successfully!";
+        // fetchTableData();
+    } else {
+        messageElement.textContent = "Error updating reservation!";
+    }
+}
+
 // Counts rows in the demotable.
 // Modify the function accordingly if using different aggregate functions or procedures.
 async function countDemotable() {
@@ -251,6 +286,44 @@ async function insertReservation(event) {
     }
 }
 
+// Selects attraction based on where clause
+async function selectAttraction(event) {
+    event.preventDefault();
+
+    const whereClauseValue = document.getElementById('insertWhereClause').value;
+
+    const response = await fetch(`/select-attraction?where=${whereClauseValue}`, {
+        method: 'GET'
+    });
+
+    const responseData = await response.json();
+    const messageElement = document.getElementById('selectAttractionResultMsg');
+
+    if (responseData.success) {
+        const result = responseData.result;
+        messageElement.textContent = `These attractions are available: ${result.join(', ')}`;
+
+    } else {
+        alert("Error in select Attraction!");
+    }
+}
+
+// Finds all Lands that appear in all Disney Resorts
+async function findLandsInAllDisneyResorts() {
+    console.log("got here in script.js");
+    const response = await fetch("/find-lands-that-appear-in-all-disney-resorts", {
+        method: 'GET'
+    });
+
+    const responseData = await response.json();
+    const messageElement = document.getElementById('findAllLandsResultMsg');
+
+    if (responseData.success) {
+        messageElement.textContent = `The Lands that appear in all Disney Resorts: ${responseData.result}`;
+    } else {
+        alert("Error in find lands that appear in all Disney Resorts!");
+    }
+}
 
 
 // ---------------------------------------------------------------
@@ -262,8 +335,11 @@ window.onload = function() {
     document.getElementById("resetDemotable").addEventListener("click", resetDemotable);
     document.getElementById("insertDemotable").addEventListener("submit", insertDemotable);
     document.getElementById("updataNameDemotable").addEventListener("submit", updateNameDemotable);
+    document.getElementById("updateReservation").addEventListener("submit", updateReservation);
     document.getElementById("countDemotable").addEventListener("click", countDemotable);
     document.getElementById("insertReservation").addEventListener("submit", insertReservation);
+    document.getElementById("selectAttraction").addEventListener("submit", selectAttraction);
+    document.getElementById("findAllLands").addEventListener("click", findLandsInAllDisneyResorts);
     document.getElementById('projectButton').addEventListener('click', projectFoodtable); //Celine: projection
 };
 

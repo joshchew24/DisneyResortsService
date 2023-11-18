@@ -1,5 +1,6 @@
 const oracledb = require('oracledb');
-const loadEnvFile = require('./utils/envUtil');
+const loadEnvFile = require('../utils/envUtil');
+const fs = require('fs');
 
 const envVariables = loadEnvFile('./.env');
 
@@ -75,7 +76,7 @@ async function initiateDemotable() {
 
 async function fetchafoodtableFromDb() {
     return await withOracleDB(async (connection) => {
-    
+
         const result = await connection.execute(`SELECT * FROM FOOD`);
         return result.rows;
     }).catch(() => {
@@ -139,10 +140,12 @@ async function insertReservation(accountId, restaurantId, partySize, date, time)
     });
 }
 
-async function selectAttractionFromThemPark(id) {
+async function selectAttraction(whereClause) {
     return await withOracleDB(async (connection) => {
-        const result = await connection.execute('SELECT * FROM IsPartOf WHERE themeParkId=id');
-        return result.rows[0][0];
+        const query = 'SELECT * FROM IsPartOf WHERE ' + whereClause;
+        const result = await connection.execute(query);
+        console.log(`SelectAttraction Result: ${result.rows}`);
+        return result.rows;
     }).catch(() => {
         return -1;
     });
@@ -155,6 +158,9 @@ module.exports = {
     insertDemotable,
     insertReservation,
     updateNameDemotable, 
+    countDemotable,
+    selectAttraction,
+    withOracleDB,
     countDemotable,
     fetchafoodtableFromDb
 };
