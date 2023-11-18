@@ -252,8 +252,8 @@ INSERT INTO ThemeName VALUES ('Fantasyland', 'Disney''s animated fairy tale film
 INSERT INTO ThemeName VALUES ('Tomorrowland', 'Future, technology, outer space, discovery and science fiction');
 INSERT INTO ThemeName VALUES ('New Orleans Square', '19th Century New Orleans');
 INSERT INTO ThemeName VALUES ('Critter Country', 'Land of bears and other animals');
-INSERT INTO ThemeName VALUES ('Mickey’s Toontown', 'Mickey Mouse universe');
-INSERT INTO ThemeName VALUES ('Star Wars: Galaxy’s Edge', 'Star Wars');
+INSERT INTO ThemeName VALUES ('Mickey''s Toontown', 'Mickey Mouse universe');
+INSERT INTO ThemeName VALUES ('Star Wars: Galaxy''s Edge', 'Star Wars');
 INSERT INTO ThemeName VALUES ('Buena Vista Street', '20th Century Art Deco/Mission street');
 INSERT INTO ThemeName VALUES ('Pixar Pier', 'Pixar/A Victorian era seaside amusement park');
 INSERT INTO ThemeName VALUES ('Paradise Gardens Park', 'A Victorian era seaside amusement park');
@@ -270,8 +270,8 @@ INSERT INTO ThemeParkLand VALUES (1, 4, 'Fantasyland', 1955);
 INSERT INTO ThemeParkLand VALUES (1, 5, 'Tomorrowland', 1955);
 INSERT INTO ThemeParkLand VALUES (1, 6, 'New Orleans Square', 1966);
 INSERT INTO ThemeParkLand VALUES (1, 7, 'Critter Country', 1972);
-INSERT INTO ThemeParkLand VALUES (1, 8, 'Mickey’s Toontown', 1993);
-INSERT INTO ThemeParkLand VALUES (1, 9, 'Star Wars: Galaxy’s Edge', 2019);
+INSERT INTO ThemeParkLand VALUES (1, 8, 'Mickey''s Toontown', 1993);
+INSERT INTO ThemeParkLand VALUES (1, 9, 'Star Wars: Galaxy''s Edge', 2019);
 INSERT INTO ThemeParkLand VALUES (2, 10, 'Buena Vista Street', 2001);
 INSERT INTO ThemeParkLand VALUES (2, 11, 'Pixar Pier', 2001);
 INSERT INTO ThemeParkLand VALUES (2, 12, 'Paradise Gardens Park', 2001);
@@ -279,7 +279,13 @@ INSERT INTO ThemeParkLand VALUES (2, 13, 'Grizzly Peak', 2001);
 INSERT INTO ThemeParkLand VALUES (2, 14, 'Hollywood Land', 2001);
 INSERT INTO ThemeParkLand VALUES (2, 15, 'Cars Land', 2012);
 INSERT INTO ThemeParkLand VALUES (2, 16, 'Avengers Campus', 2021);
-INSERT INTO ThemeParkLand VALUES (3, 5, 'Tomorrowland', 1971);
+INSERT INTO ThemeParkLand VALUES (3, 6, 'Fantasyland', 1971);
+INSERT INTO ThemeParkLand VALUES (3, 7, 'Tomorrowland', 1971);
+INSERT INTO ThemeParkLand VALUES (7, 5, 'Fantasyland', 1983);
+INSERT INTO ThemeParkLand VALUES (9, 4, 'Fantasyland', 1992);
+INSERT INTO ThemeParkLand VALUES (11, 3, 'Fantasyland', 2005);
+INSERT INTO ThemeParkLand VALUES (12, 3, 'Fantasyland', 2016);
+
 
 INSERT INTO Attraction VALUES (1, 'Space Mountain');
 INSERT INTO Attraction VALUES (2, 'Incredicoaster');
@@ -297,7 +303,7 @@ INSERT INTO IsPartOf VALUES (1, 5, 5);
 INSERT INTO IsPartOf VALUES (1, 3, 3);
 INSERT INTO IsPartOf VALUES (1, 6, 4);
 INSERT INTO IsPartOf VALUES (2, 11, 2);
-INSERT INTO IsPartOf VALUES (3, 5, 1);
+INSERT INTO IsPartOf VALUES (3, 7, 1);
 
 INSERT INTO RideTypeMinimumHeight VALUES (122, 'Big Drops');
 INSERT INTO RideTypeMinimumHeight VALUES (117, 'Medium Drops');
