@@ -293,7 +293,7 @@ INSERT INTO Attraction VALUES (3, 'Big Thunder Mountain Railroad');
 INSERT INTO Attraction VALUES (4, 'Pirates of the Caribbean');
 INSERT INTO Attraction VALUES (5, 'Buzz Lightyear Astro Blasters');
 INSERT INTO Attraction VALUES (6, 'Walt Disney''s Enchanted Tiki Room');
-INSERT INTO Attraction VALUES (7, '“Believe...In Holiday Magic" Fireworks Spectacular');
+INSERT INTO Attraction VALUES (7, '"Believe...In Holiday Magic" Fireworks Spectacular');
 INSERT INTO Attraction VALUES (8, 'A Christmas Fantasy Parade');
 INSERT INTO Attraction VALUES (9, 'Disney Junior Dance Party!');
 INSERT INTO Attraction VALUES (10, 'Fireworks at Disneyland Park');
