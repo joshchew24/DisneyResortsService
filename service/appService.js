@@ -87,7 +87,10 @@ async function fetchafoodtableFromDb() {
 
 
 async function insertDemotable(id, name) {
+    
     return await withOracleDB(async (connection) => {
+        console.log(`${id}`); //printout the id para 
+        console.log("inside insert demotable in AppService");
         const result = await connection.execute(
             `INSERT INTO DEMOTABLE (id, name) VALUES (:id, :name)`,
             [id, name],
