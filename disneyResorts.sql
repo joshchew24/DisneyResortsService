@@ -216,14 +216,14 @@ INSERT INTO PostalCodeCity VALUES ('98264', 'Bay Lake');
 INSERT INTO PostalCodeCity VALUES ('279-0031', 'Chiba');
 INSERT INTO PostalCodeCity VALUES ('77700', 'Coupvray');
 INSERT INTO PostalCodeCity VALUES ('HKG', 'Hong Kong');
-INSERT INTO PostalCodeCity VALUES ('4145', 'Shanghai');
+INSERT INTO PostalCodeCity VALUES ('10011005', 'Shanghai');
 
 INSERT INTO PostalCodeCountry VALUES ('92802', 'USA');
 INSERT INTO PostalCodeCountry VALUES ('98264', 'USA');
 INSERT INTO PostalCodeCountry VALUES ('279-0031', 'Japan');
 INSERT INTO PostalCodeCountry VALUES ('77700', 'France');
 INSERT INTO PostalCodeCountry VALUES ('HKG', 'Hong Kong SAR');
-INSERT INTO PostalCodeCountry VALUES ('4145', 'China');
+INSERT INTO PostalCodeCountry VALUES ('10011005', 'China');
 
 INSERT INTO DisneyResortAddress VALUES ('Disneyland Resort', '1313 Disneyland Dr', '92802');
 INSERT INTO DisneyResortAddress	VALUES ('Walt Disney World Resort', '1375 East Buena Vista Drive', '98264');

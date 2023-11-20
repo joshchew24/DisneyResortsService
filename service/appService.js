@@ -74,20 +74,11 @@ async function initiateDemotable() {
     });
 }
 
-async function fetchafoodtableFromDb() {
-    return await withOracleDB(async (connection) => {
-
-        const result = await connection.execute(`SELECT * FROM FOOD`);
-        return result.rows;
-    }).catch(() => {
-        return [];
-    });
-}
-
-
-
 async function insertDemotable(id, name) {
+    
     return await withOracleDB(async (connection) => {
+        console.log(`${id}`); //printout the id para 
+        console.log("inside insert demotable in AppService");
         const result = await connection.execute(
             `INSERT INTO DEMOTABLE (id, name) VALUES (:id, :name)`,
             [id, name],
@@ -151,6 +142,45 @@ async function selectAttraction(whereClause) {
     });
 }
 
+//Celine:
+async function fetchafoodtableFromDb() {
+    return await withOracleDB(async (connection) => {
+
+        const result = await connection.execute(`SELECT * FROM FOOD`);
+        return result.rows;
+    }).catch(() => {
+        return [];
+    });
+}
+
+//Celine:
+async function fetchAllTablesFromDb() {
+    try {
+        return await withOracleDB(async (connection) => {
+            const result = await connection.execute(`select table_name from user_tables`);
+            console.log("Successful");  // Log before returning
+            return result.rows; 
+        });
+    } catch (error) {
+        console.error('Error fetching tables:', error);
+        return [];  // Return an empty array in case of an error
+    }
+}
+
+//Celine:
+async function fetchMyTableFromDb(myOption) {
+    try {
+        return await withOracleDB(async (connection) => {
+            const result = await connection.execute(`select * from ` + myOption);
+            console.log("Successful");  // Log before returning
+            return result.rows; 
+        });
+    } catch (error) {
+        console.error('Error fetching tables:', error);
+        return [];  // Return an empty array in case of an error
+    }
+}
+
 module.exports = {
     testOracleConnection,
     fetchDemotableFromDb,
@@ -162,5 +192,7 @@ module.exports = {
     selectAttraction,
     withOracleDB,
     countDemotable,
-    fetchafoodtableFromDb
+    fetchafoodtableFromDb,
+    fetchAllTablesFromDb,
+    fetchMyTableFromDb,
 };

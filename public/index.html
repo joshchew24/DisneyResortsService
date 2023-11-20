@@ -47,6 +47,41 @@
     <!-- A placeholder to display messages related to the reset operation. -->
     <div id="resetResultMsg"></div>
 
+
+    <br><hr><br> <!-- ========================================================================= -->
+
+    <h2> Pick Table to Project </h2>
+    <div class="dropdown-container">
+        <label for="myDropdown">Choose an option:</label>
+        <select id="myDropdown" name="options">
+            <!-- <option value="option1">Option 1</option> -->
+        </select>
+    </div>
+
+    <br><hr><br> <!-- ========================================================================= -->
+    <p> After the table is picked from above dropdown, it will be displayed here :) </p>
+    <h2> <div id="displayText"> </div> </h2>
+    
+    
+    <table id="selectedTable" border="1">
+        <thead>
+            <tr>
+                <!-- <th>Name</th>
+                <th>Price</th> -->
+            </tr>
+        </thead>
+        <tbody>
+        </tbody>
+    </table>
+    
+    <button id="projectButtonNew" type="button">Project</button> <br> <br>
+    
+    <div id="projectSelectedTableResultMsg"></div>
+
+    <div>
+
+    </div>
+
     <br><hr><br> <!-- ========================================================================= -->
 
     <h2> Project Food Table </h2>
@@ -67,9 +102,11 @@
     <button id="deleteLastItem" type="button">Delete</button> <br>
     
     <div id="insertResultMsg"></div>
+
+    <div>
+
+    </div>
     
-
-
     <br><hr><br> <!-- ========================================================================= -->
 
     <h2> Insert Values into DemoTable </h2>
