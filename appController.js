@@ -126,6 +126,24 @@ router.get('/project-allTableDropdown', async (req, res) => {
     res.json({data: tableContent});
 });
 
+
+//Celin
+router.post('/project-selectedTable', async (req, res) => {
+    const myOption = req.body.tableName;
+    const tableContent = await appService.fetchMyTableFromDb(myOption);
+
+    if (tableContent) {
+        res.json({
+            success: true,
+            result: tableContent
+        });
+    } else {
+        res.status(500).json({ success: false });
+    }
+});
+
+
+
 router.get("")
 
 module.exports = router;

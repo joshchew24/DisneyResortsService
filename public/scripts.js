@@ -95,6 +95,8 @@ async function fetchAndDisplayAllTables() {
 }
 
 
+
+
 // This function resets or initializes the demotable.
 async function resetDemotable() {
     const response = await fetch("/initiate-demotable", {
@@ -138,6 +140,49 @@ async function projectFoodtable() {
         });
     });
 }
+
+// Celine: This function fetches data from the database and displayes the selected table.
+
+async function projectSelectedTable() {
+    const dropdownElement = document.getElementById('myDropdown');
+    const selectedOption = dropdownElement.value; // Get the selected value from the dropdown
+
+    const tableElement = document.getElementById('selectedTable');
+    const tableBody = tableElement.querySelector('tbody');
+
+    //fetch is fetching from appController.js
+    const response = await fetch('/project-selectedTable', {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({ tableName: selectedOption })
+    });
+
+    const responseData = await response.json();
+    const myTableContent = responseData.result;
+
+    // Always clear old, already fetched data before new fetching process.
+    if (tableBody) {
+        tableBody.innerHTML = '';
+    } else {
+        const messageElement = document.getElementById('projectSelectedTableResultMsg');
+        messageElement.textContent = "selected table projected NOT successfully!";
+    }
+
+    myTableContent.forEach(user => {
+        const row = tableBody.insertRow();
+        user.forEach((field, index) => {
+            const cell = row.insertCell(index);
+            cell.textContent = field;
+        });
+    });
+
+    console.log("here");
+    
+}
+
+
 
 // Inserts new records into the demotable.
 async function insertDemotable(event) {
@@ -340,7 +385,16 @@ window.onload = function() {
     document.getElementById("selectAttraction").addEventListener("submit", selectAttraction);
     document.getElementById("findAllLands").addEventListener("click", findLandsInAllDisneyResorts);
     document.getElementById('projectButton').addEventListener('click', projectFoodtable); //Celine: projection
+    document.getElementById('projectButtonNew').addEventListener('click', projectSelectedTable); //Celine: projection
+    
 };
+
+// ---------------------------------------------------------------
+// Added funcitons by Celine
+document.getElementById('myDropdown').addEventListener('change', function() {
+    var selectedOption = this.value;
+    document.getElementById('displayText').textContent = selectedOption;
+});
 
 // General function to refresh the displayed table data. 
 // You can invoke this after any table-modifying operation to keep consistency.

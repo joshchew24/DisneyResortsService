@@ -167,6 +167,20 @@ async function fetchAllTablesFromDb() {
     }
 }
 
+//Celine:
+async function fetchMyTableFromDb(myOption) {
+    try {
+        return await withOracleDB(async (connection) => {
+            const result = await connection.execute(`select * from ` + myOption);
+            console.log("Successful");  // Log before returning
+            return result.rows; 
+        });
+    } catch (error) {
+        console.error('Error fetching tables:', error);
+        return [];  // Return an empty array in case of an error
+    }
+}
+
 module.exports = {
     testOracleConnection,
     fetchDemotableFromDb,
@@ -179,5 +193,6 @@ module.exports = {
     withOracleDB,
     countDemotable,
     fetchafoodtableFromDb,
-    fetchAllTablesFromDb
+    fetchAllTablesFromDb,
+    fetchMyTableFromDb,
 };
