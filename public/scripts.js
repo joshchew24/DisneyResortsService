@@ -165,10 +165,7 @@ async function projectSelectedTable() {
     // Always clear old, already fetched data before new fetching process.
     if (tableBody) {
         tableBody.innerHTML = '';
-    } else {
-        const messageElement = document.getElementById('projectSelectedTableResultMsg');
-        messageElement.textContent = "selected table projected NOT successfully!";
-    }
+    } 
 
     myTableContent.forEach(user => {
         const row = tableBody.insertRow();
@@ -177,8 +174,14 @@ async function projectSelectedTable() {
             cell.textContent = field;
         });
     });
-
-    console.log("here");
+    
+    const messageElement = document.getElementById('projectSelectedTableResultMsg');
+    if (responseData.success) {
+        messageElement.textContent = "selected table projected successfully!";
+    } else {
+        messageElement.textContent = "selected table projected NOT successfully!";
+    }
+   
     
 }
 
