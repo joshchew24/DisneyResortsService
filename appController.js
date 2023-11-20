@@ -112,14 +112,20 @@ router.get('/find-lands-that-appear-in-all-disney-resorts', async (req, res) => 
     }
 });
 
-//celine
+//Celine
 
 router.get('/project-foodtable', async (req, res) => {
     const tableContent = await appService.fetchafoodtableFromDb();
     res.json({data: tableContent});
 });
 
-router.get("")
 
+//Celine
+router.get('/project-allTableDropdown', async (req, res) => {
+    const tableContent = await appService.fetchAllTablesFromDb();
+    res.json({data: tableContent});
+});
+
+router.get("")
 
 module.exports = router;

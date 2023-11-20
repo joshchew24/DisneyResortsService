@@ -60,7 +60,40 @@ async function fetchAndDisplayUsers() {
             cell.textContent = field;
         });
     });
+
+    console.log("fetchAndDisplayUsers is being caled");
 }
+
+// Celine: This fuction fetches all the table name from db and displays it in the dropdwon options.
+async function fetchAndDisplayAllTables() {
+
+    const dropdownElement = document.getElementById('myDropdown')
+
+    //fetch is fetching from appController.js
+    const response = await fetch('/project-allTableDropdown', {
+        method: 'GET'
+    });
+
+
+    const responseData = await response.json();
+    const tableNames = responseData.data; //responseData.data is an array of table names
+
+    // Clear old options before adding new ones
+    if (dropdownElement) {
+        dropdownElement.innerHTML = '';
+    }
+
+    // Loop through each table name and create an option element for it
+    tableNames.forEach(tableName => {
+        const option = document.createElement('option'); //create an <option> element 
+        option.value = tableName;
+        option.textContent = tableName;
+        dropdownElement.appendChild(option); //append to the dropdownElement
+    });
+
+    console.log("fetchAndDisplayAllTables is being caled");
+}
+
 
 // This function resets or initializes the demotable.
 async function resetDemotable() {
@@ -104,40 +137,6 @@ async function projectFoodtable() {
             cell.textContent = field;
         });
     });
-
-
-    // //fetch is fetching from appController.js
-    // const response = await fetch("/project-foodtable", {
-    //     method: 'GET',
-    //     headers: {
-    //         'Content-Type': 'application/json'
-    //     },
-    // });
-
-    // const tableBody = document.getElementById('foodTable').getElementsByTagName('tbody')[0]
-    // const responseData = await response.json();
-    // const messageElement = document.getElementById('insertResultMsg');
-
-
-
-    // if (responseData.success) {
-    //     messageElement.textContent = "table projected successfully!";
-
-    //     // Clear existing table data
-    //     tableBody.innerHTML = '';
-
-    //     // Assuming responseData.data is an array of food items
-    //      responseData.data.forEach(food => {
-    //         let row = tableBody.insertRow();
-    //         let cellName = row.insertCell(0);
-    //         let cellPrice = row.insertCell(1);
-    //         cellName.textContent = food.name;
-    //         cellPrice.textContent = food.price;
-    //     });
-
-    // } else {
-    //     messageElement.textContent = "Error projecting data!";
-    // }
 }
 
 // Inserts new records into the demotable.
@@ -347,4 +346,5 @@ window.onload = function() {
 // You can invoke this after any table-modifying operation to keep consistency.
 function fetchTableData() {
     fetchAndDisplayUsers();
+    fetchAndDisplayAllTables();
 }
