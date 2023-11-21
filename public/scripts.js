@@ -270,7 +270,9 @@ async function findNumberOfRidesAtThemeParkWithMinimumHeightLessThanOrEqualToHei
     const themeParkIdValue = document.getElementById('insertThemeParkId').value;
     const heightValue = document.getElementById('insertHeight').value;
 
-    const response = await fetch("/find-number-of-rides-at-theme-park-with-minimum-height-less-than-or-equal-to-height", {
+    const whereClause = `?themeParkId=${themeParkIdValue}&height=${heightValue}`;
+
+    const response = await fetch("/find-number-of-rides-at-theme-park-with-minimum-height-less-than-or-equal-to-height" + whereClause, {
         method: 'GET'
     });
 
@@ -299,7 +301,7 @@ window.onload = function() {
     document.getElementById("insertionQuery").addEventListener("submit", insertReservation);
     document.getElementById("selectionQuery").addEventListener("submit", selectAttraction);
     document.getElementById("divisionQuery").addEventListener("click", findLandsInAllDisneyResorts);
-    document.getElementById("aggregateWithHavingQuery").addEventListener("submit", findLandsInAllDisneyResorts);
+    document.getElementById("aggregateWithHavingQuery").addEventListener("submit", findNumberOfRidesAtThemeParkWithMinimumHeightLessThanOrEqualToHeight);
 };
 
 // General function to refresh the displayed table data. 
