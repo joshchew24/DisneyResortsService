@@ -266,6 +266,8 @@ async function findLandsInAllDisneyResorts() {
 // At a specific theme park, find the number of rides with minimumHeight <= x
 async function findNumberOfRidesAtThemeParkWithMinimumHeightLessThanOrEqualToHeight(event) {
     event.preventDefault();
+    const tableElement = document.getElementById('aggregateWithHavingQueryTable');
+    const tableBody = tableElement.querySelector('tbody');
 
     const themeParkIdValue = document.getElementById('insertThemeParkId').value;
     const heightValue = document.getElementById('insertHeight').value;
@@ -277,11 +279,23 @@ async function findNumberOfRidesAtThemeParkWithMinimumHeightLessThanOrEqualToHei
     });
 
     const responseData = await response.json();
-    const messageElement = document.getElementById('aggregateWithHavingQueryResultMsg');
 
-    if (responseData.success) {
-        messageElement.textContent = `Query Results: ${responseData.result}`;
-    } else {
+    const tableContent = responseData.result;
+
+    // Always clear old, already fetched data before new fetching process.
+    if (tableBody) {
+        tableBody.innerHTML = '';
+    }
+
+    tableContent.forEach(user => {
+        const row = tableBody.insertRow();
+        user.forEach((field, index) => {
+            const cell = row.insertCell(index);
+            cell.textContent = field;
+        });
+    });
+
+    if (!responseData.success) {
         alert("Error in Aggregate with Having Query");
     }
 }

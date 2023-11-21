@@ -11,12 +11,7 @@ async function findNumberOfRidesAtThemeParkWithMinimumHeightLessThanOrEqualToHei
             HAVING R.minimumHeight <= ${height}
             `
         ;
-
-        console.log(`Query: ${query}`);
         const result = await connection.execute(query);
-
-        console.log(`findNumberOfRidesAtThemeParkWithMinimumHeightLessThanOrEqualToHeight Result: ${result.rows}`);
-        result.rows
         return result.rows;
     }).catch(() => {
         return -1;

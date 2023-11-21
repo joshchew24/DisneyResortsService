@@ -414,11 +414,3 @@ INSERT INTO Sell VALUES (01, 66666);
 INSERT INTO Sell VALUES (01, 77777);
 INSERT INTO Sell VALUES (01, 88888);
 INSERT INTO Sell VALUES (01, 99999);
-
--- At a specific theme park, find the number of rides with minimumHeight = 0
-
-SELECT R.minimumHeight, count(*)
-FROM Attraction A, IsPartOf I, RideAvgWaitTime R
-WHERE A.attractionId = I.attractionId AND I.themeParkId = 1 AND R.attractionId = A.attractionId
-GROUP BY R.minimumHeight
-HAVING R.minimumHeight <= 200;
