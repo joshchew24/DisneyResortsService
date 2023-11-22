@@ -112,10 +112,20 @@
 
     <h2> Select Attraction </h2>
     <form id="selectAttraction">
-        WhereClause: <input type="text" id="insertWhereClause" placeholder="Enter Where Clause" required> <br><br>
+        <!-- Container for dynamic input boxes -->
+        <div id="inputContainer">
+            <input type="text" id="insertWhereClause_0" placeholder="Enter Where Clause" required>
+        </div>
 
-        <button type="submit"> select </button> <br>
-    </form>
+        <!-- Button to add more input boxes -->
+        <button id="addInputButton" type="button"> Add Input Box </button>
+        
+        <!-- Button to delete input boxes -->
+        <button id="removeInputButton" type="button"> Delete Input Box </button> <br><br>
+
+        <!-- Submit button for the form -->
+        <button id="selectAttractionButton" type="button"> select </button> <br><br>
+    </form>    
 
     <table id="selectAttractionTable" border="1">
         <thead>

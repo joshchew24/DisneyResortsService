@@ -13,6 +13,9 @@
  */
 
 
+let selectAttractionInputCount = 0;
+
+
 // This function checks the database connection and updates its status on the frontend.
 async function checkDbConnection() {
     const statusElem = document.getElementById('dbStatus');
@@ -28,12 +31,12 @@ async function checkDbConnection() {
     statusElem.style.display = 'inline';
 
     response.text()
-    .then((text) => {
-        statusElem.textContent = text;
-    })
-    .catch((error) => {
-        statusElem.textContent = 'connection timed out';  // Adjust error handling if required.
-    });
+        .then((text) => {
+            statusElem.textContent = text;
+        })
+        .catch((error) => {
+            statusElem.textContent = 'connection timed out';  // Adjust error handling if required.
+        });
 }
 
 // Fetches data from the demotable and displays it.
@@ -226,11 +229,29 @@ async function insertReservation(event) {
 
 // Selects attraction based on where clause
 async function selectAttraction(event) {
-     event.preventDefault();
+    event.preventDefault();
     const tableElement = document.getElementById('selectAttractionTable');
     const tableBody = tableElement.querySelector('tbody');
 
-    const whereClauseValue = document.getElementById('insertWhereClause').value;
+    var whereClauseValue = "";
+
+    if (selectAttractionInputCount == 0) {
+        var inputValue = document.getElementById('insertWhereClause_' + 0).value;
+        whereClauseValue += inputValue;
+    } else {
+        for (let i = 0; i <= selectAttractionInputCount; ++i) {
+            var inputValue = document.getElementById('insertWhereClause_' + i).value;
+
+            var dropDownValue = "";
+
+            if (i != 0) {
+                var dropDown = document.getElementById('dropDownInput_' + i);
+                dropDownValue = dropDown.options[dropDown.selectedIndex].value;
+            }
+
+            whereClauseValue += dropDownValue + " " + inputValue + " ";
+        }
+    }
 
     const response = await fetch(`/select-attraction?where=${whereClauseValue}`, {
         method: 'GET'
@@ -239,8 +260,8 @@ async function selectAttraction(event) {
     const responseData = await response.json();
     const tableContent = responseData.result;
 
-     // Always clear old, already fetched data before new fetching process.
-     if (tableBody) {
+    // Always clear old, already fetched data before new fetching process.
+    if (tableBody) {
         tableBody.innerHTML = '';
     }
 
@@ -253,7 +274,7 @@ async function selectAttraction(event) {
     });
 
     if (!responseData.success) {
-        alert("Error in Aggregate with Having Query");
+        alert("Error in Division Query");
     }
 }
 
@@ -274,11 +295,52 @@ async function findLandsInAllDisneyResorts() {
     }
 }
 
+async function addWhereClauseInput() {
+    selectAttractionInputCount++;
+    console.log("adding input:" + selectAttractionInputCount);
+    var newInput = document.createElement('input');
+    newInput.type = 'text';
+    newInput.name = 'whereClause';
+    newInput.placeholder = 'Enter Where Clause';
+    newInput.id = "insertWhereClause_" + selectAttractionInputCount;
+
+    var options = ["AND", "OR"];
+    var newDropdown = document.createElement('select');
+    newDropdown.id = "dropDownInput_" + selectAttractionInputCount;
+
+    for (var i = 0; i < options.length; i++) {
+        var option = document.createElement('option');
+        option.value = options[i];
+        option.text = options[i];
+        newDropdown.appendChild(option);
+    }
+
+    var container = document.getElementById('inputContainer');
+
+    console.log("adding dropdown with id: " + newDropdown.id);
+    container.appendChild(newDropdown);
+    container.appendChild(newInput);
+}
+
+async function removeWhereClauseInput() {
+    console.log("removing input:" + selectAttractionInputCount);
+    var container = document.getElementById('inputContainer');
+    var inputToRemove = document.getElementById('insertWhereClause_' + selectAttractionInputCount);
+    var dropDownToRemove = document.getElementById('dropDownInput_' + selectAttractionInputCount);
+
+    if (inputToRemove && dropDownToRemove) {
+        container.removeChild(inputToRemove);
+        container.removeChild(dropDownToRemove);
+        selectAttractionInputCount--;
+    }
+}
+
 
 // ---------------------------------------------------------------
 // Initializes the webpage functionalities.
-// Add or remove event listeners based on the desired functionalities.
-window.onload = function() {
+// Add or remove event listeners based on the desired functionalities.88
+window.onload = function () {
+    selectAttractionInputCount = 0;
     checkDbConnection();
     fetchTableData();
     document.getElementById("resetDemotable").addEventListener("click", resetDemotable);
@@ -287,8 +349,10 @@ window.onload = function() {
     document.getElementById("updateReservation").addEventListener("submit", updateReservation);
     document.getElementById("countDemotable").addEventListener("click", countDemotable);
     document.getElementById("insertReservation").addEventListener("submit", insertReservation);
-    document.getElementById("selectAttraction").addEventListener("submit", selectAttraction);
+    document.getElementById("selectAttractionButton").addEventListener("click", selectAttraction);
     document.getElementById("findAllLands").addEventListener("click", findLandsInAllDisneyResorts);
+    document.getElementById("addInputButton").addEventListener("click", addWhereClauseInput);
+    document.getElementById("removeInputButton").addEventListener("click", removeWhereClauseInput);
 };
 
 // General function to refresh the displayed table data. 
