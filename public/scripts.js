@@ -226,7 +226,9 @@ async function insertReservation(event) {
 
 // Selects attraction based on where clause
 async function selectAttraction(event) {
-    event.preventDefault();
+     event.preventDefault();
+    const tableElement = document.getElementById('selectAttractionTable');
+    const tableBody = tableElement.querySelector('tbody');
 
     const whereClauseValue = document.getElementById('insertWhereClause').value;
 
@@ -235,14 +237,23 @@ async function selectAttraction(event) {
     });
 
     const responseData = await response.json();
-    const messageElement = document.getElementById('selectAttractionResultMsg');
+    const tableContent = responseData.result;
 
-    if (responseData.success) {
-        const result = responseData.result;
-        messageElement.textContent = `These attractions are available: ${result.join(', ')}`;
+     // Always clear old, already fetched data before new fetching process.
+     if (tableBody) {
+        tableBody.innerHTML = '';
+    }
 
-    } else {
-        alert("Error in select Attraction!");
+    tableContent.forEach(user => {
+        const row = tableBody.insertRow();
+        user.forEach((field, index) => {
+            const cell = row.insertCell(index);
+            cell.textContent = field;
+        });
+    });
+
+    if (!responseData.success) {
+        alert("Error in Aggregate with Having Query");
     }
 }
 
