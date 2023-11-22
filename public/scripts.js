@@ -235,22 +235,24 @@ async function selectAttraction(event) {
 
     var whereClauseValue = "";
 
-    if (selectAttractionInputCount == 0) {
-        var inputValue = document.getElementById('insertWhereClause_' + 0).value;
-        whereClauseValue += inputValue;
-    } else {
-        for (let i = 0; i <= selectAttractionInputCount; ++i) {
-            var inputValue = document.getElementById('insertWhereClause_' + i).value;
+    for (let i = 1; i <= selectAttractionInputCount; ++i) {
+        var inputDropDown = document.getElementById('inputDropDown_' + i);
+        var inputValue = inputDropDown.options[inputDropDown.selectedIndex].value;
+        console.log("input value: " + inputValue);
 
-            var dropDownValue = "";
+        var numValue = document.getElementById('numValue_' + i).value;
+        console.log("num value: " + numValue);
 
-            if (i != 0) {
-                var dropDown = document.getElementById('dropDownInput_' + i);
-                dropDownValue = dropDown.options[dropDown.selectedIndex].value;
-            }
+        var dropDownValue = "";
 
-            whereClauseValue += dropDownValue + " " + inputValue + " ";
+        if (i > 1) {
+            var dropDown = document.getElementById('dropDownInput_' + i);
+            dropDownValue = dropDown.options[dropDown.selectedIndex].value;
+            console.log("drop down value: " + dropDownValue);
         }
+
+        whereClauseValue += dropDownValue + " " + inputValue + "=" + numValue;
+        console.log("where clause: " + whereClauseValue);
     }
 
     const response = await fetch(`/select-attraction?where=${whereClauseValue}`, {
@@ -298,11 +300,21 @@ async function findLandsInAllDisneyResorts() {
 async function addWhereClauseInput() {
     selectAttractionInputCount++;
     console.log("adding input:" + selectAttractionInputCount);
-    var newInput = document.createElement('input');
-    newInput.type = 'text';
-    newInput.name = 'whereClause';
-    newInput.placeholder = 'Enter Where Clause';
-    newInput.id = "insertWhereClause_" + selectAttractionInputCount;
+
+    var inputOptions = ["ThemeParkId", "LandId", "AttractionId"];
+    var newInputDropDown = document.createElement('select');
+    newInputDropDown.id = "inputDropDown_" + selectAttractionInputCount;
+
+    for (var i = 0; i < inputOptions.length; i++) {
+        var option = document.createElement('option');
+        option.value = inputOptions[i];
+        option.text = inputOptions[i];
+        newInputDropDown.appendChild(option);
+    }
+
+    var numValue = document.createElement('input');
+    numValue.type = 'number';
+    numValue.id = "numValue_" + selectAttractionInputCount;
 
     var options = ["AND", "OR"];
     var newDropdown = document.createElement('select');
@@ -317,21 +329,29 @@ async function addWhereClauseInput() {
 
     var container = document.getElementById('inputContainer');
 
-    console.log("adding dropdown with id: " + newDropdown.id);
-    container.appendChild(newDropdown);
-    container.appendChild(newInput);
+    if (selectAttractionInputCount > 1) {
+        container.appendChild(newDropdown);
+    }    
+    container.appendChild(newInputDropDown);
+    container.appendChild(numValue);
+
 }
 
 async function removeWhereClauseInput() {
     console.log("removing input:" + selectAttractionInputCount);
     var container = document.getElementById('inputContainer');
-    var inputToRemove = document.getElementById('insertWhereClause_' + selectAttractionInputCount);
+    var inputToRemove = document.getElementById('inputDropDown_' + selectAttractionInputCount);
+    var numToRemove = document.getElementById('numValue_' + selectAttractionInputCount);
     var dropDownToRemove = document.getElementById('dropDownInput_' + selectAttractionInputCount);
 
-    if (inputToRemove && dropDownToRemove) {
+    if (inputToRemove && numToRemove) {
         container.removeChild(inputToRemove);
-        container.removeChild(dropDownToRemove);
+        container.removeChild(numToRemove);
         selectAttractionInputCount--;
+    }
+
+    if (dropDownToRemove) {
+        container.removeChild(dropDownToRemove);
     }
 }
 
