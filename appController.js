@@ -3,6 +3,7 @@ const appService = require('./service/appService');
 const databaseService = require('./service/databaseService');
 const reservationService = require('./service/reservationService');
 const landsService = require('./service/landsService');
+const attractionService = require('./service/attractionService');
 const router = express.Router();
 
 // ----------------------------------------------------------
@@ -79,7 +80,7 @@ router.get('/count-demotable', async (req, res) => {
 
 router.post("/insert-reservation", async (req, res) => {
     const { accountId, restaurantId, partySize, date, time } = req.body;
-    const insertResult = await appService.insertReservation(accountId, restaurantId, partySize, date, time);
+    const insertResult = await reservationService.insertReservation(accountId, restaurantId, partySize, date, time);
     if (insertResult) {
         res.json({ success: true });
     } else {
@@ -89,7 +90,7 @@ router.post("/insert-reservation", async (req, res) => {
 
 router.get("/select-attraction", async (req, res) => {
     const whereClause = req.query.where;
-    const selectResult = await appService.selectAttraction(whereClause);
+    const selectResult = await attractionService.selectAttraction(whereClause);
     if (selectResult) {
         res.json({
             success: true,
