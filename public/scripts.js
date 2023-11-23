@@ -235,54 +235,58 @@ async function selectAttraction(event) {
 
     var whereClauseValue = "";
 
+    let isValid = true;
+
     for (let i = 1; i <= selectAttractionInputCount; ++i) {
         var inputDropDown = document.getElementById('inputDropDown_' + i);
         var inputValue = inputDropDown.options[inputDropDown.selectedIndex].value;
-        console.log("input value: " + inputValue);
 
         var numValue = document.getElementById('numValue_' + i).value;
-        console.log("num value: " + numValue);
+
+        if (numValue.trim() === '') {
+            isValid = false;
+            alert('Please fill in all boxes.');
+        }
 
         var dropDownValue = "";
 
         if (i > 1) {
             var dropDown = document.getElementById('dropDownInput_' + i);
             dropDownValue = dropDown.options[dropDown.selectedIndex].value;
-            console.log("drop down value: " + dropDownValue);
         }
 
         whereClauseValue += dropDownValue + " " + inputValue + "=" + numValue;
-        console.log("where clause: " + whereClauseValue);
     }
 
-    const response = await fetch(`/select-attraction?where=${whereClauseValue}`, {
-        method: 'GET'
-    });
-
-    const responseData = await response.json();
-    const tableContent = responseData.result;
-
-    // Always clear old, already fetched data before new fetching process.
-    if (tableBody) {
-        tableBody.innerHTML = '';
-    }
-
-    tableContent.forEach(user => {
-        const row = tableBody.insertRow();
-        user.forEach((field, index) => {
-            const cell = row.insertCell(index);
-            cell.textContent = field;
+    if (isValid) {
+        const response = await fetch(`/select-attraction?where=${whereClauseValue}`, {
+            method: 'GET'
         });
-    });
-
-    if (!responseData.success) {
-        alert("Error in Division Query");
+    
+        const responseData = await response.json();
+        const tableContent = responseData.result;
+    
+        // Always clear old, already fetched data before new fetching process.
+        if (tableBody) {
+            tableBody.innerHTML = '';
+        }
+    
+        tableContent.forEach(user => {
+            const row = tableBody.insertRow();
+            user.forEach((field, index) => {
+                const cell = row.insertCell(index);
+                cell.textContent = field;
+            });
+        });
+    
+        if (!responseData.success) {
+            alert("Error in Division Query");
+        }
     }
 }
 
 // Finds all Lands that appear in all Disney Resorts
 async function findLandsInAllDisneyResorts() {
-    console.log("got here in script.js");
     const response = await fetch("/find-lands-that-appear-in-all-disney-resorts", {
         method: 'GET'
     });
@@ -299,7 +303,6 @@ async function findLandsInAllDisneyResorts() {
 
 async function addWhereClauseInput() {
     selectAttractionInputCount++;
-    console.log("adding input:" + selectAttractionInputCount);
 
     var inputOptions = ["ThemeParkId", "LandId", "AttractionId"];
     var newInputDropDown = document.createElement('select');
@@ -315,6 +318,7 @@ async function addWhereClauseInput() {
     var numValue = document.createElement('input');
     numValue.type = 'number';
     numValue.id = "numValue_" + selectAttractionInputCount;
+    numValue.required = true;
 
     var options = ["AND", "OR"];
     var newDropdown = document.createElement('select');
@@ -334,11 +338,9 @@ async function addWhereClauseInput() {
     }    
     container.appendChild(newInputDropDown);
     container.appendChild(numValue);
-
 }
 
 async function removeWhereClauseInput() {
-    console.log("removing input:" + selectAttractionInputCount);
     var container = document.getElementById('inputContainer');
     var inputToRemove = document.getElementById('inputDropDown_' + selectAttractionInputCount);
     var numToRemove = document.getElementById('numValue_' + selectAttractionInputCount);
