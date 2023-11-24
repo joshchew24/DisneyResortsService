@@ -112,34 +112,6 @@ async function resetDemotable() {
     }
 }
 
-// Celine: This function fetches data from the database and displayes into the foodtable.
-
-async function projectFoodtable() {
-    const tableElement = document.getElementById('foodTable');
-    const tableBody = tableElement.querySelector('tbody');
-
-    //fetch is fetching from appController.js
-    const response = await fetch('/project-foodtable', {
-        method: 'GET'
-    });
-
-    const responseData = await response.json();
-    const demotableContent = responseData.data;
-
-    // Always clear old, already fetched data before new fetching process.
-    if (tableBody) {
-        tableBody.innerHTML = '';
-    }
-
-    demotableContent.forEach(user => {
-        const row = tableBody.insertRow();
-        user.forEach((field, index) => {
-            const cell = row.insertCell(index);
-            cell.textContent = field;
-        });
-    });
-}
-
 // Celine: This function fetches data from the database and displayes the selected table.
 
 async function projectSelectedTable() {
@@ -531,7 +503,6 @@ window.onload = function () {
     document.getElementById("aggregateWithHavingQuery").addEventListener("submit", findNumberOfRidesAtThemeParkWithMinimumHeightLessThanOrEqualToHeight);
     document.getElementById("addInputButton").addEventListener("click", addWhereClauseInput);
     document.getElementById("removeInputButton").addEventListener("click", removeWhereClauseInput);
-    document.getElementById('projectButton').addEventListener('click', projectFoodtable); //Celine: projection
     document.getElementById('projectButtonNew').addEventListener('click', projectSelectedTable); //Celine: projection
 };
 

@@ -128,13 +128,6 @@ router.get("/find-number-of-rides-at-theme-park-with-minimum-height-less-than-or
     }
 });
 
-//Celine
-
-router.get('/project-foodtable', async (req, res) => {
-    const tableContent = await appService.fetchafoodtableFromDb();
-    res.json({data: tableContent});
-});
-
 
 //Celine
 router.get('/project-allTableDropdown', async (req, res) => {

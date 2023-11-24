@@ -115,17 +115,6 @@ async function countDemotable() {
 }
 
 //Celine:
-async function fetchafoodtableFromDb() {
-    return await withOracleDB(async (connection) => {
-
-        const result = await connection.execute(`SELECT * FROM FOOD`);
-        return result.rows;
-    }).catch(() => {
-        return [];
-    });
-}
-
-//Celine:
 async function fetchAllTablesFromDb() {
     try {
         return await withOracleDB(async (connection) => {
@@ -179,7 +168,6 @@ module.exports = {
     updateNameDemotable, 
     countDemotable,
     withOracleDB,
-    fetchafoodtableFromDb,
     fetchAllTablesFromDb,
     fetchMyTableFromDb,
     fetchMyTableDescription,
