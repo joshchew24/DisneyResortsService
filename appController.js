@@ -143,9 +143,9 @@ router.get('/project-allTableDropdown', async (req, res) => {
 });
 
 
-//Celin
-router.post('/project-selectedTable', async (req, res) => {
-    const myOption = req.body.tableName;
+//Celine
+router.get('/project-selectedTable', async (req, res) => {
+    const myOption = req.query.selectedOption;
     const tableContent = await appService.fetchMyTableFromDb(myOption);
 
     if (tableContent) {
@@ -158,8 +158,18 @@ router.post('/project-selectedTable', async (req, res) => {
     }
 });
 
+router.get('/selectedTable-description', async (req, res) => {
+    const myOption = req.query.selectedOption;
+    const tableContent = await appService.fetchMyTableDescription(myOption);
 
-
-router.get("")
+    if (tableContent) {
+        res.json({
+            success: true,
+            result: tableContent
+        });
+    } else {
+        res.status(500).json({ success: false });
+    }
+});
 
 module.exports = router;

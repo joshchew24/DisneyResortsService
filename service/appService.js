@@ -139,6 +139,24 @@ async function fetchAllTablesFromDb() {
     }
 }
 
+async function fetchMyTableDescription(myOption) {
+    try {
+        return await withOracleDB(async (connection) => {
+            const query = 
+            `
+            select column_name
+            from user_tab_columns
+            where table_name = '${myOption}'
+            `;
+            const result = await connection.execute(query);
+            return result.rows;
+        });
+    } catch (error) {
+        console.error('Error fetching tables:', error);
+        return [];  // Return an empty array in case of an error
+    }
+}
+
 //Celine:
 async function fetchMyTableFromDb(myOption) {
     try {
@@ -164,4 +182,5 @@ module.exports = {
     fetchafoodtableFromDb,
     fetchAllTablesFromDb,
     fetchMyTableFromDb,
+    fetchMyTableDescription,
 };

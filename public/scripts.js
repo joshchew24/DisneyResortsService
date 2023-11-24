@@ -63,8 +63,6 @@ async function fetchAndDisplayUsers() {
             cell.textContent = field;
         });
     });
-
-    console.log("fetchAndDisplayUsers is being caled");
 }
 
 // Celine: This fuction fetches all the table name from db and displays it in the dropdwon options.
@@ -93,8 +91,6 @@ async function fetchAndDisplayAllTables() {
         option.textContent = tableName;
         dropdownElement.appendChild(option); //append to the dropdownElement
     });
-
-    console.log("fetchAndDisplayAllTables is being caled");
 }
 
 
@@ -151,19 +147,32 @@ async function projectSelectedTable() {
     const selectedOption = dropdownElement.value; // Get the selected value from the dropdown
 
     const tableElement = document.getElementById('selectedTable');
+    const tableRow = tableElement.querySelector('tr');
     const tableBody = tableElement.querySelector('tbody');
 
-    //fetch is fetching from appController.js
-    const response = await fetch('/project-selectedTable', {
-        method: 'POST',
-        headers: {
-            'Content-Type': 'application/json'
-        },
-        body: JSON.stringify({ tableName: selectedOption })
+    const tableDescriptionResponse = await fetch(`/selectedTable-description?selectedOption=${selectedOption}`, {
+        method: 'GET'
     });
 
-    const responseData = await response.json();
-    const myTableContent = responseData.result;
+    const tableDescriptionResponseData = await tableDescriptionResponse.json();
+    const tableRowContent = tableDescriptionResponseData.result;
+
+    if (tableRow) {
+        tableRow.innerHTML = '';
+    }
+
+    tableRowContent.forEach((field, index) => {
+        const cell = tableRow.insertCell(index);
+        cell.textContent = field;
+    });
+
+    //fetch is fetching from appController.js
+    const projectSelectedTableResponse = await fetch(`/project-selectedTable?selectedOption=${selectedOption}`, {
+        method: 'GET'
+    });
+
+    const projectSelectedTableResponseData = await projectSelectedTableResponse.json();
+    const myTableContent = projectSelectedTableResponseData.result;
 
     // Always clear old, already fetched data before new fetching process.
     if (tableBody) {
@@ -179,7 +188,7 @@ async function projectSelectedTable() {
     });
 
     const messageElement = document.getElementById('projectSelectedTableResultMsg');
-    if (responseData.success) {
+    if (projectSelectedTableResponseData.success) {
         messageElement.textContent = "selected table projected successfully!";
     } else {
         messageElement.textContent = "selected table projected NOT successfully!";
@@ -528,7 +537,7 @@ window.onload = function () {
 
 // ---------------------------------------------------------------
 // Added funcitons by Celine
-document.getElementById('myDropdown').addEventListener('change', function() {
+document.getElementById('myDropdown').addEventListener('change', function () {
     var selectedOption = this.value;
     document.getElementById('displayText').textContent = selectedOption;
 });
