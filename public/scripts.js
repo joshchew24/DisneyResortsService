@@ -214,7 +214,7 @@ async function insertReservation(event) {
     });
 
     const responseData = await response.json();
-    const messageElement = document.getElementById('insertReservationResultMsg');
+    const messageElement = document.getElementById('insertionQueryResultMsg');
 
     if (responseData.success) {
         messageElement.textContent = "Data inserted successfully!";
@@ -235,7 +235,7 @@ async function selectAttraction(event) {
     });
 
     const responseData = await response.json();
-    const messageElement = document.getElementById('selectAttractionResultMsg');
+    const messageElement = document.getElementById('selectionQueryResultMsg');
 
     if (responseData.success) {
         const result = responseData.result;
@@ -254,12 +254,49 @@ async function findLandsInAllDisneyResorts() {
     });
 
     const responseData = await response.json();
-    const messageElement = document.getElementById('findAllLandsResultMsg');
+    const messageElement = document.getElementById('divisionQueryResultMsg');
 
     if (responseData.success) {
         messageElement.textContent = `The Lands that appear in all Disney Resorts: ${responseData.result}`;
     } else {
         alert("Error in find lands that appear in all Disney Resorts!");
+    }
+}
+
+// At a specific theme park, find the number of rides with minimumHeight <= x
+async function findNumberOfRidesAtThemeParkWithMinimumHeightLessThanOrEqualToHeight(event) {
+    event.preventDefault();
+    const tableElement = document.getElementById('aggregateWithHavingQueryTable');
+    const tableBody = tableElement.querySelector('tbody');
+
+    const themeParkIdValue = document.getElementById('insertThemeParkId').value;
+    const heightValue = document.getElementById('insertHeight').value;
+
+    const whereClause = `?themeParkId=${themeParkIdValue}&height=${heightValue}`;
+
+    const response = await fetch("/find-number-of-rides-at-theme-park-with-minimum-height-less-than-or-equal-to-height" + whereClause, {
+        method: 'GET'
+    });
+
+    const responseData = await response.json();
+
+    const tableContent = responseData.result;
+
+    // Always clear old, already fetched data before new fetching process.
+    if (tableBody) {
+        tableBody.innerHTML = '';
+    }
+
+    tableContent.forEach(user => {
+        const row = tableBody.insertRow();
+        user.forEach((field, index) => {
+            const cell = row.insertCell(index);
+            cell.textContent = field;
+        });
+    });
+
+    if (!responseData.success) {
+        alert("Error in Aggregate with Having Query");
     }
 }
 
@@ -275,9 +312,10 @@ window.onload = function() {
     document.getElementById("updataNameDemotable").addEventListener("submit", updateNameDemotable);
     document.getElementById("updateReservation").addEventListener("submit", updateReservation);
     document.getElementById("countDemotable").addEventListener("click", countDemotable);
-    document.getElementById("insertReservation").addEventListener("submit", insertReservation);
-    document.getElementById("selectAttraction").addEventListener("submit", selectAttraction);
-    document.getElementById("findAllLands").addEventListener("click", findLandsInAllDisneyResorts);
+    document.getElementById("insertionQuery").addEventListener("submit", insertReservation);
+    document.getElementById("selectionQuery").addEventListener("submit", selectAttraction);
+    document.getElementById("divisionQuery").addEventListener("click", findLandsInAllDisneyResorts);
+    document.getElementById("aggregateWithHavingQuery").addEventListener("submit", findNumberOfRidesAtThemeParkWithMinimumHeightLessThanOrEqualToHeight);
 };
 
 // General function to refresh the displayed table data. 

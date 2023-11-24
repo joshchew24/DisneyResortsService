@@ -97,7 +97,7 @@
     <br><hr><br> <!-- ========================================================================= -->
 
     <h2> Insert Reservation </h2>
-    <form id="insertReservation">
+    <form id="insertionQuery">
         AccountId: <input type="number" id="insertAccountId" placeholder="Enter Account ID" required> <br><br>
         RestaurantId: <input type="number" id="insertRestaurantId" placeholder="Enter Restaurant ID" required> <br><br>
         PartySize: <input type="number" id="insertPartySize" placeholder="Enter Party Size" required> <br><br>
@@ -106,23 +106,46 @@
 
         <button type="submit"> insert </button> <br>
     </form>
-    <div id="insertReservationResultMsg"></div>
+    <div id="insertionQueryResultMsg"></div>
 
     <br><hr><br> <!-- ========================================================================= -->
 
     <h2> Select Attraction </h2>
-    <form id="selectAttraction">
+    <form id="selectionQuery">
         WhereClause: <input type="text" id="insertWhereClause" placeholder="Enter Where Clause" required> <br><br>
 
         <button type="submit"> select </button> <br>
     </form>
-    <div id="selectAttractionResultMsg"></div>
+    <div id="selectionQueryResultMsg"></div>
 
     <br><hr><br> <!-- ========================================================================= -->
 
     <h2> Find All Lands That Appear In All Disney Resorts</h2>
-    <button id="findAllLands"> find </button> <br>
-    <div id="findAllLandsResultMsg"></div>
+    <button id="divisionQuery"> find </button> <br>
+    <div id="divisionQueryResultMsg"></div>
+
+    <br><hr><br> <!-- ========================================================================= -->
+
+    <h2> Find the Number of Rides at a Theme Park For Each Minimum Height Less than a Certain Height</h2>
+    <form id="aggregateWithHavingQuery">
+        ThemeParkId: <input type="number" id="insertThemeParkId" placeholder="Enter Theme Park ID" required> <br><br>
+        Height: <input type="number" id="insertHeight" placeholder="Enter Height" required> <br><br>
+
+        <button type="submit"> select </button> <br>
+    </form>
+
+    <table id="aggregateWithHavingQueryTable" border="1">
+        <thead>
+            <tr>
+                <th>MinimumHeight</th>
+                <th>Count</th>
+            </tr>
+        </thead>
+        <tbody>
+        </tbody>
+    </table>
+
+    <div id="aggregateWithHavingQueryResultMsg"></div>
 
     <!-- ===================================================================================== -->
     <!-- External JavaScript file that contains the functionality/logic for the operations above. -->
