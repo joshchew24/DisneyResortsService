@@ -3,6 +3,7 @@ const appService = require('./service/appService');
 const databaseService = require('./service/databaseService');
 const reservationService = require('./service/reservationService');
 const landsService = require('./service/landsService');
+const themeParkService = require('./service/themeParkService');
 const attractionService = require('./service/attractionService');
 const router = express.Router();
 
@@ -107,6 +108,20 @@ router.get('/find-lands-that-appear-in-all-disney-resorts', async (req, res) => 
         res.json({
             success: true,
             result: lands
+        });
+    } else {
+        res.status(500).json({ success: false });
+    }
+});
+
+router.get("/find-number-of-rides-at-theme-park-with-minimum-height-less-than-or-equal-to-height", async (req, res) => {
+    const themeParkId = req.query.themeParkId;
+    const height = req.query.height;
+    const tableContent = await themeParkService.findNumberOfRidesAtThemeParkWithMinimumHeightLessThanOrEqualToHeight(themeParkId, height);
+    if (tableContent) {
+        res.json({
+            success: true,
+            result: tableContent
         });
     } else {
         res.status(500).json({ success: false });

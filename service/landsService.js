@@ -16,7 +16,6 @@ async function findLandsInAllDisneyResorts() {
             `
         ;
         const result = await connection.execute(query);
-        result.rows
         return result.rows;
     }).catch(() => {
         return -1;

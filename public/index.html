@@ -6,7 +6,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
     <!-- Link to the external CSS stylesheet. Uncomment if you wish to customize or add styling. -->
-    <link rel="stylesheet" href="styles.css">  
+    <link rel="stylesheet" href="styles.css">
 
     <title>Database Application</title>
 </head>
@@ -97,7 +97,7 @@
     <br><hr><br> <!-- ========================================================================= -->
 
     <h2> Insert Reservation </h2>
-    <form id="insertReservation">
+    <form id="insertionQuery">
         AccountId: <input type="number" id="insertAccountId" placeholder="Enter Account ID" required> <br><br>
         RestaurantId: <input type="number" id="insertRestaurantId" placeholder="Enter Restaurant ID" required> <br><br>
         PartySize: <input type="number" id="insertPartySize" placeholder="Enter Party Size" required> <br><br>
@@ -106,26 +106,31 @@
 
         <button type="submit"> insert </button> <br>
     </form>
-    <div id="insertReservationResultMsg"></div>
+    <div id="insertionQueryResultMsg"></div>
 
     <br><hr><br> <!-- ========================================================================= -->
 
     <h2> Select Attraction </h2>
+    <form id="selectionQuery">
+        WhereClause: <input type="text" id="insertWhereClause" placeholder="Enter Where Clause" required> <br><br>
     <form id="selectAttraction">
         <!-- Container for dynamic input boxes -->
         <div id="inputContainer">
             <!-- <input type="text" id="insertWhereClause_0" placeholder="Enter Where Clause" required> -->
         </div>
 
+        <button type="submit"> select </button> <br>
+    </form>
+    <div id="selectionQueryResultMsg"></div>
         <!-- Button to add more input boxes -->
         <button id="addInputButton" type="button"> Add Input Box </button>
-        
+
         <!-- Button to delete input boxes -->
         <button id="removeInputButton" type="button"> Delete Input Box </button> <br><br>
 
         <!-- Submit button for the form -->
         <button id="selectAttractionButton" type="button"> select </button> <br><br>
-    </form>    
+    </form>
 
     <table id="selectAttractionTable" border="1">
         <thead>
@@ -145,8 +150,31 @@
     <br><hr><br> <!-- ========================================================================= -->
 
     <h2> Find All Lands That Appear In All Disney Resorts</h2>
-    <button id="findAllLands"> find </button> <br>
-    <div id="findAllLandsResultMsg"></div>
+    <button id="divisionQuery"> find </button> <br>
+    <div id="divisionQueryResultMsg"></div>
+
+    <br><hr><br> <!-- ========================================================================= -->
+
+    <h2> Find the Number of Rides at a Theme Park For Each Minimum Height Less than a Certain Height</h2>
+    <form id="aggregateWithHavingQuery">
+        ThemeParkId: <input type="number" id="insertThemeParkId" placeholder="Enter Theme Park ID" required> <br><br>
+        Height: <input type="number" id="insertHeight" placeholder="Enter Height" required> <br><br>
+
+        <button type="submit"> select </button> <br>
+    </form>
+
+    <table id="aggregateWithHavingQueryTable" border="1">
+        <thead>
+            <tr>
+                <th>MinimumHeight</th>
+                <th>Count</th>
+            </tr>
+        </thead>
+        <tbody>
+        </tbody>
+    </table>
+
+    <div id="aggregateWithHavingQueryResultMsg"></div>
 
     <!-- ===================================================================================== -->
     <!-- External JavaScript file that contains the functionality/logic for the operations above. -->
