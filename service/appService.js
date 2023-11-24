@@ -75,9 +75,9 @@ async function initiateDemotable() {
 }
 
 async function insertDemotable(id, name) {
-    
+
     return await withOracleDB(async (connection) => {
-        console.log(`${id}`); //printout the id para 
+        console.log(`${id}`); //printout the id para
         console.log("inside insert demotable in AppService");
         const result = await connection.execute(
             `INSERT INTO DEMOTABLE (id, name) VALUES (:id, :name)`,
@@ -114,34 +114,6 @@ async function countDemotable() {
     });
 }
 
-async function insertReservation(accountId, restaurantId, partySize, date, time) {
-    return await withOracleDB(async (connection) => {
-        const dateTimeString = date + "T" + time + ":00";
-        let dateTime = new Date(Date.parse(dateTimeString));
-
-        const result = await connection.execute(
-            `INSERT INTO RESERVE VALUES (:accountId, :restaurantId, :partySize, :dateTime)`,
-            [accountId, restaurantId, partySize, dateTime],
-            { autoCommit: true }
-        );
-
-        return result.rowsAffected && result.rowsAffected > 0;
-    }).catch(() => {
-        return false;
-    });
-}
-
-async function selectAttraction(whereClause) {
-    return await withOracleDB(async (connection) => {
-        const query = 'SELECT * FROM IsPartOf WHERE ' + whereClause;
-        const result = await connection.execute(query);
-        console.log(`SelectAttraction Result: ${result.rows}`);
-        return result.rows;
-    }).catch(() => {
-        return -1;
-    });
-}
-
 //Celine:
 async function fetchafoodtableFromDb() {
     return await withOracleDB(async (connection) => {
@@ -159,7 +131,7 @@ async function fetchAllTablesFromDb() {
         return await withOracleDB(async (connection) => {
             const result = await connection.execute(`select table_name from user_tables`);
             console.log("Successful");  // Log before returning
-            return result.rows; 
+            return result.rows;
         });
     } catch (error) {
         console.error('Error fetching tables:', error);
@@ -173,7 +145,7 @@ async function fetchMyTableFromDb(myOption) {
         return await withOracleDB(async (connection) => {
             const result = await connection.execute(`select * from ` + myOption);
             console.log("Successful");  // Log before returning
-            return result.rows; 
+            return result.rows;
         });
     } catch (error) {
         console.error('Error fetching tables:', error);
@@ -186,12 +158,9 @@ module.exports = {
     fetchDemotableFromDb,
     initiateDemotable, 
     insertDemotable,
-    insertReservation,
     updateNameDemotable, 
     countDemotable,
-    selectAttraction,
     withOracleDB,
-    countDemotable,
     fetchafoodtableFromDb,
     fetchAllTablesFromDb,
     fetchMyTableFromDb,

@@ -13,6 +13,9 @@
  */
 
 
+let selectAttractionInputCount = 0;
+
+
 // This function checks the database connection and updates its status on the frontend.
 async function checkDbConnection() {
     const statusElem = document.getElementById('dbStatus');
@@ -28,12 +31,12 @@ async function checkDbConnection() {
     statusElem.style.display = 'inline';
 
     response.text()
-    .then((text) => {
-        statusElem.textContent = text;
-    })
-    .catch((error) => {
-        statusElem.textContent = 'connection timed out';  // Adjust error handling if required.
-    });
+        .then((text) => {
+            statusElem.textContent = text;
+        })
+        .catch((error) => {
+            statusElem.textContent = 'connection timed out';  // Adjust error handling if required.
+        });
 }
 
 // Fetches data from the demotable and displays it.
@@ -85,7 +88,7 @@ async function fetchAndDisplayAllTables() {
 
     // Loop through each table name and create an option element for it
     tableNames.forEach(tableName => {
-        const option = document.createElement('option'); //create an <option> element 
+        const option = document.createElement('option'); //create an <option> element
         option.value = tableName;
         option.textContent = tableName;
         dropdownElement.appendChild(option); //append to the dropdownElement
@@ -165,7 +168,7 @@ async function projectSelectedTable() {
     // Always clear old, already fetched data before new fetching process.
     if (tableBody) {
         tableBody.innerHTML = '';
-    } 
+    }
 
     myTableContent.forEach(user => {
         const row = tableBody.insertRow();
@@ -174,15 +177,15 @@ async function projectSelectedTable() {
             cell.textContent = field;
         });
     });
-    
+
     const messageElement = document.getElementById('projectSelectedTableResultMsg');
     if (responseData.success) {
         messageElement.textContent = "selected table projected successfully!";
     } else {
         messageElement.textContent = "selected table projected NOT successfully!";
     }
-   
-    
+
+
 }
 
 
@@ -323,7 +326,7 @@ async function insertReservation(event) {
     });
 
     const responseData = await response.json();
-    const messageElement = document.getElementById('insertReservationResultMsg');
+    const messageElement = document.getElementById('insertionQueryResultMsg');
 
     if (responseData.success) {
         messageElement.textContent = "Data inserted successfully!";
@@ -336,34 +339,69 @@ async function insertReservation(event) {
 // Selects attraction based on where clause
 async function selectAttraction(event) {
     event.preventDefault();
+    const tableElement = document.getElementById('selectAttractionTable');
+    const tableBody = tableElement.querySelector('tbody');
 
-    const whereClauseValue = document.getElementById('insertWhereClause').value;
+    var whereClauseValue = "";
 
-    const response = await fetch(`/select-attraction?where=${whereClauseValue}`, {
-        method: 'GET'
-    });
+    let isValid = true;
 
-    const responseData = await response.json();
-    const messageElement = document.getElementById('selectAttractionResultMsg');
+    for (let i = 1; i <= selectAttractionInputCount; ++i) {
+        var inputDropDown = document.getElementById('inputDropDown_' + i);
+        var inputValue = inputDropDown.options[inputDropDown.selectedIndex].value;
 
-    if (responseData.success) {
-        const result = responseData.result;
-        messageElement.textContent = `These attractions are available: ${result.join(', ')}`;
+        var numValue = document.getElementById('numValue_' + i).value;
 
-    } else {
-        alert("Error in select Attraction!");
+        if (numValue.trim() === '') {
+            isValid = false;
+            alert('Please fill in all boxes.');
+        }
+
+        var dropDownValue = "";
+
+        if (i > 1) {
+            var dropDown = document.getElementById('dropDownInput_' + i);
+            dropDownValue = dropDown.options[dropDown.selectedIndex].value;
+        }
+
+        whereClauseValue += dropDownValue + " " + inputValue + "=" + numValue;
+    }
+
+    if (isValid) {
+        const response = await fetch(`/select-attraction?where=${whereClauseValue}`, {
+            method: 'GET'
+        });
+
+        const responseData = await response.json();
+        const tableContent = responseData.result;
+
+        // Always clear old, already fetched data before new fetching process.
+        if (tableBody) {
+            tableBody.innerHTML = '';
+        }
+
+        tableContent.forEach(user => {
+            const row = tableBody.insertRow();
+            user.forEach((field, index) => {
+                const cell = row.insertCell(index);
+                cell.textContent = field;
+            });
+        });
+
+        if (!responseData.success) {
+            alert("Error in Division Query");
+        }
     }
 }
 
 // Finds all Lands that appear in all Disney Resorts
 async function findLandsInAllDisneyResorts() {
-    console.log("got here in script.js");
     const response = await fetch("/find-lands-that-appear-in-all-disney-resorts", {
         method: 'GET'
     });
 
     const responseData = await response.json();
-    const messageElement = document.getElementById('findAllLandsResultMsg');
+    const messageElement = document.getElementById('divisionQueryResultMsg');
 
     if (responseData.success) {
         messageElement.textContent = `The Lands that appear in all Disney Resorts: ${responseData.result}`;
@@ -372,11 +410,105 @@ async function findLandsInAllDisneyResorts() {
     }
 }
 
+// At a specific theme park, find the number of rides with minimumHeight <= x
+async function findNumberOfRidesAtThemeParkWithMinimumHeightLessThanOrEqualToHeight(event) {
+    event.preventDefault();
+    const tableElement = document.getElementById('aggregateWithHavingQueryTable');
+    const tableBody = tableElement.querySelector('tbody');
+
+    const themeParkIdValue = document.getElementById('insertThemeParkId').value;
+    const heightValue = document.getElementById('insertHeight').value;
+
+    const whereClause = `?themeParkId=${themeParkIdValue}&height=${heightValue}`;
+
+    const response = await fetch("/find-number-of-rides-at-theme-park-with-minimum-height-less-than-or-equal-to-height" + whereClause, {
+        method: 'GET'
+    });
+
+    const responseData = await response.json();
+
+    const tableContent = responseData.result;
+
+    // Always clear old, already fetched data before new fetching process.
+    if (tableBody) {
+        tableBody.innerHTML = '';
+    }
+
+    tableContent.forEach(user => {
+        const row = tableBody.insertRow();
+        user.forEach((field, index) => {
+            const cell = row.insertCell(index);
+            cell.textContent = field;
+        });
+    });
+
+    if (!responseData.success) {
+        alert("Error in Aggregate with Having Query");
+    }
+}
+
+async function addWhereClauseInput() {
+    selectAttractionInputCount++;
+
+    var inputOptions = ["ThemeParkId", "LandId", "AttractionId"];
+    var newInputDropDown = document.createElement('select');
+    newInputDropDown.id = "inputDropDown_" + selectAttractionInputCount;
+
+    for (var i = 0; i < inputOptions.length; i++) {
+        var option = document.createElement('option');
+        option.value = inputOptions[i];
+        option.text = inputOptions[i];
+        newInputDropDown.appendChild(option);
+    }
+
+    var numValue = document.createElement('input');
+    numValue.type = 'number';
+    numValue.id = "numValue_" + selectAttractionInputCount;
+    numValue.required = true;
+
+    var options = ["AND", "OR"];
+    var newDropdown = document.createElement('select');
+    newDropdown.id = "dropDownInput_" + selectAttractionInputCount;
+
+    for (var i = 0; i < options.length; i++) {
+        var option = document.createElement('option');
+        option.value = options[i];
+        option.text = options[i];
+        newDropdown.appendChild(option);
+    }
+
+    var container = document.getElementById('inputContainer');
+
+    if (selectAttractionInputCount > 1) {
+        container.appendChild(newDropdown);
+    }
+    container.appendChild(newInputDropDown);
+    container.appendChild(numValue);
+}
+
+async function removeWhereClauseInput() {
+    var container = document.getElementById('inputContainer');
+    var inputToRemove = document.getElementById('inputDropDown_' + selectAttractionInputCount);
+    var numToRemove = document.getElementById('numValue_' + selectAttractionInputCount);
+    var dropDownToRemove = document.getElementById('dropDownInput_' + selectAttractionInputCount);
+
+    if (inputToRemove && numToRemove) {
+        container.removeChild(inputToRemove);
+        container.removeChild(numToRemove);
+        selectAttractionInputCount--;
+    }
+
+    if (dropDownToRemove) {
+        container.removeChild(dropDownToRemove);
+    }
+}
+
 
 // ---------------------------------------------------------------
 // Initializes the webpage functionalities.
-// Add or remove event listeners based on the desired functionalities.
-window.onload = function() {
+// Add or remove event listeners based on the desired functionalities.88
+window.onload = function () {
+    selectAttractionInputCount = 0;
     checkDbConnection();
     fetchTableData();
     document.getElementById("resetDemotable").addEventListener("click", resetDemotable);
@@ -384,12 +516,14 @@ window.onload = function() {
     document.getElementById("updataNameDemotable").addEventListener("submit", updateNameDemotable);
     document.getElementById("updateReservation").addEventListener("submit", updateReservation);
     document.getElementById("countDemotable").addEventListener("click", countDemotable);
-    document.getElementById("insertReservation").addEventListener("submit", insertReservation);
-    document.getElementById("selectAttraction").addEventListener("submit", selectAttraction);
-    document.getElementById("findAllLands").addEventListener("click", findLandsInAllDisneyResorts);
+    document.getElementById("insertionQuery").addEventListener("submit", insertReservation);
+    document.getElementById("selectAttractionButton").addEventListener("click", selectAttraction);
+    document.getElementById("divisionQuery").addEventListener("click", findLandsInAllDisneyResorts);
+    document.getElementById("aggregateWithHavingQuery").addEventListener("submit", findNumberOfRidesAtThemeParkWithMinimumHeightLessThanOrEqualToHeight);
+    document.getElementById("addInputButton").addEventListener("click", addWhereClauseInput);
+    document.getElementById("removeInputButton").addEventListener("click", removeWhereClauseInput);
     document.getElementById('projectButton').addEventListener('click', projectFoodtable); //Celine: projection
     document.getElementById('projectButtonNew').addEventListener('click', projectSelectedTable); //Celine: projection
-    
 };
 
 // ---------------------------------------------------------------

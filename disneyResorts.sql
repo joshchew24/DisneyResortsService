@@ -297,6 +297,14 @@ INSERT INTO Attraction VALUES (7, '"Believe...In Holiday Magic" Fireworks Specta
 INSERT INTO Attraction VALUES (8, 'A Christmas Fantasy Parade');
 INSERT INTO Attraction VALUES (9, 'Disney Junior Dance Party!');
 INSERT INTO Attraction VALUES (10, 'Fireworks at Disneyland Park');
+INSERT INTO Attraction VALUES (11, 'Star Wars: Millennium Falcon - Smugglers Run');
+INSERT INTO Attraction VALUES (12, 'Star Wars: Rise of the Resistance');
+INSERT INTO Attraction VALUES (13, 'Alice in Wonderland');
+INSERT INTO Attraction VAlUES (14, 'Casey Jr. Circus Train');
+INSERT INTO Attraction VAlUES (15, 'Dumbo the Flying Elephant');
+INSERT INTO Attraction VAlUES (16, 'Peter Pan''s Flight');
+INSERT INTO Attraction VAlUES (17, 'It''s a Small World');
+
 
 INSERT INTO IsPartOf VALUES (1, 5, 1);
 INSERT INTO IsPartOf VALUES (1, 5, 5);
@@ -304,6 +312,13 @@ INSERT INTO IsPartOf VALUES (1, 3, 3);
 INSERT INTO IsPartOf VALUES (1, 6, 4);
 INSERT INTO IsPartOf VALUES (2, 11, 2);
 INSERT INTO IsPartOf VALUES (3, 7, 1);
+INSERT INTO IsPartOf VALUES (1, 9, 11);
+INSERT INTO IsPartOf VALUES (1, 9, 12);
+INSERT INTO IsPartOf VALUES (1, 4, 13);
+INSERT INTO IsPartOf VALUES (1, 4, 14);
+INSERT INTO IsPartOf VALUES (1, 4, 15);
+INSERT INTO IsPartOf VALUES (1, 4, 16);
+INSERT INTO IsPartOf VALUES (1, 4, 17);
 
 INSERT INTO RideTypeMinimumHeight VALUES (122, 'Big Drops');
 INSERT INTO RideTypeMinimumHeight VALUES (117, 'Medium Drops');
@@ -316,6 +331,13 @@ INSERT INTO RideAvgWaitTime VALUES (2, 122, 50);
 INSERT INTO RideAvgWaitTime VALUES (3, 102, 35);
 INSERT INTO RideAvgWaitTime VALUES (4, 0, 40);
 INSERT INTO RideAvgWaitTime VALUES (5, 0, 25);
+INSERT INTO RideAvgWaitTime VALUES (11, 102, 80);
+INSERT INTO RideAvgWaitTime VALUES (12, 102, 80);
+INSERT INTO RideAvgWaitTime VALUES (13, 0, 25);
+INSERT INTO RideAvgWaitTime VALUES (14, 0, 35);
+INSERT INTO RideAvgWaitTime VALUES (15, 0, 10);
+INSERT INTO RideAvgWaitTime VALUES (16, 0, 45);
+INSERT INTO RideAvgWaitTime VALUES (17, 0, 60);
 
 INSERT INTO Event_ VALUES (6, 'Show');
 INSERT INTO Event_ VALUES (7, 'Fireworks');

@@ -6,7 +6,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
     <!-- Link to the external CSS stylesheet. Uncomment if you wish to customize or add styling. -->
-    <link rel="stylesheet" href="styles.css">  
+    <link rel="stylesheet" href="styles.css">
 
     <title>Database Application</title>
 </head>
@@ -61,8 +61,8 @@
     <br><hr><br> <!-- ========================================================================= -->
     <p> After the table is picked from above dropdown, it will be displayed here :) </p>
     <h2> <div id="displayText"> </div> </h2>
-    
-    
+
+
     <table id="selectedTable" border="1">
         <thead>
             <tr>
@@ -73,9 +73,9 @@
         <tbody>
         </tbody>
     </table>
-    
+
     <button id="projectButtonNew" type="button">Project</button> <br> <br>
-    
+
     <div id="projectSelectedTableResultMsg"></div>
 
     <div>
@@ -86,7 +86,7 @@
 
     <h2> Project Food Table </h2>
     <p> This is the draft for projection, a food table will be displayed here </p>
-    
+
     <table id="foodTable" border="1">
         <thead>
             <tr>
@@ -97,16 +97,16 @@
         <tbody>
         </tbody>
     </table>
-    
+
     <button id="projectButton" type="button">Project</button> <br> <br>
     <button id="deleteLastItem" type="button">Delete</button> <br>
-    
+
     <div id="insertResultMsg"></div>
 
     <div>
 
     </div>
-    
+
     <br><hr><br> <!-- ========================================================================= -->
 
     <h2> Insert Values into DemoTable </h2>
@@ -133,6 +133,27 @@
 
     <br><hr><br> <!-- ========================================================================= -->
 
+    <h2>Count the Tuples in DemoTable</h2>
+    <button id="countDemotable"> count </button> <br><br>
+    <!-- A placeholder to display the count result. -->
+    <div id="countResultMsg"></div> <br>
+
+    <br><hr><br> <!-- ========================================================================= -->
+
+    <h2> Insert Reservation </h2>
+    <form id="insertionQuery">
+        AccountId: <input type="number" id="insertAccountId" placeholder="Enter Account ID" required> <br><br>
+        RestaurantId: <input type="number" id="insertRestaurantId" placeholder="Enter Restaurant ID" required> <br><br>
+        PartySize: <input type="number" id="insertPartySize" placeholder="Enter Party Size" required> <br><br>
+        Date: <input type="date" id="insertDate" placeholder="Enter Date" required> <br><br>
+        Time: <input type="time" id="insertTime" placeholder="Enter Time" required> <br><br>
+
+        <button type="submit"> insert </button> <br>
+    </form>
+    <div id="insertionQueryResultMsg"></div>
+
+    <br><hr><br> <!-- ========================================================================= -->
+
     <h2>Update Reservation</h2>
     <p>The values are case sensitive and if you enter in the wrong case, the update statement will not do anything.</p>
     <form id="updateReservation">
@@ -149,40 +170,62 @@
 
     <br><hr><br> <!-- ========================================================================= -->
 
-    <h2>Count the Tuples in DemoTable</h2>
-    <button id="countDemotable"> count </button> <br><br>
-    <!-- A placeholder to display the count result. -->
-    <div id="countResultMsg"></div> <br>
-
-    <br><hr><br> <!-- ========================================================================= -->
-
-    <h2> Insert Reservation </h2>
-    <form id="insertReservation">
-        AccountId: <input type="number" id="insertAccountId" placeholder="Enter Account ID" required> <br><br>
-        RestaurantId: <input type="number" id="insertRestaurantId" placeholder="Enter Restaurant ID" required> <br><br>
-        PartySize: <input type="number" id="insertPartySize" placeholder="Enter Party Size" required> <br><br>
-        Date: <input type="date" id="insertDate" placeholder="Enter Date" required> <br><br>
-        Time: <input type="time" id="insertTime" placeholder="Enter Time" required> <br><br>
-
-        <button type="submit"> insert </button> <br>
-    </form>
-    <div id="insertReservationResultMsg"></div>
-
-    <br><hr><br> <!-- ========================================================================= -->
-
     <h2> Select Attraction </h2>
-    <form id="selectAttraction">
-        WhereClause: <input type="text" id="insertWhereClause" placeholder="Enter Where Clause" required> <br><br>
+    <form id="selectionQuery">
+    <div id="inputContainer"></div>
+        <!-- Button to add more input boxes -->
+        <button id="addInputButton" type="button"> Add Input Box </button>
 
-        <button type="submit"> select </button> <br>
+        <!-- Button to delete input boxes -->
+        <button id="removeInputButton" type="button"> Delete Input Box </button> <br><br>
+
+        <!-- Submit button for the form -->
+        <button id="selectAttractionButton" type="button"> select </button> <br><br>
     </form>
+
+    <table id="selectAttractionTable" border="1">
+        <thead>
+            <tr>
+                <!--Table head, need to be adjusted accordingly to align with your own.-->
+                <th>ThemeParkId</th>
+                <th>LandId</th>
+                <th>AttractionId</th>
+            </tr>
+        </thead>
+        <tbody>
+        </tbody>
+    </table>
+
     <div id="selectAttractionResultMsg"></div>
 
     <br><hr><br> <!-- ========================================================================= -->
 
     <h2> Find All Lands That Appear In All Disney Resorts</h2>
-    <button id="findAllLands"> find </button> <br>
-    <div id="findAllLandsResultMsg"></div>
+    <button id="divisionQuery"> find </button> <br>
+    <div id="divisionQueryResultMsg"></div>
+
+    <br><hr><br> <!-- ========================================================================= -->
+
+    <h2> Find the Number of Rides at a Theme Park For Each Minimum Height Less than a Certain Height</h2>
+    <form id="aggregateWithHavingQuery">
+        ThemeParkId: <input type="number" id="insertThemeParkId" placeholder="Enter Theme Park ID" required> <br><br>
+        Height: <input type="number" id="insertHeight" placeholder="Enter Height" required> <br><br>
+
+        <button type="submit"> select </button> <br>
+    </form>
+
+    <table id="aggregateWithHavingQueryTable" border="1">
+        <thead>
+            <tr>
+                <th>MinimumHeight</th>
+                <th>Count</th>
+            </tr>
+        </thead>
+        <tbody>
+        </tbody>
+    </table>
+
+    <div id="aggregateWithHavingQueryResultMsg"></div>
 
     <!-- ===================================================================================== -->
     <!-- External JavaScript file that contains the functionality/logic for the operations above. -->

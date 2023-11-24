@@ -15,12 +15,7 @@ async function findLandsInAllDisneyResorts() {
             WHERE C.themeParkId = T.themeParkId AND TN.name = T.name)
             `
         ;
-
-        console.log(`Query: ${query}`);
         const result = await connection.execute(query);
-
-        console.log(`findLandsInAllDisneyResorts Result: ${result.rows}`);
-        result.rows
         return result.rows;
     }).catch(() => {
         return -1;
