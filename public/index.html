@@ -6,7 +6,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
     <!-- Link to the external CSS stylesheet. Uncomment if you wish to customize or add styling. -->
-    <!-- <link rel="stylesheet" href="styles.css">   -->
+    <link rel="stylesheet" href="styles.css">
 
     <title>Database Application</title>
 </head>
@@ -112,11 +112,31 @@
 
     <h2> Select Attraction </h2>
     <form id="selectionQuery">
-        WhereClause: <input type="text" id="insertWhereClause" placeholder="Enter Where Clause" required> <br><br>
+    <div id="inputContainer"></div>
+        <!-- Button to add more input boxes -->
+        <button id="addInputButton" type="button"> Add Input Box </button>
 
-        <button type="submit"> select </button> <br>
+        <!-- Button to delete input boxes -->
+        <button id="removeInputButton" type="button"> Delete Input Box </button> <br><br>
+
+        <!-- Submit button for the form -->
+        <button id="selectAttractionButton" type="button"> select </button> <br><br>
     </form>
-    <div id="selectionQueryResultMsg"></div>
+
+    <table id="selectAttractionTable" border="1">
+        <thead>
+            <tr>
+                <!--Table head, need to be adjusted accordingly to align with your own.-->
+                <th>ThemeParkId</th>
+                <th>LandId</th>
+                <th>AttractionId</th>
+            </tr>
+        </thead>
+        <tbody>
+        </tbody>
+    </table>
+
+    <div id="selectAttractionResultMsg"></div>
 
     <br><hr><br> <!-- ========================================================================= -->
 
