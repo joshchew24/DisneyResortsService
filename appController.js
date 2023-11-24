@@ -128,7 +128,48 @@ router.get("/find-number-of-rides-at-theme-park-with-minimum-height-less-than-or
     }
 });
 
-router.get("")
+//Celine
 
+router.get('/project-foodtable', async (req, res) => {
+    const tableContent = await appService.fetchafoodtableFromDb();
+    res.json({data: tableContent});
+});
+
+
+//Celine
+router.get('/project-allTableDropdown', async (req, res) => {
+    const tableContent = await appService.fetchAllTablesFromDb();
+    res.json({data: tableContent});
+});
+
+
+//Celine
+router.get('/project-selectedTable', async (req, res) => {
+    const myOption = req.query.selectedOption;
+    const tableContent = await appService.fetchMyTableFromDb(myOption);
+
+    if (tableContent) {
+        res.json({
+            success: true,
+            result: tableContent
+        });
+    } else {
+        res.status(500).json({ success: false });
+    }
+});
+
+router.get('/selectedTable-description', async (req, res) => {
+    const myOption = req.query.selectedOption;
+    const tableContent = await appService.fetchMyTableDescription(myOption);
+
+    if (tableContent) {
+        res.json({
+            success: true,
+            result: tableContent
+        });
+    } else {
+        res.status(500).json({ success: false });
+    }
+});
 
 module.exports = router;

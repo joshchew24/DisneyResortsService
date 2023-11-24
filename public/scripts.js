@@ -65,6 +65,37 @@ async function fetchAndDisplayUsers() {
     });
 }
 
+// Celine: This fuction fetches all the table name from db and displays it in the dropdwon options.
+async function fetchAndDisplayAllTables() {
+
+    const dropdownElement = document.getElementById('myDropdown')
+
+    //fetch is fetching from appController.js
+    const response = await fetch('/project-allTableDropdown', {
+        method: 'GET'
+    });
+
+
+    const responseData = await response.json();
+    const tableNames = responseData.data; //responseData.data is an array of table names
+
+    // Clear old options before adding new ones
+    if (dropdownElement) {
+        dropdownElement.innerHTML = '';
+    }
+
+    // Loop through each table name and create an option element for it
+    tableNames.forEach(tableName => {
+        const option = document.createElement('option'); //create an <option> element
+        option.value = tableName;
+        option.textContent = tableName;
+        dropdownElement.appendChild(option); //append to the dropdownElement
+    });
+}
+
+
+
+
 // This function resets or initializes the demotable.
 async function resetDemotable() {
     const response = await fetch("/initiate-demotable", {
@@ -80,6 +111,93 @@ async function resetDemotable() {
         alert("Error initiating table!");
     }
 }
+
+// Celine: This function fetches data from the database and displayes into the foodtable.
+
+async function projectFoodtable() {
+    const tableElement = document.getElementById('foodTable');
+    const tableBody = tableElement.querySelector('tbody');
+
+    //fetch is fetching from appController.js
+    const response = await fetch('/project-foodtable', {
+        method: 'GET'
+    });
+
+    const responseData = await response.json();
+    const demotableContent = responseData.data;
+
+    // Always clear old, already fetched data before new fetching process.
+    if (tableBody) {
+        tableBody.innerHTML = '';
+    }
+
+    demotableContent.forEach(user => {
+        const row = tableBody.insertRow();
+        user.forEach((field, index) => {
+            const cell = row.insertCell(index);
+            cell.textContent = field;
+        });
+    });
+}
+
+// Celine: This function fetches data from the database and displayes the selected table.
+
+async function projectSelectedTable() {
+    const dropdownElement = document.getElementById('myDropdown');
+    const selectedOption = dropdownElement.value; // Get the selected value from the dropdown
+
+    const tableElement = document.getElementById('selectedTable');
+    const tableRow = tableElement.querySelector('tr');
+    const tableBody = tableElement.querySelector('tbody');
+
+    const tableDescriptionResponse = await fetch(`/selectedTable-description?selectedOption=${selectedOption}`, {
+        method: 'GET'
+    });
+
+    const tableDescriptionResponseData = await tableDescriptionResponse.json();
+    const tableRowContent = tableDescriptionResponseData.result;
+
+    if (tableRow) {
+        tableRow.innerHTML = '';
+    }
+
+    tableRowContent.forEach((field, index) => {
+        const cell = tableRow.insertCell(index);
+        cell.textContent = field;
+    });
+
+    //fetch is fetching from appController.js
+    const projectSelectedTableResponse = await fetch(`/project-selectedTable?selectedOption=${selectedOption}`, {
+        method: 'GET'
+    });
+
+    const projectSelectedTableResponseData = await projectSelectedTableResponse.json();
+    const myTableContent = projectSelectedTableResponseData.result;
+
+    // Always clear old, already fetched data before new fetching process.
+    if (tableBody) {
+        tableBody.innerHTML = '';
+    }
+
+    myTableContent.forEach(user => {
+        const row = tableBody.insertRow();
+        user.forEach((field, index) => {
+            const cell = row.insertCell(index);
+            cell.textContent = field;
+        });
+    });
+
+    const messageElement = document.getElementById('projectSelectedTableResultMsg');
+    if (projectSelectedTableResponseData.success) {
+        messageElement.textContent = "selected table projected successfully!";
+    } else {
+        messageElement.textContent = "selected table projected NOT successfully!";
+    }
+
+
+}
+
+
 
 // Inserts new records into the demotable.
 async function insertDemotable(event) {
@@ -413,10 +531,20 @@ window.onload = function () {
     document.getElementById("aggregateWithHavingQuery").addEventListener("submit", findNumberOfRidesAtThemeParkWithMinimumHeightLessThanOrEqualToHeight);
     document.getElementById("addInputButton").addEventListener("click", addWhereClauseInput);
     document.getElementById("removeInputButton").addEventListener("click", removeWhereClauseInput);
+    document.getElementById('projectButton').addEventListener('click', projectFoodtable); //Celine: projection
+    document.getElementById('projectButtonNew').addEventListener('click', projectSelectedTable); //Celine: projection
 };
+
+// ---------------------------------------------------------------
+// Added funcitons by Celine
+document.getElementById('myDropdown').addEventListener('change', function () {
+    var selectedOption = this.value;
+    document.getElementById('displayText').textContent = selectedOption;
+});
 
 // General function to refresh the displayed table data. 
 // You can invoke this after any table-modifying operation to keep consistency.
 function fetchTableData() {
     fetchAndDisplayUsers();
+    fetchAndDisplayAllTables();
 }
