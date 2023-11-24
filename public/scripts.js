@@ -408,7 +408,7 @@ window.onload = function () {
     document.getElementById("updateReservation").addEventListener("submit", updateReservation);
     document.getElementById("countDemotable").addEventListener("click", countDemotable);
     document.getElementById("insertionQuery").addEventListener("submit", insertReservation);
-    document.getElementById("selectionQuery").addEventListener("submit", selectAttraction);
+    document.getElementById("selectAttractionButton").addEventListener("click", selectAttraction);
     document.getElementById("divisionQuery").addEventListener("click", findLandsInAllDisneyResorts);
     document.getElementById("aggregateWithHavingQuery").addEventListener("submit", findNumberOfRidesAtThemeParkWithMinimumHeightLessThanOrEqualToHeight);
     document.getElementById("addInputButton").addEventListener("click", addWhereClauseInput);
