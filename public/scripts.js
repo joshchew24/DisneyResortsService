@@ -103,11 +103,13 @@ async function projectSelectedTable() {
         tableRow.innerHTML = '';
     }
 
+    //title
     tableRowContent.forEach((field, index) => {
         const cell = tableRow.insertCell(index);
         cell.textContent = field;
     });
-
+    
+    
     //fetch is fetching from appController.js
     const projectSelectedTableResponse = await fetch(`/project-selectedTable?selectedOption=${selectedOption}`, {
         method: 'GET'
@@ -126,6 +128,11 @@ async function projectSelectedTable() {
         user.forEach((field, index) => {
             const cell = row.insertCell(index);
             cell.textContent = field;
+        });
+
+        // Attach click event listener to the row
+        row.addEventListener('click', function() {
+        this.classList.toggle('selected');
         });
     });
 
@@ -394,6 +401,7 @@ window.onload = function () {
     document.getElementById("addInputButton").addEventListener("click", addWhereClauseInput);
     document.getElementById("removeInputButton").addEventListener("click", removeWhereClauseInput);
     document.getElementById('projectButtonNew').addEventListener('click', projectSelectedTable); //Celine: projection
+    
 };
 
 // ---------------------------------------------------------------
@@ -401,6 +409,16 @@ window.onload = function () {
 document.getElementById('myDropdown').addEventListener('change', function () {
     var selectedOption = this.value;
     document.getElementById('displayText').textContent = selectedOption;
+});
+
+document.getElementById('deleteButton').addEventListener('click', function() {
+    const selectedRow = document.querySelector('tr.selected');
+    if (selectedRow) {
+        selectedRow.remove();
+        // TODO!!!! send a request to the server to delete the data from the database.
+    } else {
+        alert('Please select a row to delete');
+    }
 });
 
 // General function to refresh the displayed table data. 
