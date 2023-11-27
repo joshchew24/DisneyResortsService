@@ -89,10 +89,11 @@ async function fetchMyTableFromDb(myOption) {
     }
 }
 
-async function deleteItemFromDb(idToDelete){
+//Celine can't figure this out TT
+async function deleteItemFromDb(idToDelete, idColumn, myOption){
     try {
         return await withOracleDB(async (connection) => {
-            const query = `DELETE FROM your_table_name WHERE id = :id`; // Replace 'your_table_name' and 'id' with your actual table name and column name
+            const query = `DELETE FROM ${myOption} WHERE ${idColumn} = :id`;
             const result = await connection.execute(query, [idToDelete], { autoCommit: true });
 
             return result;

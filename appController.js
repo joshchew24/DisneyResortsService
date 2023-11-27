@@ -128,8 +128,10 @@ router.get('/selectedTable-description', async (req, res) => {
 
 router.delete('/deleteFromDb', async (req, res) => {
     try {
+        const myOption = req.query.selectedOption;
+        const idColumn = req.query.idColumn;
         const idToDelete = req.body.id; // Get the ID from the request body
-        await appService.deleteItemFromDb(idToDelete); // Replace with your actual function to delete the item
+        await appService.deleteItemFromDb(idToDelete,myOption); // Replace with your actual function to delete the item
 
         res.json({ success: true, message: 'Item deleted successfully' });
     } catch (error) {

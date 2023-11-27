@@ -394,7 +394,11 @@ async function deleteRow() {
             headers: {
                 'Content-Type': 'application/json'
             },
-            body: JSON.stringify({ id: dataIdToDelete })
+            body: JSON.stringify({
+                id: dataIdToDelete,
+                myOption: myOption, 
+                idColumn: idColumn // The ID column name
+             })
         });
 
     } else {
