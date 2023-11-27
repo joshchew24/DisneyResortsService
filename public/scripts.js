@@ -384,6 +384,24 @@ async function removeWhereClauseInput() {
 }
 
 
+async function deleteRow() {
+    const selectedRow = document.querySelector('tr.selected');
+    if (selectedRow) {
+        selectedRow.remove();
+        
+        const response = await fetch("/deleteFromDb", {
+            method: 'DELETE',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({ id: dataIdToDelete })
+        });
+
+    } else {
+        alert('Please select a row to delete');
+    }
+}
+
 // ---------------------------------------------------------------
 // Initializes the webpage functionalities.
 // Add or remove event listeners based on the desired functionalities.88
@@ -401,6 +419,7 @@ window.onload = function () {
     document.getElementById("addInputButton").addEventListener("click", addWhereClauseInput);
     document.getElementById("removeInputButton").addEventListener("click", removeWhereClauseInput);
     document.getElementById('projectButtonNew').addEventListener('click', projectSelectedTable); //Celine: projection
+    document.getElementById('deleteButton').addEventListener('click', deleteRow); //Celine: deleteRow
     
 };
 
@@ -411,15 +430,8 @@ document.getElementById('myDropdown').addEventListener('change', function () {
     document.getElementById('displayText').textContent = selectedOption;
 });
 
-document.getElementById('deleteButton').addEventListener('click', function() {
-    const selectedRow = document.querySelector('tr.selected');
-    if (selectedRow) {
-        selectedRow.remove();
-        // TODO!!!! send a request to the server to delete the data from the database.
-    } else {
-        alert('Please select a row to delete');
-    }
-});
+
+
 
 // General function to refresh the displayed table data. 
 // You can invoke this after any table-modifying operation to keep consistency.

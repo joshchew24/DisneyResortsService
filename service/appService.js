@@ -89,10 +89,25 @@ async function fetchMyTableFromDb(myOption) {
     }
 }
 
+async function deleteItemFromDb(idToDelete){
+    try {
+        return await withOracleDB(async (connection) => {
+            const query = `DELETE FROM your_table_name WHERE id = :id`; // Replace 'your_table_name' and 'id' with your actual table name and column name
+            const result = await connection.execute(query, [idToDelete], { autoCommit: true });
+
+            return result;
+        });
+    } catch (error) {
+        console.error('Error delete item:', error);
+        return [];  // Return an empty array in case of an error
+    }
+}
+
 module.exports = {
     withOracleDB,
     testOracleConnection,
     fetchAllTablesFromDb,
     fetchMyTableFromDb,
     fetchMyTableDescription,
+    deleteItemFromDb,
 };
