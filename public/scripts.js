@@ -69,9 +69,24 @@ async function fetchAndDisplayAllTables() {
 
 // Celine: This function fetches data from the database and displayes the selected table.
 
+async function resetDatabase() {
+    const response = await fetch("/reset-database", {
+        method: 'POST'
+    });
+    const responseData = await response.json();
+
+    if (responseData.success) {
+        const messageElement = document.getElementById('resetDatabaseResultMsg');
+        messageElement.textContent = "database initiated successfully!";
+    } else {
+        alert("Error initiating database!");
+    }
+}
+
 async function projectSelectedTable() {
     const dropdownElement = document.getElementById('myDropdown');
     const selectedOption = dropdownElement.value; // Get the selected value from the dropdown
+
 
     const tableElement = document.getElementById('selectedTable');
     const tableRow = tableElement.querySelector('tr');
@@ -369,6 +384,8 @@ window.onload = function () {
     selectAttractionInputCount = 0;
     checkDbConnection();
     fetchTableData();
+
+    document.getElementById("resetDatabase").addEventListener("click", resetDatabase);
     document.getElementById("updateReservation").addEventListener("submit", updateReservation);
     document.getElementById("insertionQuery").addEventListener("submit", insertReservation);
     document.getElementById("selectAttractionButton").addEventListener("click", selectAttraction);

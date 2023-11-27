@@ -90,8 +90,8 @@ async function fetchMyTableFromDb(myOption) {
 }
 
 module.exports = {
-    testOracleConnection,
     withOracleDB,
+    testOracleConnection,
     fetchAllTablesFromDb,
     fetchMyTableFromDb,
     fetchMyTableDescription,

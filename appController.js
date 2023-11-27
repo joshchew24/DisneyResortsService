@@ -30,9 +30,19 @@ router.post("/update-reservation", async (req, res) => {
     }
 });
 
+router.post("/reset-database", async (req, res) => {
+    const resetResult = await databaseService.resetDatabase();
+    if (resetResult) {
+        res.json({ success: true });
+    } else {
+        res.status(500).json({ success: false });
+    }
+});
+
 router.post("/insert-reservation", async (req, res) => {
     const { accountId, restaurantId, partySize, date, time } = req.body;
     const insertResult = await reservationService.insertReservation(accountId, restaurantId, partySize, date, time);
+
     if (insertResult) {
         res.json({ success: true });
     } else {
