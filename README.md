@@ -28,6 +28,9 @@ The domain of this application is the entertainment industry, specifically focus
       - `.\scripts\win\server-tunnel.cmd`
 
 ## Killing the Server
+try `ctrl + c` in the server shell process
+
+if you don't have access to the session, follow these steps:
 1. `ssh remote`
 2. `lsof -i`
 3. identify your server processes (name should match port specified when building server, command should be 'node')
