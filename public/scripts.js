@@ -380,7 +380,7 @@ async function findStoresInThemePark(event) {
     event.preventDefault();
 
     const themeParkId = document.getElementById('joinThemeParkId').value;
-
+    console.log(themeParkId);
     const response = await fetch('/find-stores?themeParkId=${themeParkId}', {
         method: 'GET'
     });
@@ -425,6 +425,7 @@ window.onload = function () {
     document.getElementById("addInputButton").addEventListener("click", addWhereClauseInput);
     document.getElementById("removeInputButton").addEventListener("click", removeWhereClauseInput);
     document.getElementById('projectButtonNew').addEventListener('click', projectSelectedTable); //Celine: projection
+    document.getElementById("findStoresButton").addEventListener("click", findStoresInThemePark);
 };
 
 // ---------------------------------------------------------------
