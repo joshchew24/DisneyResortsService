@@ -376,6 +376,37 @@ async function removeWhereClauseInput() {
     }
 }
 
+async function findStoresInThemePark(event) {
+    event.preventDefault();
+
+    const themeParkId = document.getElementById('joinThemeParkId').value;
+
+    const response = await fetch('/find-stores?themeParkId=${themeParkId}', {
+        method: 'GET'
+    });
+    
+    const responseData = await response.json();
+    const storeTuples = responseData.result;
+
+    const tableElement = document.getElementById('findStoresTable');
+    const tableBody = tableElement.querySelector('tbody');
+    // Always clear old, already fetched data before new fetching process.
+    if (tableBody) {
+        tableBody.innerHTML = '';
+    }
+
+    storeTuples.forEach((store) => {
+        const row = tableBody.insertRow();
+        store.forEach((field, index) => {
+            const cell = row.insertCell(index);
+            cell.textContent = field;
+        });
+    });
+
+    if (!responseData.success) {
+        alert("Error in Join Query");
+    }
+}
 
 // ---------------------------------------------------------------
 // Initializes the webpage functionalities.
