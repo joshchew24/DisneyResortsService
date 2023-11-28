@@ -5,6 +5,7 @@ const reservationService = require('./service/reservationService');
 const landsService = require('./service/landsService');
 const themeParkService = require('./service/themeParkService');
 const attractionService = require('./service/attractionService');
+const storeService = require('./service/storeService');
 const router = express.Router();
 
 // ----------------------------------------------------------
@@ -127,7 +128,16 @@ router.get('/selectedTable-description', async (req, res) => {
 });
 
 router.get('/find-stores', async (req, res) => {
-    const themeParkId = req.query.body;
-})
+    const themeParkId = req.query.themeParkId;
+    const findStoreResult = await storeService.getListOfStoresInThemePark(themeParkId);
+    if (findStoreResult) {
+        res.json({
+            success: true,
+            result: findStoreResult
+        });
+    } else {
+        res.status(500).json({ success: false });
+    }
+});
 
 module.exports = router;

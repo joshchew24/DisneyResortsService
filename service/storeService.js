@@ -14,3 +14,5 @@ async function getListOfStoresInThemePark(themeParkId) {
         console.log(result);
     });
 }
+
+module.exports = {getListOfStoresInThemePark};
