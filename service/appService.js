@@ -89,50 +89,6 @@ async function fetchMyTableFromDb(myOption) {
     }
 }
 
-//Celine can't figure this out TT (WRONG CODE for the projected table)
-async function deleteItemFromDb(idToDelete, idColumn, myOption){
-    try {
-        // Assuming 'Reservations' is your table name
-        const result = await appService.withOracleDB(async (connection) => {
-            return await connection.execute(
-                `
-                DELETE FROM Reserve 
-                WHERE accountId = :accountId AND restaurantId = :restaurantId
-                `,
-                [accountId, restaurantId],
-                { autoCommit: true }
-            );
-        });
-
-        return result; // Return the result of the deletion operation
-    } catch (error) {
-        console.error('Error delete item:', error);
-        return [];  // Return an empty array in case of an error
-    }
-}
-
-//Celine:
-async function deleteReservationFromDb(accountId, restaurantId){
-    try {
-        // Assuming 'Reservations' is your table name
-        const result = await appService.withOracleDB(async (connection) => {
-            return await connection.execute(
-                `
-                DELETE FROM Reserve 
-                WHERE accountId = :accountId AND restaurantId = :restaurantId
-                `,
-                [accountId, restaurantId],
-                { autoCommit: true }
-            );
-        });
-
-        return result; // Return the result of the deletion operation
-
-    } catch (error) {
-        console.error('Error delete item:', error);
-        return [];  // Return an empty array in case of an error
-    }
-}
 
 
 
@@ -142,6 +98,4 @@ module.exports = {
     fetchAllTablesFromDb,
     fetchMyTableFromDb,
     fetchMyTableDescription,
-    deleteItemFromDb,
-    deleteReservationFromDb,
 };

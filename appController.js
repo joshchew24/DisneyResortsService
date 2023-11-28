@@ -146,7 +146,7 @@ router.delete('/delete-reservation', async (req,res) => {
     try{
         const accountId = req.AccountId;
         const restaurantId = req.RestaurantId;
-        await appService.appService.deleteReservationFromDb(accountId,restaurantId);
+        await reservationService.deleteReservationFromDb(accountId,restaurantId);
 
         res.json({ sucess:true, message: 'Reservation deleted successfully' });
 

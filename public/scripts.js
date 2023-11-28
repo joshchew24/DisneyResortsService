@@ -12,6 +12,8 @@
  * 
  */
 
+// const { deleteReservation } = require("../service/reservationService");
+
 
 let selectAttractionInputCount = 0;
 
@@ -217,11 +219,11 @@ async function insertReservation(event) {
 }
 
 // Delete reservations in the table
-async function insertReservation(event) {
+async function deleteReservation(event) {
     event.preventDefault();
 
-    const accountIdValue = document.getElementById('insertAccountId').value;
-    const restaurantIdValue = document.getElementById('insertRestaurantId').value;
+    const accountIdValue = document.getElementById('toDeleteAccountId').value;
+    const restaurantIdValue = document.getElementById('toDeleteRestaurantId').value;
 
     const response = await fetch('/delete-reservation', {
         method: 'DELETE',
@@ -235,7 +237,7 @@ async function insertReservation(event) {
     });
 
     const responseData = await response.json();
-    const messageElement = document.getElementById('deletionQueryResultMsg');
+    const messageElement = document.getElementById('deleteReservationResultMsg');
 
     if (responseData.success) {
         messageElement.textContent = "Data deleted successfully!";
@@ -435,6 +437,7 @@ async function deleteRow() {
     }
 }
 
+
 // ---------------------------------------------------------------
 // Initializes the webpage functionalities.
 // Add or remove event listeners based on the desired functionalities.88
@@ -453,6 +456,7 @@ window.onload = function () {
     document.getElementById("removeInputButton").addEventListener("click", removeWhereClauseInput);
     document.getElementById('projectButtonNew').addEventListener('click', projectSelectedTable); //Celine: projection
     document.getElementById('deleteButton').addEventListener('click', deleteRow); //Celine: deleteRow
+    document.getElementById("updateReservation").addEventListener("submit",deleteReservation); //Celine: delete reservation
     
 };
 
