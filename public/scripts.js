@@ -216,6 +216,35 @@ async function insertReservation(event) {
     }
 }
 
+// Delete reservations in the table
+async function insertReservation(event) {
+    event.preventDefault();
+
+    const accountIdValue = document.getElementById('insertAccountId').value;
+    const restaurantIdValue = document.getElementById('insertRestaurantId').value;
+
+    const response = await fetch('/delete-reservation', {
+        method: 'DELETE',
+        headers: {
+            'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({
+            accountId: accountIdValue,
+            restaurantId: restaurantIdValue,
+        })
+    });
+
+    const responseData = await response.json();
+    const messageElement = document.getElementById('deletionQueryResultMsg');
+
+    if (responseData.success) {
+        messageElement.textContent = "Data deleted successfully!";
+        fetchTableData();
+    } else {
+        messageElement.textContent = "Error deleting data!";
+    }
+}
+
 // Selects attraction based on where clause
 async function selectAttraction(event) {
     event.preventDefault();
@@ -383,7 +412,7 @@ async function removeWhereClauseInput() {
     }
 }
 
-
+// Celine's delete selected row from projection code
 async function deleteRow() {
     const selectedRow = document.querySelector('tr.selected');
     if (selectedRow) {

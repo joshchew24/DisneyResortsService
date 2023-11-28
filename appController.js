@@ -126,6 +126,7 @@ router.get('/selectedTable-description', async (req, res) => {
     }
 });
 
+//Celine's old not wokring code for deletion in the projected table 
 router.delete('/deleteFromDb', async (req, res) => {
     try {
         const myOption = req.query.selectedOption;
@@ -138,6 +139,22 @@ router.delete('/deleteFromDb', async (req, res) => {
         console.error('Error deleting item:', error);
         res.status(500).json({ success: false, message: 'Error deleting item' });
     }
+});
+
+//Celien: Delete Reservation 
+router.delete('/delete-reservation', async (req,res) => {
+    try{
+        const accountId = req.AccountId;
+        const restaurantId = req.RestaurantId;
+        await appService.appService.deleteReservationFromDb(accountId,restaurantId);
+
+        res.json({ sucess:true, message: 'Reservation deleted successfully' });
+
+    } catch (error){
+        console.error('Error deleting reservation:', error);
+        res.status(500).json({ success: false, message: 'Error deleting reservation' });
+    }
+
 });
 
 module.exports = router;
