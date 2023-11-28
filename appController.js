@@ -126,4 +126,8 @@ router.get('/selectedTable-description', async (req, res) => {
     }
 });
 
+router.get('/store-list', async (req, res) => {
+    const themeParkId = req.query.body;
+})
+
 module.exports = router;
