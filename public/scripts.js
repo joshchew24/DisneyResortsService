@@ -11,7 +11,7 @@
  *   HTML structure.
  * 
  */
-
+// 
 // const { deleteReservation } = require("../service/reservationService");
 
 
@@ -224,9 +224,10 @@ async function deleteReservation(event) {
 
     const accountIdValue = document.getElementById('toDeleteAccountId').value;
     const restaurantIdValue = document.getElementById('toDeleteRestaurantId').value;
-
+    console.log("account id to delete: " + accountIdValue);
+    console.log("restaruant id to delete: " + restaurantIdValue);
     const response = await fetch('/delete-reservation', {
-        method: 'DELETE',
+        method: 'POST',
         headers: {
             'Content-Type': 'application/json'
         },
@@ -456,7 +457,7 @@ window.onload = function () {
     document.getElementById("removeInputButton").addEventListener("click", removeWhereClauseInput);
     document.getElementById('projectButtonNew').addEventListener('click', projectSelectedTable); //Celine: projection
     document.getElementById('deleteButton').addEventListener('click', deleteRow); //Celine: deleteRow
-    document.getElementById("updateReservation").addEventListener("submit",deleteReservation); //Celine: delete reservation
+    document.getElementById("deleteReservation").addEventListener("submit",deleteReservation); //Celine: delete reservation
     
 };
 

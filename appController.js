@@ -142,19 +142,15 @@ router.delete('/deleteFromDb', async (req, res) => {
 });
 
 //Celien: Delete Reservation 
-router.delete('/delete-reservation', async (req,res) => {
-    try{
-        const accountId = req.AccountId;
-        const restaurantId = req.RestaurantId;
-        await reservationService.deleteReservationFromDb(accountId,restaurantId);
+router.post('/delete-reservation', async (req,res) => {
+    const { accountId, restaurantId } = req.body;
+    const deleteReservationResult = await reservationService.deleteReservationFromDb(accountId,restaurantId);
 
-        res.json({ sucess:true, message: 'Reservation deleted successfully' });
-
-    } catch (error){
-        console.error('Error deleting reservation:', error);
-        res.status(500).json({ success: false, message: 'Error deleting reservation' });
+    if (deleteReservationResult) {
+        res.json({ success: true });
+    } else {
+        res.status(500).json({ success: false });
     }
-
 });
 
 module.exports = router;
