@@ -376,14 +376,17 @@ async function removeWhereClauseInput() {
     }
 }
 
+// join query
 async function findStoresInThemePark(event) {
     event.preventDefault();
 
     const themeParkId = document.getElementById('joinThemeParkId').value;
-    console.log(themeParkId);
-    const response = await fetch('/find-stores?themeParkId=${themeParkId}', {
+    const findStoreParam = new URLSearchParams();
+    findStoreParam.append('themeParkId', themeParkId);
+
+    const response = await fetch(`/find-stores?${findStoreParam}`, {
         method: 'GET'
-    });
+    }); 
     
     const responseData = await response.json();
     const storeTuples = responseData.result;

@@ -127,6 +127,7 @@ router.get('/selectedTable-description', async (req, res) => {
     }
 });
 
+// join query
 router.get('/find-stores', async (req, res) => {
     const themeParkId = req.query.themeParkId;
     const findStoreResult = await storeService.getListOfStoresInThemePark(themeParkId);
