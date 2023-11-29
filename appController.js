@@ -90,14 +90,14 @@ router.get("/find-number-of-rides-at-theme-park-with-minimum-height-less-than-or
 });
 
 
-//Celine
+// Project All Table Droptown Options
 router.get('/project-allTableDropdown', async (req, res) => {
     const tableContent = await appService.fetchAllTablesFromDb();
     res.json({data: tableContent});
 });
 
 
-//Celine
+// Project Selected Table
 router.get('/project-selectedTable', async (req, res) => {
     const myOption = req.query.selectedOption;
     const tableContent = await appService.fetchMyTableFromDb(myOption);
@@ -112,6 +112,7 @@ router.get('/project-selectedTable', async (req, res) => {
     }
 });
 
+// Selected Table Headers 
 router.get('/selectedTable-description', async (req, res) => {
     const myOption = req.query.selectedOption;
     const tableContent = await appService.fetchMyTableDescription(myOption);
@@ -126,22 +127,7 @@ router.get('/selectedTable-description', async (req, res) => {
     }
 });
 
-//Celine's old not wokring code for deletion in the projected table 
-router.delete('/deleteFromDb', async (req, res) => {
-    try {
-        const myOption = req.query.selectedOption;
-        const idColumn = req.query.idColumn;
-        const idToDelete = req.body.id; // Get the ID from the request body
-        await appService.deleteItemFromDb(idToDelete,myOption); // Replace with your actual function to delete the item
-
-        res.json({ success: true, message: 'Item deleted successfully' });
-    } catch (error) {
-        console.error('Error deleting item:', error);
-        res.status(500).json({ success: false, message: 'Error deleting item' });
-    }
-});
-
-//Celien: Delete Reservation 
+// Delete Reservation 
 router.post('/delete-reservation', async (req,res) => {
     const { accountId, restaurantId } = req.body;
     const deleteReservationResult = await reservationService.deleteReservationFromDb(accountId,restaurantId);

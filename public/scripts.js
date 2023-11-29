@@ -415,29 +415,6 @@ async function removeWhereClauseInput() {
     }
 }
 
-// Celine's delete selected row from projection code
-async function deleteRow() {
-    const selectedRow = document.querySelector('tr.selected');
-    if (selectedRow) {
-        selectedRow.remove();
-        
-        const response = await fetch("/deleteFromDb", {
-            method: 'DELETE',
-            headers: {
-                'Content-Type': 'application/json'
-            },
-            body: JSON.stringify({
-                id: dataIdToDelete,
-                myOption: myOption, 
-                idColumn: idColumn // The ID column name
-             })
-        });
-
-    } else {
-        alert('Please select a row to delete');
-    }
-}
-
 
 // ---------------------------------------------------------------
 // Initializes the webpage functionalities.
@@ -456,7 +433,6 @@ window.onload = function () {
     document.getElementById("addInputButton").addEventListener("click", addWhereClauseInput);
     document.getElementById("removeInputButton").addEventListener("click", removeWhereClauseInput);
     document.getElementById('projectButtonNew').addEventListener('click', projectSelectedTable); //Celine: projection
-    document.getElementById('deleteButton').addEventListener('click', deleteRow); //Celine: deleteRow
     document.getElementById("deleteReservation").addEventListener("submit",deleteReservation); //Celine: delete reservation
     
 };

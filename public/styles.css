@@ -84,7 +84,3 @@ input::placeholder, textarea::placeholder {
     height: 1em;
     vertical-align: middle;
 }
-
-.selected {
-    background-color: rgb(40, 200, 240) /* Or any color of your choice */
-}
