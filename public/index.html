@@ -161,6 +161,31 @@
 
     <div id="aggregateWithHavingQueryResultMsg"></div>
 
+    <br><hr><br> <!-- ========================================================================= -->
+
+    <h2> Find Stores in a Theme Park </h2>
+    <form id="joinQuery">
+        Theme Park ID: <input type="number" id="joinThemeParkId" placeholder="Enter Theme Park ID" required> <br><br>
+        <!-- Submit button for the form -->
+        <button id="findStoresButton" type="button"> Submit </button> <br><br>
+    </form>
+
+    <table id="findStoresTable" border="1">
+        <thead>
+            <tr>
+                <!--Table head, need to be adjusted accordingly to align with your own.-->
+                <th>Land</th>
+                <th>Store Name</th>
+            </tr>
+        </thead>
+        <tbody>
+        </tbody>
+    </table>
+
+    <div id="selectAttractionResultMsg"></div>
+
+    <br><hr><br> <!-- ========================================================================= -->
+
     <!-- ===================================================================================== -->
     <!-- External JavaScript file that contains the functionality/logic for the operations above. -->
     <script src="scripts.js"></script>

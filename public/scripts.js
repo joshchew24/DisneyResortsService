@@ -11,7 +11,7 @@
  *   HTML structure.
  * 
  */
-// 
+//
 // const { deleteReservation } = require("../service/reservationService");
 
 
@@ -110,8 +110,8 @@ async function projectSelectedTable() {
         const cell = tableRow.insertCell(index);
         cell.textContent = field;
     });
-    
-    
+
+
     //fetch is fetching from appController.js
     const projectSelectedTableResponse = await fetch(`/project-selectedTable?selectedOption=${selectedOption}`, {
         method: 'GET'
@@ -415,6 +415,45 @@ async function removeWhereClauseInput() {
     }
 }
 
+// join query
+async function findStoresInThemePark(event) {
+    event.preventDefault();
+
+    const themeParkId = document.getElementById('joinThemeParkId').value;
+    const findStoreParam = new URLSearchParams();
+    findStoreParam.append('themeParkId', themeParkId);
+
+    const response = await fetch(`/find-stores?${findStoreParam}`, {
+        method: 'GET'
+    });
+
+    const responseData = await response.json();
+    const storeTuples = responseData.result;
+
+    const tableElement = document.getElementById('findStoresTable');
+    const tableBody = tableElement.querySelector('tbody');
+    // Always clear old, already fetched data before new fetching process.
+    if (tableBody) {
+        tableBody.innerHTML = '';
+    }
+
+    storeTuples.forEach((store) => {
+        const row = tableBody.insertRow();
+        store.forEach((field, index) => {
+            // some stores don't belong to a land
+            if (index == 0 && field == null) {
+                field = "N/A";
+            }
+            console.log(index + ": " + field);
+            const cell = row.insertCell(index);
+            cell.textContent = field;
+        });
+    });
+
+    if (!responseData.success) {
+        alert("Error in Join Query");
+    }
+}
 
 // ---------------------------------------------------------------
 // Initializes the webpage functionalities.
@@ -434,7 +473,7 @@ window.onload = function () {
     document.getElementById("removeInputButton").addEventListener("click", removeWhereClauseInput);
     document.getElementById('projectButtonNew').addEventListener('click', projectSelectedTable); //Celine: projection
     document.getElementById("deleteReservation").addEventListener("submit",deleteReservation); //Celine: delete reservation
-    
+    document.getElementById("findStoresButton").addEventListener("click", findStoresInThemePark);
 };
 
 // ---------------------------------------------------------------
@@ -447,7 +486,7 @@ document.getElementById('myDropdown').addEventListener('change', function () {
 
 
 
-// General function to refresh the displayed table data. 
+// General function to refresh the displayed table data.
 // You can invoke this after any table-modifying operation to keep consistency.
 function fetchTableData() {
     fetchAndDisplayAllTables();

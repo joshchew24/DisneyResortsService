@@ -5,6 +5,7 @@ const reservationService = require('./service/reservationService');
 const landsService = require('./service/landsService');
 const themeParkService = require('./service/themeParkService');
 const attractionService = require('./service/attractionService');
+const storeService = require('./service/storeService');
 const router = express.Router();
 
 // ----------------------------------------------------------
@@ -112,7 +113,7 @@ router.get('/project-selectedTable', async (req, res) => {
     }
 });
 
-// Selected Table Headers 
+// Selected Table Headers
 router.get('/selectedTable-description', async (req, res) => {
     const myOption = req.query.selectedOption;
     const tableContent = await appService.fetchMyTableDescription(myOption);
@@ -127,13 +128,27 @@ router.get('/selectedTable-description', async (req, res) => {
     }
 });
 
-// Delete Reservation 
+// Delete Reservation
 router.post('/delete-reservation', async (req,res) => {
     const { accountId, restaurantId } = req.body;
     const deleteReservationResult = await reservationService.deleteReservationFromDb(accountId,restaurantId);
 
     if (deleteReservationResult) {
         res.json({ success: true });
+    } else {
+        res.status(500).json({ success: false });
+    }
+});
+
+// join query
+router.get('/find-stores', async (req, res) => {
+    const themeParkId = req.query.themeParkId;
+    const findStoreResult = await storeService.getListOfStoresInThemePark(themeParkId);
+    if (findStoreResult) {
+        res.json({
+            success: true,
+            result: findStoreResult
+        });
     } else {
         res.status(500).json({ success: false });
     }
