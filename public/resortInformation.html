@@ -28,46 +28,37 @@
 
     <br><hr><br> <!-- ========================================================================= -->
 
-    <h2>Reset Database</h2>
-    <p>If you wish to reset the database press on the reset button. If this is the first time you're running this page, you MUST use reset</p>
-    <button id="resetDatabase"> reset </button> <br>
-    <!-- A placeholder to display messages related to the reset operation. -->
-    <div id="resetDatabaseResultMsg"></div>
+    <h2> Find All Lands That Appear In All Disney Resorts</h2>
+    <button id="divisionQuery"> find </button> <br>
+    <div id="divisionQueryResultMsg"></div>
 
     <br><hr><br> <!-- ========================================================================= -->
 
-    <h2> Pick Table to Project </h2>
-    <div class="dropdown-container">
-        <label for="myDropdown">Choose an option:</label>
-        <select id="myDropdown" name="options">
-            <!-- <option value="option1">Option 1</option> -->
-        </select>
-    </div>
+    <h2> Find Stores in a Theme Park </h2>
+    <form id="joinQuery">
+        Theme Park ID: <input type="number" id="joinThemeParkId" placeholder="Enter Theme Park ID" required> <br><br>
+        <!-- Submit button for the form -->
+        <button id="findStoresButton" type="button"> Submit </button> <br><br>
+    </form>
 
-    <br><hr><br> <!-- ========================================================================= -->
-    <p> After the table is picked from above dropdown, it will be displayed here :) </p>
-    <h2> <div id="displayText"> </div> </h2>
-
-
-    <table id="selectedTable" border="1">
+    <table id="findStoresTable" border="1">
         <thead>
             <tr>
-                <!-- <th>Name</th>
-                <th>Price</th> -->
+                <!--Table head, need to be adjusted accordingly to align with your own.-->
+                <th>Land</th>
+                <th>Store Name</th>
             </tr>
         </thead>
         <tbody>
         </tbody>
     </table>
 
-    <button id="projectButtonNew" type="button">Project</button>
-
-    <div id="projectSelectedTableResultMsg"></div>
+    <div id="selectAttractionResultMsg"></div>
 
     <br><hr><br> <!-- ========================================================================= -->
 
     <!-- ===================================================================================== -->
     <!-- External JavaScript file that contains the functionality/logic for the operations above. -->
-    <script src="scripts.js"></script>
+    <script src="resortInformationScripts.js"></script>
 </body>
 </html>
