@@ -48,7 +48,7 @@
         </tbody>
     </table>
 
-    <button id="projectButtonNew" type="button">Project</button> <br> <br>
+    <button id="projectButtonNew" type="button">Project</button>
 
     <div id="projectSelectedTableResultMsg"></div>
 
@@ -88,6 +88,19 @@
     </form>
     <!-- A placeholder to display messages related to the update operation. -->
     <div id="updateReservationResultMsg"></div>
+
+    <br><hr><br> <!-- ========================================================================= -->
+
+    <h2>Delete Reservation</h2>
+    <p>The values are case sensitive and if you enter in the wrong case, the delete statement will not do anything.</p>
+    <form id="deleteReservation">
+        Account ID: <input type="number" id="toDeleteAccountId" placeholder="Enter Account Id" required> <br><br>
+        Restaurant ID: <input type="number" id="toDeleteRestaurantId" placeholder="Enter Restaurant Id" required> <br><br>
+
+        <button type="submit"> delete </button> <br>
+    </form>
+    <!-- A placeholder to display messages related to the update operation. -->
+    <div id="deleteReservationResultMsg"></div>
 
     <br><hr><br> <!-- ========================================================================= -->
 

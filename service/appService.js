@@ -45,7 +45,7 @@ async function testOracleConnection() {
     });
 }
 
-//Celine:
+// Fetch All Table Dropdown Options From Databases 
 async function fetchAllTablesFromDb() {
     try {
         return await withOracleDB(async (connection) => {
@@ -58,6 +58,7 @@ async function fetchAllTablesFromDb() {
     }
 }
 
+// Fetch Selected Table Header From Databases 
 async function fetchMyTableDescription(myOption) {
     try {
         return await withOracleDB(async (connection) => {
@@ -76,7 +77,7 @@ async function fetchMyTableDescription(myOption) {
     }
 }
 
-//Celine:
+// Fetch Selected Table From Databases 
 async function fetchMyTableFromDb(myOption) {
     try {
         return await withOracleDB(async (connection) => {
@@ -88,6 +89,7 @@ async function fetchMyTableFromDb(myOption) {
         return [];  // Return an empty array in case of an error
     }
 }
+
 
 module.exports = {
     withOracleDB,
