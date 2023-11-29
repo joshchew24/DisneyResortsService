@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <!-- This meta tag ensures that the website renders correctly across different device sizes, enhancing mobile responsiveness. -->
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <!-- Link to the external CSS stylesheet. Uncomment if you wish to customize or add styling. -->
+    <link rel="stylesheet" href="styles.css">
+
+    <title>Reservations</title>
+</head>
+<body>
+    <a href="index.html">Home</a>
+    <a href="reservations.html">Reservations</a>
+    <a href="attractionInformation.html">Attraction Information</a>
+    <a href="resortInformation.html">Resort Information</a>
+    <!-- ===================================================================================== -->
+    <!-- Display the current status of the database connection. 
+         !!HERE TO HELP U DEBUGGING, NOT REQUIRED IN YOUR OWN PROJECT!!
+         -->
+    <h1>Database Connection Status: 
+        <!-- An in-line placeholder to display connection status. -->
+        <span id="dbStatus"> </span>
+        <!-- A loading GIF, will be hided once get the status. -->
+        <img id="loadingGif" class="loading-gif" src="loading_100px.gif" alt="Loading...">
+    </h1>
+
+    <h2> Insert Reservation </h2>
+    <form id="insertionQuery">
+        AccountId: <input type="number" id="insertAccountId" placeholder="Enter Account ID" required> <br><br>
+        RestaurantId: <input type="number" id="insertRestaurantId" placeholder="Enter Restaurant ID" required> <br><br>
+        PartySize: <input type="number" id="insertPartySize" placeholder="Enter Party Size" required> <br><br>
+        Date: <input type="date" id="insertDate" placeholder="Enter Date" required> <br><br>
+        Time: <input type="time" id="insertTime" placeholder="Enter Time" required> <br><br>
+        <button type="submit"> insert </button> <br>
+    </form>
+    <div id="insertionQueryResultMsg"></div>
+
+    <br><hr><br> <!-- ========================================================================= -->
+
+    <h2>Update Reservation</h2>
+    <p>The values are case sensitive and if you enter in the wrong case, the update statement will not do anything.</p>
+    <form id="updateReservation">
+        Account ID: <input type="number" id="accountId" placeholder="Enter Account Id" required> <br><br>
+        Restaurant ID: <input type="number" id="restaurantId" placeholder="Enter Restaurant Id" required> <br><br>
+        New Party Size: <input type="text" id="newPartySize" placeholder="Enter New Party Size" required> <br><br>
+        New Date: <input type="date" id="newDate" placeholder="Enter Date" required> <br><br>
+        New Time: <input type="time" id="newTime" placeholder="Enter New Time" required> <br><br>
+
+        <button type="submit"> update </button> <br>
+    </form>
+    <!-- A placeholder to display messages related to the update operation. -->
+    <div id="updateReservationResultMsg"></div>
+
+    <br><hr><br> <!-- ========================================================================= -->
+
+    <h2>Delete Reservation</h2>
+    <p>The values are case sensitive and if you enter in the wrong case, the delete statement will not do anything.</p>
+    <form id="deleteReservation">
+        Account ID: <input type="number" id="toDeleteAccountId" placeholder="Enter Account Id" required> <br><br>
+        Restaurant ID: <input type="number" id="toDeleteRestaurantId" placeholder="Enter Restaurant Id" required> <br><br>
+
+        <button type="submit"> delete </button> <br>
+    </form>
+    <!-- A placeholder to display messages related to the update operation. -->
+    <div id="deleteReservationResultMsg"></div>
+
+    <br><hr><br> <!-- ========================================================================= -->
+
+    <!-- ===================================================================================== -->
+    <!-- External JavaScript file that contains the functionality/logic for the operations above. -->
+    <script src="reservationsScripts.js"></script>
+</body>
+</html>
