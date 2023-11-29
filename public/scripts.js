@@ -401,6 +401,11 @@ async function findStoresInThemePark(event) {
     storeTuples.forEach((store) => {
         const row = tableBody.insertRow();
         store.forEach((field, index) => {
+            // some stores don't belong to a land
+            if (index == 0 && field == null) {
+                field = "N/A";
+            }
+            console.log(index + ": " + field);
             const cell = row.insertCell(index);
             cell.textContent = field;
         });

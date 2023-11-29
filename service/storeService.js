@@ -6,13 +6,15 @@ async function getListOfStoresInThemePark(themeParkId) {
         const result = await connection.execute(
             `
             SELECT L.name, S.name
-            FROM ThemeParkLand L, OpenStore S
+            FROM OpenStore S
+            LEFT JOIN ThemeParkLand L 
+            ON S.themeParkId = L.themeParkId
+            AND S.landID = L.landId
             WHERE S.themeParkId = :themeParkId
-            AND L.themeParkId = S.themeParkId
-            AND L.landId = S.landId
             `,
             {themeParkId}
-        )
+        );
+        console.log(result);
         return result.rows;
     });
 }
