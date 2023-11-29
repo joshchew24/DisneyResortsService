@@ -184,11 +184,16 @@ INSERT INTO TicketAtDisneyResortOwnedByAccount VALUES (113, 'Disneyland Paris', 
 INSERT INTO TicketAtDisneyResortOwnedByAccount VALUES (114, 'Disneyland Resort', TO_DATE('2019-12-21', 'YYYY-MM-DD'), 002);
 INSERT INTO TicketAtDisneyResortOwnedByAccount VALUES (115, 'Shanghai Disneyland Resort', TO_DATE('2024-10-21', 'YYYY-MM-DD'), 003);
 
-INSERT INTO OpenStore VALUES (01, 'World of Disney®', NULL, NULL);
-INSERT INTO OpenStore VALUES (02, 'Emporium', 1, 1);
-INSERT INTO OpenStore VALUES (03, 'Little Green Men Store Command', 1, 5);
-INSERT INTO OpenStore VALUES (04, 'The LEGO® Store', NULL, NULL);
-INSERT INTO OpenStore VALUES (05, 'Pioneer Mercantile', 1, 3);
+INSERT INTO OpenStore VALUES (1, 'World of Disney®', NULL, NULL);
+INSERT INTO OpenStore VALUES (2, 'Emporium', 1, 1);
+INSERT INTO OpenStore VALUES (3, 'Little Green Men Store Command', 1, 5);
+INSERT INTO OpenStore VALUES (4, 'The LEGO® Store', NULL, NULL);
+INSERT INTO OpenStore VALUES (5, 'Pioneer Mercantile', 1, 3);
+INSERT INTO OpenStore VALUES (6, 'Doko-Ondar''s Den of Antiquities', 1, 9);
+INSERT INTO OpenStore VALUES (7, 'The Outpost Shop', 6, NULL);
+INSERT INTO OpenStore VALUES (8, 'Ramone''s House of Body Art', 2, 15);
+INSERT INTO OpenStore VALUES (9, 'Bing Bong''s Sweet Stuff', 2, 11);
+INSERT INTO OpenStore VALUES (10, 'Rushin'' River Outfitters', 2, 13);
 
 INSERT INTO Merchandise VALUES (55555, 'Winnie-the-Pooh plush large', 65);
 INSERT INTO Merchandise VALUES (66666, 'Piglet plush large', 60);
