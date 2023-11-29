@@ -37,7 +37,26 @@ async function updateReservation(accountId, restaurantId, newPartySize, newDate,
     });
 }
 
+
+async function deleteReservationFromDb(accountId, restaurantId) {
+    return await appService.withOracleDB(async (connection) => {
+        const result = await connection.execute(
+            `DELETE FROM Reserve WHERE accountId = :accountId AND restaurantId = :restaurantId`,
+            [accountId, restaurantId], // Use bind parameters
+            { autoCommit: true }
+        );
+        console.log("Received accountId:", accountId, "Received restaurantId:", restaurantId);
+        return result.rowsAffected && result.rowsAffected > 0;
+        
+    }).catch (() => {
+        console.error('Error deleting reservation:', error);
+        return false; // Return false in case of an error
+    })
+}
+
+
 module.exports = {
     insertReservation,
-    updateReservation
+    updateReservation,
+    deleteReservationFromDb,
 }

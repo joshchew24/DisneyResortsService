@@ -90,14 +90,14 @@ router.get("/find-number-of-rides-at-theme-park-with-minimum-height-less-than-or
 });
 
 
-//Celine
+// Project All Table Droptown Options
 router.get('/project-allTableDropdown', async (req, res) => {
     const tableContent = await appService.fetchAllTablesFromDb();
     res.json({data: tableContent});
 });
 
 
-//Celine
+// Project Selected Table
 router.get('/project-selectedTable', async (req, res) => {
     const myOption = req.query.selectedOption;
     const tableContent = await appService.fetchMyTableFromDb(myOption);
@@ -112,6 +112,7 @@ router.get('/project-selectedTable', async (req, res) => {
     }
 });
 
+// Selected Table Headers 
 router.get('/selectedTable-description', async (req, res) => {
     const myOption = req.query.selectedOption;
     const tableContent = await appService.fetchMyTableDescription(myOption);
@@ -121,6 +122,18 @@ router.get('/selectedTable-description', async (req, res) => {
             success: true,
             result: tableContent
         });
+    } else {
+        res.status(500).json({ success: false });
+    }
+});
+
+// Delete Reservation 
+router.post('/delete-reservation', async (req,res) => {
+    const { accountId, restaurantId } = req.body;
+    const deleteReservationResult = await reservationService.deleteReservationFromDb(accountId,restaurantId);
+
+    if (deleteReservationResult) {
+        res.json({ success: true });
     } else {
         res.status(500).json({ success: false });
     }

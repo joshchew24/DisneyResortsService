@@ -11,6 +11,8 @@
  *   HTML structure.
  * 
  */
+// 
+// const { deleteReservation } = require("../service/reservationService");
 
 
 let selectAttractionInputCount = 0;
@@ -103,11 +105,13 @@ async function projectSelectedTable() {
         tableRow.innerHTML = '';
     }
 
+    //title
     tableRowContent.forEach((field, index) => {
         const cell = tableRow.insertCell(index);
         cell.textContent = field;
     });
-
+    
+    
     //fetch is fetching from appController.js
     const projectSelectedTableResponse = await fetch(`/project-selectedTable?selectedOption=${selectedOption}`, {
         method: 'GET'
@@ -126,6 +130,11 @@ async function projectSelectedTable() {
         user.forEach((field, index) => {
             const cell = row.insertCell(index);
             cell.textContent = field;
+        });
+
+        // Attach click event listener to the row
+        row.addEventListener('click', function() {
+        this.classList.toggle('selected');
         });
     });
 
@@ -206,6 +215,36 @@ async function insertReservation(event) {
         fetchTableData();
     } else {
         messageElement.textContent = "Error inserting data!";
+    }
+}
+
+// Delete reservations in the table
+async function deleteReservation(event) {
+    event.preventDefault();
+
+    const accountIdValue = document.getElementById('toDeleteAccountId').value;
+    const restaurantIdValue = document.getElementById('toDeleteRestaurantId').value;
+    console.log("account id to delete: " + accountIdValue);
+    console.log("restaruant id to delete: " + restaurantIdValue);
+    const response = await fetch('/delete-reservation', {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({
+            accountId: accountIdValue,
+            restaurantId: restaurantIdValue,
+        })
+    });
+
+    const responseData = await response.json();
+    const messageElement = document.getElementById('deleteReservationResultMsg');
+
+    if (responseData.success) {
+        messageElement.textContent = "Data deleted successfully!";
+        fetchTableData();
+    } else {
+        messageElement.textContent = "Error deleting data!";
     }
 }
 
@@ -394,6 +433,8 @@ window.onload = function () {
     document.getElementById("addInputButton").addEventListener("click", addWhereClauseInput);
     document.getElementById("removeInputButton").addEventListener("click", removeWhereClauseInput);
     document.getElementById('projectButtonNew').addEventListener('click', projectSelectedTable); //Celine: projection
+    document.getElementById("deleteReservation").addEventListener("submit",deleteReservation); //Celine: delete reservation
+    
 };
 
 // ---------------------------------------------------------------
@@ -402,6 +443,9 @@ document.getElementById('myDropdown').addEventListener('change', function () {
     var selectedOption = this.value;
     document.getElementById('displayText').textContent = selectedOption;
 });
+
+
+
 
 // General function to refresh the displayed table data. 
 // You can invoke this after any table-modifying operation to keep consistency.
