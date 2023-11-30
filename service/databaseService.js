@@ -4,7 +4,8 @@ const fs = require("fs");
 async function resetDatabase() {
     return await appService.withOracleDB(async (connection) => {
         // TODO: better error messages
-        await dropUserTables(connection);
+        // await dropUserTables(connection);
+        await executeSqlScript(connection, "./scripts/sql/dropTables.sql");
         console.log('all user tables dropped succesfully');
         await executeSqlScript(connection, "./scripts/sql/createTables.sql");
         console.log('app tables created successfully');

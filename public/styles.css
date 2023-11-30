@@ -84,3 +84,12 @@ input::placeholder, textarea::placeholder {
     height: 1em;
     vertical-align: middle;
 }
+
+.checkbox-pair input[type="checkbox"] {
+    width: auto; 
+    margin-right: 10px; /
+}
+
+.checkbox-pair label {
+    display: inline; 
+}

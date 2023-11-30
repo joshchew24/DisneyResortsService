@@ -212,7 +212,7 @@ INSERT INTO Merchandise VALUES (11111, 'Anna plush small', 20);
 INSERT INTO Merchandise VALUES (22222, 'Olaf plush small', 20);
 INSERT INTO Merchandise VALUES (33333, 'Kristoff plush small', 20);
 INSERT INTO Merchandise VALUES (44444, 'Hans plush small', 20);
-INSERT INTO Merchandise VALUES (10000, 'Frozen 10th Anniversary Latte Mug', 24.99);
+INSERT INTO Merchandise VALUES (10000, 'Frozen 10th Anniversary Latte Mug', 25);
 INSERT INTO Merchandise VALUES (10001, 'Anna Nightgown', 36.99);
 INSERT INTO Merchandise VALUES (10002, 'Elsa Nightgown', 36.99);
 

@@ -49,12 +49,12 @@ async function testOracleConnection() {
 async function fetchAllTablesFromDb() {
     try {
         return await withOracleDB(async (connection) => {
-            const result = await connection.execute(`select table_name from user_tables`);
+            const result = await connection.execute(`SELECT table_name FROM user_tables`);
             return result.rows;
         });
     } catch (error) {
         console.error('Error fetching tables:', error);
-        return [];  // Return an empty array in case of an error
+        return []; 
     }
 }
 
@@ -64,9 +64,9 @@ async function fetchMyTableDescription(myOption) {
         return await withOracleDB(async (connection) => {
             const query = 
             `
-            select column_name
-            from user_tab_columns
-            where table_name = '${myOption}'
+            SELECT column_name
+            FROM user_tab_columns
+            WHERE table_name = '${myOption}'
             `;
             const result = await connection.execute(query);
             return result.rows;
@@ -77,16 +77,23 @@ async function fetchMyTableDescription(myOption) {
     }
 }
 
-// Fetch Selected Table From Databases 
-async function fetchMyTableFromDb(myOption) {
+// Fetch All Data From Selected Table From Databases 
+async function fetchMyTableFromDb(tableName, attributes) {
+    let columnsToFetch = '*'; 
+    if (attributes && attributes.length > 0) {
+        // Joining the attributes to create a string for the SQL query
+        columnsToFetch = attributes.join(', ');
+    }
+
     try {
         return await withOracleDB(async (connection) => {
-            const result = await connection.execute(`select * from ` + myOption);
+            const query = `SELECT ${columnsToFetch} FROM ${tableName}`;
+            const result = await connection.execute(query);
             return result.rows;
         });
     } catch (error) {
         console.error('Error fetching tables:', error);
-        return [];  // Return an empty array in case of an error
+        return []; 
     }
 }
 

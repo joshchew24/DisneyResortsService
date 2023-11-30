@@ -99,22 +99,30 @@ router.get('/project-allTableDropdown', async (req, res) => {
 });
 
 
-// Project Selected Table
+// Project Selected Table Data
 router.get('/project-selectedTable', async (req, res) => {
-    const myOption = req.query.selectedOption;
-    const tableContent = await appService.fetchMyTableFromDb(myOption);
+    
+    const selectedTable = req.query.selectedTable;
+    const selectedAttributes = req.query.attributes ? req.query.attributes.split(',') : null;
 
-    if (tableContent) {
-        res.json({
-            success: true,
-            result: tableContent
-        });
-    } else {
-        res.status(500).json({ success: false });
+    try {
+        const tableContent = await appService.fetchMyTableFromDb(selectedTable, selectedAttributes);
+
+        if (tableContent) {
+            res.json({
+                success: true,
+                result: tableContent
+            });
+        } else {
+            res.status(404).json({ success: false, message: 'No data found for the selected table' });
+        }
+    } catch (error) {
+        console.error('Error fetching table data:', error);
+        res.status(500).json({ success: false, message: 'Internal server error' });
     }
 });
 
-// Selected Table Headers
+// Selected Table Headers (Attribute Title)
 router.get('/selectedTable-description', async (req, res) => {
     const myOption = req.query.selectedOption;
     const tableContent = await appService.fetchMyTableDescription(myOption);
@@ -128,6 +136,7 @@ router.get('/selectedTable-description', async (req, res) => {
         res.status(500).json({ success: false });
     }
 });
+
 
 // Delete Reservation
 router.post('/delete-reservation', async (req,res) => {
@@ -153,7 +162,7 @@ router.delete('/delete-account', async (req,res) => {
     }
 });
 
-// join query
+// Join Query
 router.get('/find-stores', async (req, res) => {
     const themeParkId = req.query.themeParkId;
     const findStoreResult = await storeService.getListOfStoresInThemePark(themeParkId);

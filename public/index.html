@@ -16,18 +16,20 @@
     <a href="attractionInformation.html">Attraction Information</a>
     <a href="resortInformation.html">Resort Information</a>
     <a href="storeInformation.html">Store Information</a>
+
+    <h1> Welcome to “My Disney Trip Planner” </h1>
     <!-- ===================================================================================== -->
     <!-- Display the current status of the database connection. 
          !!HERE TO HELP U DEBUGGING, NOT REQUIRED IN YOUR OWN PROJECT!!
          -->
-    <h1>Database Connection Status: 
+    <h4>Database Connection Status: 
         <!-- An in-line placeholder to display connection status. -->
         <span id="dbStatus"> </span>
         <!-- A loading GIF, will be hided once get the status. -->
         <img id="loadingGif" class="loading-gif" src="loading_100px.gif" alt="Loading...">
-    </h1>
+    </h4>
 
-    <br><hr><br> <!-- ========================================================================= -->
+    <hr> <!-- ========================================================================= -->
 
     <h2>Reset Database</h2>
     <p>If you wish to reset the database press on the reset button. </p>
@@ -41,15 +43,28 @@
     <div class="dropdown-container">
         <label for="myDropdown">Choose an option:</label>
         <select id="myDropdown" name="options">
-            <!-- <option value="option1">Option 1</option> -->
+            <!-- example: <option value="option1"> Option 1</option> -->
+            <!-- datatable option will be added here dynamically -->
         </select>
     </div>
 
     <br><hr><br> <!-- ========================================================================= -->
+
+    <h2> <div id="selectedDisplayTableName"> </div> </h2>
+    <h2> Pick Attributes to Project </h2>
+    <div id="checkboxContainer">
+        <!-- attribute checkboxes will be added here dynamically -->
+    </div>
+    
+
+    <button id="projectButtonNew" type="button">Project</button>
+    
+
+    <div id="projectSelectedTableResultMsg"></div>
+
+    <br><hr><br> <!-- ========================================================================= -->
+
     <p id="tempMessage"> After the table is picked from above dropdown, it will be displayed here :) </p>
-    <h2> <div id="displayText"> </div> </h2>
-
-
     <table id="selectedTable" border="1">
         <thead>
             <tr>
@@ -60,10 +75,6 @@
         <tbody>
         </tbody>
     </table>
-
-    <button id="projectButtonNew" type="button">Project</button>
-
-    <div id="projectSelectedTableResultMsg"></div>
 
     <br><hr><br> <!-- ========================================================================= -->
 

@@ -39,7 +39,7 @@ async function checkDbConnection() {
         });
 }
 
-// Celine: This fuction fetches all the table name from db and displays it in the dropdwon options.
+// This fuction fetches all the table name from db and displays it in the dropdwon options.
 async function fetchAndDisplayAllTables() {
 
     const dropdownElement = document.getElementById('myDropdown')
@@ -56,6 +56,14 @@ async function fetchAndDisplayAllTables() {
     // Clear old options before adding new ones
     if (dropdownElement) {
         dropdownElement.innerHTML = '';
+        
+        // Create and add the default disabled option
+        const defaultOption = document.createElement('option');
+        defaultOption.textContent = 'Select an option';
+        defaultOption.value = "";
+        defaultOption.disabled = true;
+        defaultOption.selected = true;
+        dropdownElement.appendChild(defaultOption);
     }
 
     // Loop through each table name and create an option element for it
@@ -67,7 +75,6 @@ async function fetchAndDisplayAllTables() {
     });
 }
 
-// Celine: This function fetches data from the database and displayes the selected table.
 
 async function resetDatabase() {
     const response = await fetch("/reset-database", {
@@ -83,6 +90,44 @@ async function resetDatabase() {
     }
 }
 
+async function displayAttributesToDisplay(selectedOption){
+
+    const tableDescriptionResponse = await fetch(`/selectedTable-description?selectedOption=${selectedOption}`, {
+        method: 'GET'
+    });
+    
+    // Parse the response to JSON
+    const responseData = await tableDescriptionResponse.json();
+    const attributes = responseData.result; // Assuming the response has an 'attributes' field
+
+    const container = document.getElementById('checkboxContainer');
+    container.innerHTML = ''; // Clear previous checkboxes
+
+    attributes.forEach(attr => {
+        const pairContainer = document.createElement('div');
+        pairContainer.classList.add('checkbox-pair');
+    
+        const checkbox = document.createElement('input');
+        checkbox.type = 'checkbox';
+        checkbox.id = attr;
+        checkbox.name = attr;
+        checkbox.value = attr;
+        checkbox.classList.add('attribute-checkbox'); // Add this line to assign the class
+    
+        const label = document.createElement('label');
+        label.htmlFor = attr;
+        label.appendChild(document.createTextNode(attr));
+    
+        pairContainer.appendChild(checkbox);
+        pairContainer.appendChild(label);
+    
+        container.appendChild(pairContainer);
+    });
+
+}
+
+/*
+// This function fetches data from the database and displayes the selected table.
 async function projectSelectedTable() {
     const dropdownElement = document.getElementById('myDropdown');
     const selectedOption = dropdownElement.value; // Get the selected value from the dropdown
@@ -92,6 +137,7 @@ async function projectSelectedTable() {
     const tableRow = tableElement.querySelector('tr');
     const tableBody = tableElement.querySelector('tbody');
 
+    //Getting
     const tableDescriptionResponse = await fetch(`/selectedTable-description?selectedOption=${selectedOption}`, {
         method: 'GET'
     });
@@ -143,6 +189,69 @@ async function projectSelectedTable() {
         messageElement.textContent = "selected table projected NOT successfully!";
     }
 }
+*/
+
+// Thought Process
+// All the Helper function I need:
+// 1. Get all the selected attributes from checkboxes
+// 2. Create table header
+// 3. Create table body 
+
+async function projectSelectedTable() {
+    const selectedTable = document.getElementById('myDropdown').value;
+    const tableRow = document.getElementById('selectedTable').querySelector('tr');
+    const tableBody = document.getElementById('selectedTable').querySelector('tbody');
+
+    const selectedAttributes = getSelectedAttributes(); //helper fucntion #1
+
+    if (selectedAttributes.length === 0) return; 
+
+    // Fetch data for selected attributes (special appaorch )
+    // Reference: https://stackoverflow.com/questions/486896/adding-a-parameter-to-the-url-with-javascript
+    const queryParams = new URLSearchParams({ selectedTable, attributes: selectedAttributes.join(',') });
+    const response = await fetch(`/project-selectedTable?${queryParams.toString()}`, { method: 'GET' });
+    const responseData = await response.json();
+
+    if (!responseData.success) {
+        console.error('Error fetching table data');
+        return;
+    }
+
+    createTableHeader(tableRow, selectedAttributes); //helper fucntion #2
+    fillTableBody(tableBody, responseData.result); //helper fucntion #3
+
+    document.getElementById('projectSelectedTableResultMsg').textContent = "Selected table projected successfully!";
+}
+
+//Helper Function 3
+function fillTableBody(tableBody, data) {
+    tableBody.innerHTML = ''; 
+
+    data.forEach(rowData => {
+        const row = tableBody.insertRow();
+
+        rowData.forEach(cellData => {
+            const cell = row.insertCell();
+            cell.textContent = cellData; 
+        });
+    });
+}
+
+//Helper Function 2
+function createTableHeader(tableRow, attributes) {
+    tableRow.innerHTML = ''; // Clear existing headers
+    attributes.forEach(attr => {
+        const cell = tableRow.insertCell();
+        cell.textContent = attr;
+    });
+}
+
+//Helper Function 1
+function getSelectedAttributes() {
+    const checkboxes = document.querySelectorAll('.attribute-checkbox:checked');
+    return Array.from(checkboxes).map(checkbox => checkbox.value);
+}
+
 
 // Delete account
 async function deleteAccount(event) {
@@ -188,7 +297,9 @@ window.onload = function () {
 // Added funcitons by Celine
 document.getElementById('myDropdown').addEventListener('change', function () {
     var selectedOption = this.value;
-    document.getElementById('displayText').textContent = selectedOption;
+    document.getElementById('selectedDisplayTableName').textContent = selectedOption;
+    console.log("reached here");
+    displayAttributesToDisplay(selectedOption);
 });
 
 
