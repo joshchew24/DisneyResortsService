@@ -90,6 +90,22 @@ async function fetchMyTableFromDb(myOption) {
     }
 }
 
+async function deleteAccount(accountId) {
+    return await withOracleDB(async (connection) => {
+        const result = await connection.execute(
+            `DELETE FROM Account WHERE accountId = :accountId`,
+            [accountId],
+            { autoCommit: true }
+        );
+        console.log("Received accountId:", accountId);
+        return result.rowsAffected && result.rowsAffected > 0;
+        
+    }).catch ((error) => {
+        console.error('Error deleting account:', error);
+        return false; 
+    })
+}
+
 
 module.exports = {
     withOracleDB,
@@ -97,4 +113,5 @@ module.exports = {
     fetchAllTablesFromDb,
     fetchMyTableFromDb,
     fetchMyTableDescription,
+    deleteAccount
 };

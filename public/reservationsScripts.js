@@ -105,34 +105,34 @@ async function insertReservation(event) {
     }
 }
 
-// Delete reservations in the table
-async function deleteReservation(event) {
-    event.preventDefault();
+// // Delete reservations in the table
+// async function deleteReservation(event) {
+//     event.preventDefault();
 
-    const accountIdValue = document.getElementById('toDeleteAccountId').value;
-    const restaurantIdValue = document.getElementById('toDeleteRestaurantId').value;
-    console.log("account id to delete: " + accountIdValue);
-    console.log("restaruant id to delete: " + restaurantIdValue);
-    const response = await fetch('/delete-reservation', {
-        method: 'POST',
-        headers: {
-            'Content-Type': 'application/json'
-        },
-        body: JSON.stringify({
-            accountId: accountIdValue,
-            restaurantId: restaurantIdValue,
-        })
-    });
+//     const accountIdValue = document.getElementById('toDeleteAccountId').value;
+//     const restaurantIdValue = document.getElementById('toDeleteRestaurantId').value;
+//     console.log("account id to delete: " + accountIdValue);
+//     console.log("restaruant id to delete: " + restaurantIdValue);
+//     const response = await fetch('/delete-reservation', {
+//         method: 'POST',
+//         headers: {
+//             'Content-Type': 'application/json'
+//         },
+//         body: JSON.stringify({
+//             accountId: accountIdValue,
+//             restaurantId: restaurantIdValue,
+//         })
+//     });
 
-    const responseData = await response.json();
-    const messageElement = document.getElementById('deleteReservationResultMsg');
+//     const responseData = await response.json();
+//     const messageElement = document.getElementById('deleteReservationResultMsg');
 
-    if (responseData.success) {
-        messageElement.textContent = "Data deleted successfully!";
-    } else {
-        messageElement.textContent = "Error deleting data!";
-    }
-}
+//     if (responseData.success) {
+//         messageElement.textContent = "Data deleted successfully!";
+//     } else {
+//         messageElement.textContent = "Error deleting data!";
+//     }
+// }
 
 
 // ---------------------------------------------------------------
@@ -142,5 +142,5 @@ window.onload = function () {
     checkDbConnection();
     document.getElementById("updateReservation").addEventListener("submit", updateReservation);
     document.getElementById("insertionQuery").addEventListener("submit", insertReservation);
-    document.getElementById("deleteReservation").addEventListener("submit",deleteReservation); //Celine: delete reservation
+    // document.getElementById("deleteReservation").addEventListener("submit",deleteReservation); //Celine: delete reservation
 };
