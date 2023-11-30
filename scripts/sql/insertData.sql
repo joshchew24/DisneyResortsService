@@ -159,30 +159,37 @@ INSERT INTO Food VALUES ('Classic Cheeseburger', 12.79);
 INSERT INTO Food VALUES ('BBQ Chicken Salad', 12.49);
 INSERT INTO Food VALUES ('Pumpkin Churro Funnel Cake', 11.99);
 INSERT INTO Food VALUES ('French Fries', 4.49);
+INSERT INTO Food VALUES ('Tiramisu', 10.99);
+INSERT INTO Food VALUES ('Cheesecake', 10.99);
 
 INSERT INTO Serve VALUES (1, 'Honey-Spiced Chicken Sandwich');
 INSERT INTO Serve VALUES (1, 'Classic Cheeseburger');
 INSERT INTO Serve VALUES (1, 'BBQ Chicken Salad');
 INSERT INTO Serve VALUES (1, 'Pumpkin Churro Funnel Cake');
 INSERT INTO Serve VALUES (1, 'French Fries');
+INSERT INTO Serve VALUES (1, 'Tiramisu');
+INSERT INTO Serve VALUES (2, 'Cheesecake');
+
 
 INSERT INTO Account VALUES (001, 'Celine', 'celine@ubc.ca', TO_DATE('2003-11-14', 'YYYY-MM-DD'));
 INSERT INTO Account VALUES (002, 'Brandon', 'brandon@ubc.ca', TO_DATE('2001-06-29', 'YYYY-MM-DD'));
 INSERT INTO Account VALUES (003, 'Josh', 'josh@ubc.ca', TO_DATE('2001-04-24', 'YYYY-MM-DD'));
 INSERT INTO Account VALUES (004, 'Melissa', 'melissa@ubc.ca', TO_DATE('2001-09-15', 'YYYY-MM-DD'));
 INSERT INTO Account VALUES (005, 'Rachael', 'rachael@ubc.ca', TO_DATE('1975-01-01', 'YYYY-MM-DD'));
+INSERT INTO Account VALUES (006, 'Kelly', 'kelly@ubc.ca', TO_DATE('2000-03-19', 'YYYY-MM-DD'));
 
 INSERT INTO Reserve VALUES (001, 1, 4, TO_DATE('2023-11-06 19:00:00', 'YYYY-MM-DD HH24:MI:SS'));
 INSERT INTO Reserve VALUES (002, 5, 8, TO_DATE('2023-12-08 20:15:00', 'YYYY-MM-DD HH24:MI:SS'));
 INSERT INTO Reserve VALUES (003, 3, 2, TO_DATE('2024-06-29 18:30:00', 'YYYY-MM-DD HH24:MI:SS'));
 INSERT INTO Reserve VALUES (001, 4, 1, TO_DATE('2024-01-12 10:30:00', 'YYYY-MM-DD HH24:MI:SS'));
 INSERT INTO Reserve VALUES (001, 5, 10, TO_DATE('2025-05-30 20:45:00', 'YYYY-MM-DD HH24:MI:SS'));
+INSERT INTO Reserve VALUES (004, 3, 3, TO_DATE('2025-02-18 20:45:00', 'YYYY-MM-DD HH24:MI:SS'));
 
 INSERT INTO TicketAtDisneyResortOwnedByAccount VALUES (111, 'Shanghai Disneyland Resort', TO_DATE('2023-11-14', 'YYYY-MM-DD'), 001);
 INSERT INTO TicketAtDisneyResortOwnedByAccount VALUES (112, 'Shanghai Disneyland Resort', TO_DATE('2023-11-15', 'YYYY-MM-DD'), 001);
 INSERT INTO TicketAtDisneyResortOwnedByAccount VALUES (113, 'Disneyland Paris', TO_DATE('2023-10-20', 'YYYY-MM-DD'), 003);
 INSERT INTO TicketAtDisneyResortOwnedByAccount VALUES (114, 'Disneyland Resort', TO_DATE('2019-12-21', 'YYYY-MM-DD'), 002);
-INSERT INTO TicketAtDisneyResortOwnedByAccount VALUES (115, 'Shanghai Disneyland Resort', TO_DATE('2024-10-21', 'YYYY-MM-DD'), 003);
+INSERT INTO TicketAtDisneyResortOwnedByAccountç VALUES (115, 'Shanghai Disneyland Resort', TO_DATE('2024-10-21', 'YYYY-MM-DD'), 003);
 
 INSERT INTO OpenStore VALUES (1, 'World of Disney®', NULL, NULL);
 INSERT INTO OpenStore VALUES (2, 'Emporium', 1, 1);
@@ -200,9 +207,25 @@ INSERT INTO Merchandise VALUES (66666, 'Piglet plush large', 60);
 INSERT INTO Merchandise VALUES (77777, 'Tigger plush large', 60);
 INSERT INTO Merchandise VALUES (88888, 'Rabbit plush large', 60);
 INSERT INTO Merchandise VALUES (99999, 'Eeyore plush large', 60);
+INSERT INTO Merchandise VALUES (00000, 'Elsa plush small', 20);
+INSERT INTO Merchandise VALUES (11111, 'Anna plush small', 20);
+INSERT INTO Merchandise VALUES (22222, 'Olaf plush small', 20);
+INSERT INTO Merchandise VALUES (33333, 'Kristoff plush small', 20);
+INSERT INTO Merchandise VALUES (44444, 'Hans plush small', 20);
+INSERT INTO Merchandise VALUES (10000, 'Frozen 10th Anniversary Latte Mug', 24.99);
+INSERT INTO Merchandise VALUES (10001, 'Anna Nightgown', 36.99);
+INSERT INTO Merchandise VALUES (10002, 'Elsa Nightgown', 36.99);
+
 
 INSERT INTO Sell VALUES (01, 55555);
 INSERT INTO Sell VALUES (01, 66666);
 INSERT INTO Sell VALUES (01, 77777);
 INSERT INTO Sell VALUES (01, 88888);
 INSERT INTO Sell VALUES (01, 99999);
+INSERT INTO Sell VALUES (02, 10001);
+INSERT INTO Sell VALUES (02, 10002);
+INSERT INTO Sell VALUES (03, 00000);
+INSERT INTO Sell VALUES (03, 11111);
+INSERT INTO Sell VALUES (03, 22222);
+INSERT INTO Sell VALUES (03, 33333);
+INSERT INTO Sell VALUES (03, 44444);
