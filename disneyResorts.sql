@@ -165,11 +165,11 @@ CREATE TABLE TicketAtDisneyResortOwnedByAccount(
     ticketId INT,
     disneyResortName VARCHAR(100),
     entryDate DATE,
-    accountId INT NOT NULL,
+    accountId INT,
     PRIMARY KEY (ticketId, disneyResortName),
     FOREIGN KEY (disneyResortName) REFERENCES DisneyResortAddress,
     -- ON UPDATE CASCADE,
-    FOREIGN KEY (accountId) references Account
+    FOREIGN KEY (accountId) references Account ON DELETE SET NULL
     -- ON UPDATE CASCADE
 );
 
@@ -396,7 +396,7 @@ INSERT INTO Reserve VALUES (002, 5, 8, TO_DATE('2023-12-08 20:15:00', 'YYYY-MM-D
 INSERT INTO Reserve VALUES (003, 3, 2, TO_DATE('2024-06-29 18:30:00', 'YYYY-MM-DD HH24:MI:SS'));
 INSERT INTO Reserve VALUES (001, 4, 1, TO_DATE('2024-01-12 10:30:00', 'YYYY-MM-DD HH24:MI:SS'));
 INSERT INTO Reserve VALUES (001, 5, 10, TO_DATE('2025-05-30 20:45:00', 'YYYY-MM-DD HH24:MI:SS'));
-INSERT INTO Reserve VALUES (004, 3, 3, TO_DATE('2025-02-30 20:45:00', 'YYYY-MM-DD HH24:MI:SS'));
+INSERT INTO Reserve VALUES (004, 3, 3, TO_DATE('2025-02-18 20:45:00', 'YYYY-MM-DD HH24:MI:SS'));
 
 INSERT INTO TicketAtDisneyResortOwnedByAccount VALUES (111, 'Shanghai Disneyland Resort', TO_DATE('2023-11-14', 'YYYY-MM-DD'), 001);
 INSERT INTO TicketAtDisneyResortOwnedByAccount VALUES (112, 'Shanghai Disneyland Resort', TO_DATE('2023-11-15', 'YYYY-MM-DD'), 001);

@@ -141,6 +141,18 @@ router.post('/delete-reservation', async (req,res) => {
     }
 });
 
+// Delete Account
+router.delete('/delete-account', async (req,res) => {
+    const { accountId } = req.body;
+    const deleteAccountResult = await appService.deleteAccount(accountId);
+
+    if (deleteAccountResult) {
+        res.json({ success: true });
+    } else {
+        res.status(500).json({ success: false });
+    }
+});
+
 // join query
 router.get('/find-stores', async (req, res) => {
     const themeParkId = req.query.themeParkId;

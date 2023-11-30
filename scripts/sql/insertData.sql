@@ -189,7 +189,7 @@ INSERT INTO TicketAtDisneyResortOwnedByAccount VALUES (111, 'Shanghai Disneyland
 INSERT INTO TicketAtDisneyResortOwnedByAccount VALUES (112, 'Shanghai Disneyland Resort', TO_DATE('2023-11-15', 'YYYY-MM-DD'), 001);
 INSERT INTO TicketAtDisneyResortOwnedByAccount VALUES (113, 'Disneyland Paris', TO_DATE('2023-10-20', 'YYYY-MM-DD'), 003);
 INSERT INTO TicketAtDisneyResortOwnedByAccount VALUES (114, 'Disneyland Resort', TO_DATE('2019-12-21', 'YYYY-MM-DD'), 002);
-INSERT INTO TicketAtDisneyResortOwnedByAccountç VALUES (115, 'Shanghai Disneyland Resort', TO_DATE('2024-10-21', 'YYYY-MM-DD'), 003);
+INSERT INTO TicketAtDisneyResortOwnedByAccount VALUES (115, 'Shanghai Disneyland Resort', TO_DATE('2024-10-21', 'YYYY-MM-DD'), 003);
 
 INSERT INTO OpenStore VALUES (1, 'World of Disney®', NULL, NULL);
 INSERT INTO OpenStore VALUES (2, 'Emporium', 1, 1);

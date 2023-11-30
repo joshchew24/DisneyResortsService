@@ -142,8 +142,32 @@ async function projectSelectedTable() {
     } else {
         messageElement.textContent = "selected table projected NOT successfully!";
     }
+}
 
+// Delete account
+async function deleteAccount(event) {
+    event.preventDefault();
 
+    const accountIdValue = document.getElementById('toDeleteAccountId').value;
+    console.log("account id to delete: " + accountIdValue);
+    const response = await fetch('/delete-account', {
+        method: 'DELETE',
+        headers: {
+            'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({
+            accountId: accountIdValue,
+        })
+    });
+
+    const responseData = await response.json();
+    const messageElement = document.getElementById('deleteAccountResultMsg');
+
+    if (responseData.success) {
+        messageElement.textContent = "Data deleted successfully!";
+    } else {
+        messageElement.textContent = "Error deleting data!";
+    }
 }
 
 // ---------------------------------------------------------------
@@ -156,6 +180,8 @@ window.onload = function () {
 
     document.getElementById("resetDatabase").addEventListener("click", resetDatabase);
     document.getElementById('projectButtonNew').addEventListener('click', projectSelectedTable); //Celine: projection
+    document.getElementById("deleteAccount").addEventListener("submit", deleteAccount); 
+
 };
 
 // ---------------------------------------------------------------
