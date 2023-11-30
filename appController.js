@@ -167,4 +167,18 @@ router.get('/find-stores', async (req, res) => {
     }
 });
 
+// aggregation with group by query
+router.get('/find-avg-prices', async (req, res) => {
+    const themeParkId = req.query.themeParkId;
+    const findAvgPricesResult = await storeService.findAvgPrices(themeParkId);
+    if (findAvgPricesResult) {
+        res.json({
+            success: true,
+            result: findAvgPricesResult
+        });
+    } else {
+        res.status(500).json({ success: false });
+    }
+});
+
 module.exports = router;
