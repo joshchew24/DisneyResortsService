@@ -94,7 +94,7 @@ async function deleteAccount(accountId) {
     return await withOracleDB(async (connection) => {
         const result = await connection.execute(
             `DELETE FROM Account WHERE accountId = :accountId`,
-            [accountId], // Use bind parameters
+            [accountId],
             { autoCommit: true }
         );
         console.log("Received accountId:", accountId);
@@ -102,7 +102,7 @@ async function deleteAccount(accountId) {
         
     }).catch ((error) => {
         console.error('Error deleting account:', error);
-        return false; // Return false in case of an error
+        return false; 
     })
 }
 
