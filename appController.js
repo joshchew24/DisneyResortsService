@@ -190,4 +190,18 @@ router.get('/find-avg-prices', async (req, res) => {
     }
 });
 
+// nested aggregation with group by query
+router.get('/find-min-avg-wt', async (req, res) => {
+    const themeParkId = req.query.themeParkId;
+    const findMinAvgWaitTimeResult = await landsService.findMinAvgWaitTime(themeParkId);
+    if (findMinAvgWaitTimeResult) {
+        res.json({
+            success: true,
+            result: findMinAvgWaitTimeResult
+        });
+    } else {
+        res.status(500).json({ success: false });
+    }
+});
+
 module.exports = router;
