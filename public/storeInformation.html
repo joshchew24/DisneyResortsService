@@ -8,7 +8,7 @@
     <!-- Link to the external CSS stylesheet. Uncomment if you wish to customize or add styling. -->
     <link rel="stylesheet" href="styles.css">
 
-    <title>Home</title>
+    <title>Store Information</title>
 </head>
 <body>
     <a href="index.html">Home</a>
@@ -29,57 +29,52 @@
 
     <br><hr><br> <!-- ========================================================================= -->
 
-    <h2>Reset Database</h2>
-    <p>If you wish to reset the database press on the reset button. </p>
-    <button id="resetDatabase"> reset </button> <br>
-    <!-- A placeholder to display messages related to the reset operation. -->
-    <div id="resetDatabaseResultMsg"></div>
+    <h2> Find Stores in a Theme Park </h2>
+    <form id="joinQuery">
+        Theme Park ID: <input type="number" id="joinThemeParkId" placeholder="Enter Theme Park ID" required> <br><br>
+        <!-- Submit button for the form -->
+        <button id="findStoresButton" type="button"> Submit </button> <br><br>
+    </form>
 
-    <br><hr><br> <!-- ========================================================================= -->
-
-    <h2> Pick a Table to Project </h2>
-    <div class="dropdown-container">
-        <label for="myDropdown">Choose an option:</label>
-        <select id="myDropdown" name="options">
-            <!-- <option value="option1">Option 1</option> -->
-        </select>
-    </div>
-
-    <br><hr><br> <!-- ========================================================================= -->
-    <p id="tempMessage"> After the table is picked from above dropdown, it will be displayed here :) </p>
-    <h2> <div id="displayText"> </div> </h2>
-
-
-    <table id="selectedTable" border="1">
+    <table id="findStoresTable" border="1">
         <thead>
             <tr>
-                <!-- <th>Name</th>
-                <th>Price</th> -->
+                <!--Table head, need to be adjusted accordingly to align with your own.-->
+                <th>Land</th>
+                <th>Store Name</th>
             </tr>
         </thead>
         <tbody>
         </tbody>
     </table>
 
-    <button id="projectButtonNew" type="button">Project</button>
-
-    <div id="projectSelectedTableResultMsg"></div>
-
     <br><hr><br> <!-- ========================================================================= -->
 
-    <h2>Delete Account</h2>
-    <form id="deleteAccount">
-        Account ID: <input type="number" id="toDeleteAccountId" placeholder="Enter Account Id" required> <br><br>
+    <!-- Aggregation with Group By Query -->
 
-        <button type="submit"> delete </button> <br>
+    <h2> Find Average Merchandise Price </h2>
+    <form id = "avgPrice">
+        Theme Park ID: <input type="number" id="avgPriceThemeParkId" placeholder="Enter Theme Park ID" required> <br><br>
+        <!-- Submit button for the form-->
+        <button id="avgPriceButton" type="button"> Submit </button> <br><br>
     </form>
-    <!-- A placeholder to display messages related to the update operation. -->
-    <div id="deleteAccountResultMsg"></div>
+
+    <table id="avgPricesTable" border="1">
+        <thead>
+            <tr>
+                <!--Table head, need to be adjusted accordingly to align with your own.-->
+                <th>Store Name</th>
+                <th>Average Merchandise Price</th>
+            </tr>
+        </thead>
+        <tbody>
+        </tbody>
+    </table>
 
     <br><hr><br> <!-- ========================================================================= -->
 
     <!-- ===================================================================================== -->
     <!-- External JavaScript file that contains the functionality/logic for the operations above. -->
-    <script src="scripts.js"></script>
+    <script src="storeInformationScripts.js"></script>
 </body>
 </html>
