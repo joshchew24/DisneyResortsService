@@ -150,6 +150,7 @@ async function addWhereClauseInput() {
 
     var numValue = document.createElement('input');
     numValue.type = 'number';
+    numValue.placeholder = "Enter ID";
     numValue.id = "numValue_" + selectAttractionInputCount;
     numValue.required = true;
 
