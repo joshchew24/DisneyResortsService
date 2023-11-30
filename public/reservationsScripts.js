@@ -101,7 +101,7 @@ async function insertReservation(event) {
     if (responseData.success) {
         messageElement.textContent = "Data inserted successfully!";
     } else {
-        messageElement.textContent = "Error inserting data!";
+        messageElement.textContent = responseData.errorMessage;
     }
 }
 

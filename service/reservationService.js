@@ -12,8 +12,15 @@ async function insertReservation(accountId, restaurantId, partySize, date, time)
         );
 
         return result.rowsAffected && result.rowsAffected > 0;
-    }).catch(() => {
-        return false;
+    }).catch((error) => {
+        let errorMessage = "Error inserting data.";
+        const errorString = error.toString()
+        if (errorString.includes("ORA-02291")) {
+            errorMessage = "Error inserting data. Ensure IDs exist!";
+        } else if (errorString.includes("ORA-00001")) {
+            errorMessage = "Error inserting data. Cannot insert duplicate reservations!";
+        }
+        throw errorMessage;
     });
 }
 

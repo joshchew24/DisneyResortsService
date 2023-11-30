@@ -42,12 +42,13 @@ router.post("/reset-database", async (req, res) => {
 
 router.post("/insert-reservation", async (req, res) => {
     const { accountId, restaurantId, partySize, date, time } = req.body;
-    const insertResult = await reservationService.insertReservation(accountId, restaurantId, partySize, date, time);
-
-    if (insertResult) {
-        res.json({ success: true });
-    } else {
-        res.status(500).json({ success: false });
+    try {
+        const insertResult = await reservationService.insertReservation(accountId, restaurantId, partySize, date, time);
+        if (insertResult) {
+            res.json({ success: true });
+        }
+    } catch (error) {
+        res.status(500).json({ success: false, errorMessage: error });
     }
 });
 
