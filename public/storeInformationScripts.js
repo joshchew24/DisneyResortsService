@@ -39,17 +39,44 @@ async function findStoresInThemePark(event) {
 }
 
 // Aggregation with Group BY Query
-// async function findAvgPrices(event) {
-//     event.preventDefault();
+async function findAvgPrices(event) {
+    event.preventDefault();
 
-//     const themeParkId = document.getElementById('joinThemeParkId').value;
-//     const findStoreParam = new URLSearchParams();
-//     findStoreParam.append('themeParkId', themeParkId);
+    const themeParkId = document.getElementById('avgPriceThemeParkId').value;
+    const findStoreParam = new URLSearchParams();
+    findStoreParam.append('themeParkId', themeParkId);
 
-//     const response = await fetch(`/find-avg-prices?${findStoreParam}`, {
-//         method: 'GET'
-//     });
-// }
+    const response = await fetch(`/find-avg-prices?${findStoreParam}`, {
+        method: 'GET'
+    });
+
+    const responseData = await response.json();
+    const storeTuples = responseData.result;
+
+    const tableElement = document.getElementById('avgPricesTable');
+    const tableBody = tableElement.querySelector('tbody');
+    // Always clear old, already fetched data before new fetching process.
+    if (tableBody) {
+        tableBody.innerHTML = '';
+    }
+
+    storeTuples.forEach((store) => {
+        const row = tableBody.insertRow();
+        store.forEach((field, index) => {
+            // some stores don't belong to a land
+            if (index == 0 && field == null) {
+                field = "N/A";
+            }
+            console.log(index + ": " + field);
+            const cell = row.insertCell(index);
+            cell.textContent = field;
+        });
+    });
+
+    if (!responseData.success) {
+        alert("Error in Join Query");
+    }
+}
 
 // ---------------------------------------------------------------
 // Initializes the webpage functionalities.
