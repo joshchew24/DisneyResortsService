@@ -41,10 +41,26 @@
     </form>
     <div id="insertionQueryResultMsg"></div>
 
+    <br><hr><br> <!-- ===================================================================================== -->
+    
+    <h2>Current Reservations</h2>
+    <table id="reservationsTable">
+        <thead>
+            <tr>
+                <th>Account ID</th>
+                <th>Restaurant ID:</th>
+                <th>Party Size</th>
+                <th>Date</th>
+                <th>Time</th>
+            </tr>
+        </thead>
+        <tbody>
+        </tbody>
+    </table>
+    
     <br><hr><br> <!-- ========================================================================= -->
 
     <h2>Update Reservation</h2>
-    <p>The values are case sensitive and if you enter in the wrong case, the update statement will not do anything.</p>
     <form id="updateReservation">
         Account ID: <input type="number" id="accountId" placeholder="Enter Account Id" required> <br><br>
         Restaurant ID: <input type="number" id="restaurantId" placeholder="Enter Restaurant Id" required> <br><br>

@@ -36,6 +36,74 @@ async function checkDbConnection() {
         });
 }
 
+// refreshes reservation table
+async function refreshReservationsTable() {
+    const response = await fetch(`/get-all-reservations`, {
+        method: 'GET'
+    });
+    const responseData = await response.json();
+    const reservationTuples = responseData.result;
+
+    const tableElement = document.getElementById('reservationsTable');
+    const tableBody = tableElement.querySelector('tbody');
+    // Always clear old, already fetched data before new fetching process.
+    if (tableBody) {
+        tableBody.innerHTML = '';
+    }
+
+    let time = "";
+    reservationTuples.forEach((reservation) => {
+        const row = tableBody.insertRow();
+        reservation.forEach((field, index) => {
+            if (index == 3) {
+                let datetime = field.split(" ");
+                field = datetime[0];
+                time = datetime[1];
+            }
+            const cell = row.insertCell(index);
+            cell.textContent = field;
+            if (index == 3) {
+                const timeCell = row.insertCell(4);
+                timeCell.textContent = time;
+            }
+        });
+    });
+}
+
+async function populateUpdateForm(event) {
+    // for some reason, we can only click cells and not the row
+    if (event.target.tagName === "TD") {
+        const updateForm = document.getElementById("updateReservation");
+
+        // get the clicked cell's parent row, then all the sibling cells
+        const clickedRow = event.target.parentNode;
+        const cells = clickedRow.getElementsByTagName("td");
+
+        // get the values from the cells
+        const accountId = cells[0].textContent;
+        const restaurantId = cells[1].textContent;
+        const partySize = cells[2].textContent;
+        const date = cells[3].textContent;
+        const time = cells[4].textContent;
+
+        // populate update form with the values
+        updateForm.querySelector("#accountId").value = accountId;
+        updateForm.querySelector("#restaurantId").value = restaurantId;
+        updateForm.querySelector("#newPartySize").value = partySize;
+        updateForm.querySelector("#newDate").value = date;
+        updateForm.querySelector("#newTime").value = time.substring(0,5);
+        
+    
+        updateForm.scrollIntoView(
+            {
+                behaviour: "smooth",
+                block: "start",
+            }
+        )
+    }
+}
+
+
 // updates reservation under accountId/restaurantId with given party size and time
 async function updateReservation(event) {
     event.preventDefault();
@@ -65,10 +133,10 @@ async function updateReservation(event) {
 
     if (responseData.success) {
         messageElement.textContent = "Reservation updated successfully!";
-        // fetchTableData();
     } else {
         messageElement.textContent = "Error updating reservation!";
     }
+    refreshReservationsTable();
 }
 
 // Inserts new reservation into the table
@@ -103,6 +171,7 @@ async function insertReservation(event) {
     } else {
         messageElement.textContent = responseData.errorMessage;
     }
+    refreshReservationsTable();
 }
 
 // // Delete reservations in the table
@@ -140,6 +209,8 @@ async function insertReservation(event) {
 // Add or remove event listeners based on the desired functionalities.88
 window.onload = function () {
     checkDbConnection();
+    refreshReservationsTable();
+    document.getElementById("reservationsTable").addEventListener("click", populateUpdateForm);
     document.getElementById("updateReservation").addEventListener("submit", updateReservation);
     document.getElementById("insertionQuery").addEventListener("submit", insertReservation);
     // document.getElementById("deleteReservation").addEventListener("submit",deleteReservation); //Celine: delete reservation

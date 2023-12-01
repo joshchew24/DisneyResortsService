@@ -80,6 +80,8 @@ async function fetchAndDisplayAllTables() {
 
 
 async function resetDatabase() {
+    const loading = document.getElementById("database-reset-loading-gif");
+    loading.style.display = "inline";
     const response = await fetch("/reset-database", {
         method: 'POST'
     });
@@ -91,6 +93,7 @@ async function resetDatabase() {
     } else {
         alert("Error initiating database!");
     }
+    loading.style.display = "none";
 }
 
 async function displayAttributesToDisplay(selectedOption){

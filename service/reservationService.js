@@ -62,8 +62,26 @@ async function deleteReservationFromDb(accountId, restaurantId) {
 }
 
 
+async function getAllReservations() {
+    return await appService.withOracleDB(async (connection) => {
+        const result = await connection.execute(
+            `
+            SELECT accountId, restaurantId, partySize, TO_CHAR(time, 'YYYY-MM-DD HH24:MI:SS') AS formatted_date
+            FROM reserve
+            `
+        );
+        console.log("Successfully retrieved all reservations from database");
+        return result.rows;
+    })
+    .catch(() => {
+        console.error('Error retrieving all reservations:', error);
+        return false; // Return false in case of an error
+    })
+}
+
 module.exports = {
     insertReservation,
     updateReservation,
     deleteReservationFromDb,
+    getAllReservations
 }

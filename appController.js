@@ -204,4 +204,17 @@ router.get('/find-min-avg-wt', async (req, res) => {
     }
 });
 
+// get all reservations
+router.get('/get-all-reservations', async (req, res) => {
+    const reservationsResult = await reservationService.getAllReservations();
+    if (reservationsResult) {
+        res.json({
+            success: true,
+            result: reservationsResult
+        });
+    } else {
+        res.status(500).json({ success: false });
+    }
+});
+
 module.exports = router;
