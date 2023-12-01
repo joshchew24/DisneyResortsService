@@ -96,7 +96,7 @@ async function findAvgPrices(event) {
     });
 
     if (!responseData.success) {
-        alert("Error in Join Query");
+        alert("Error in Aggregation with Group By Query");
     }
 }
 
