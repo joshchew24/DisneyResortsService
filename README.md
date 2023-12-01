@@ -1,5 +1,8 @@
 # CPSC 304 Project Group 90 - 2023 Winter Session Term 1 (Sept-Dec)
 
+# [Cover Page](https://github.students.cs.ubc.ca/CPSC304-2023W-T1/project_g4l8c_i8w2b_u9b3b/blob/main/304%20Project%20Cover%20Page.pdf)
+
+
 | Name         | Student Number | CS Aliases (Userid) | Preferred E-mail Address  |
 |--------------|----------------|---------------------|---------------------------|
 | Brandon Yuen | 40390817       | i8w2b               | brandonyuen2001@gmail.com |
@@ -13,6 +16,7 @@ The domain of this application is the entertainment industry, specifically focus
 ### [Milestone 1](https://github.students.cs.ubc.ca/CPSC304-2023W-T1/project_g4l8c_i8w2b_u9b3b/blob/main/docs/Milestone%201.pdf)
 ### [Milestone 2](https://github.students.cs.ubc.ca/CPSC304-2023W-T1/project_g4l8c_i8w2b_u9b3b/blob/main/docs/Milestone%202.pdf)
 ### [Milestone 3](https://github.students.cs.ubc.ca/CPSC304-2023W-T1/project_g4l8c_i8w2b_u9b3b/blob/main/docs/Milestone%203.md)
+
 
 ## [Deployment Guide](https://www.students.cs.ubc.ca/~cs-304/resources/javascript-oracle-resources/node-setup.html)
 
