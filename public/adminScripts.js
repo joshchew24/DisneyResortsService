@@ -13,9 +13,6 @@
  */
 
 
-let selectAttractionInputCount = 0;
-
-
 // This function checks the database connection and updates its status on the frontend.
 async function checkDbConnection() {
     const statusElem = document.getElementById('dbStatus');
@@ -68,29 +65,11 @@ async function fetchAndDisplayAllTables() {
 
     // Loop through each table name and create an option element for it
     tableNames.forEach(tableName => {
-        if (tableName == "ACCOUNT" || tableName == "RESERVE" || tableName == "TICKETATDISNEYRESORTOWNEDBYACCOUNT") {
-            return;
-        }
         const option = document.createElement('option'); //create an <option> element
         option.value = tableName;
         option.textContent = tableName;
         dropdownElement.appendChild(option); //append to the dropdownElement
     });
-}
-
-
-async function resetDatabase() {
-    const response = await fetch("/reset-database", {
-        method: 'POST'
-    });
-    const responseData = await response.json();
-
-    if (responseData.success) {
-        const messageElement = document.getElementById('resetDatabaseResultMsg');
-        messageElement.textContent = "database initiated successfully!";
-    } else {
-        alert("Error initiating database!");
-    }
 }
 
 async function displayAttributesToDisplay(selectedOption){
@@ -255,6 +234,33 @@ function getSelectedAttributes() {
     return Array.from(checkboxes).map(checkbox => checkbox.value);
 }
 
+
+// Delete account
+async function deleteAccount(event) {
+    event.preventDefault();
+
+    const accountIdValue = document.getElementById('toDeleteAccountId').value;
+    console.log("account id to delete: " + accountIdValue);
+    const response = await fetch('/delete-account', {
+        method: 'DELETE',
+        headers: {
+            'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({
+            accountId: accountIdValue,
+        })
+    });
+
+    const responseData = await response.json();
+    const messageElement = document.getElementById('deleteAccountResultMsg');
+
+    if (responseData.success) {
+        messageElement.textContent = "Data deleted successfully!";
+    } else {
+        messageElement.textContent = "Error deleting data!";
+    }
+}
+
 // ---------------------------------------------------------------
 // Initializes the webpage functionalities.
 // Add or remove event listeners based on the desired functionalities.88
@@ -263,8 +269,8 @@ window.onload = function () {
     checkDbConnection();
     fetchTableData();
 
-    document.getElementById("resetDatabase").addEventListener("click", resetDatabase);
     document.getElementById('projectButtonNew').addEventListener('click', projectSelectedTable); //Celine: projection
+    document.getElementById("deleteAccount").addEventListener("submit", deleteAccount); 
 
 };
 

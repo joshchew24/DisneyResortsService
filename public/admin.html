@@ -8,7 +8,7 @@
     <!-- Link to the external CSS stylesheet. Uncomment if you wish to customize or add styling. -->
     <link rel="stylesheet" href="styles.css">
 
-    <title>Attraction Information</title>
+    <title>Home</title>
 </head>
 <body>
     <a href="index.html">Home</a>
@@ -28,63 +28,60 @@
         <img id="loadingGif" class="loading-gif" src="loading_100px.gif" alt="Loading...">
     </h4>
 
+    <hr> <!-- ========================================================================= -->
+
+    <h2> Pick a Table to Project </h2>
+    <div class="dropdown-container">
+        <label for="myDropdown">Choose an option:</label>
+        <select id="myDropdown" name="options">
+            <!-- example: <option value="option1"> Option 1</option> -->
+            <!-- datatable option will be added here dynamically -->
+        </select>
+    </div>
+
     <br><hr><br> <!-- ========================================================================= -->
 
-    <h2> Select Attraction </h2>
-    <form id="selectionQuery">
-    <div id="inputContainer"></div>
-        <!-- Button to add more input boxes -->
-        <button id="addInputButton" type="button"> Add Input Box </button>
+    <h2> <div id="selectedDisplayTableName"> </div> </h2>
+    <h2> Pick Attributes to Project </h2>
+    <div id="checkboxContainer">
+        <!-- attribute checkboxes will be added here dynamically -->
+    </div>
+    
 
-        <!-- Button to delete input boxes -->
-        <button id="removeInputButton" type="button"> Delete Input Box </button> <br><br>
+    <button id="projectButtonNew" type="button">Project</button>
+    
 
-        <!-- Submit button for the form -->
-        <button id="selectAttractionButton" type="button"> select </button> <br><br>
-    </form>
+    <div id="projectSelectedTableResultMsg"></div>
 
-    <table id="selectAttractionTable" border="1">
+    <br><hr><br> <!-- ========================================================================= -->
+
+    <p id="tempMessage"> After the table is picked from above dropdown, it will be displayed here :) </p>
+    <table id="selectedTable" border="1">
         <thead>
             <tr>
-                <!--Table head, need to be adjusted accordingly to align with your own.-->
-                <th>ThemeParkId</th>
-                <th>LandId</th>
-                <th>AttractionId</th>
+                <!-- <th>Name</th>
+                <th>Price</th> -->
             </tr>
         </thead>
         <tbody>
         </tbody>
     </table>
 
-    <div id="selectAttractionResultMsg"></div>
-
     <br><hr><br> <!-- ========================================================================= -->
 
-    <h2> Find the Number of Rides at a Theme Park For Each Minimum Height Less than a Certain Height</h2>
-    <form id="aggregateWithHavingQuery">
-        ThemeParkId: <input type="number" id="insertThemeParkId" placeholder="Enter Theme Park ID" required> <br><br>
-        Height: <input type="number" id="insertHeight" placeholder="Enter Height (cm)" required> <br><br>
+    <h2>Delete Account</h2>
+    <form id="deleteAccount">
+        Account ID: <input type="number" id="toDeleteAccountId" placeholder="Enter Account Id" required> <br><br>
 
-        <button type="submit"> select </button> <br><br>
+        <button type="submit"> delete </button> <br>
     </form>
-
-    <table id="aggregateWithHavingQueryTable" border="1">
-        <thead>
-            <tr>
-                <th>MinimumHeight (cm)</th>
-                <th>Count</th>
-            </tr>
-        </thead>
-        <tbody>
-        </tbody>
-    </table>
-
-    <div id="aggregateWithHavingQueryResultMsg"></div>
+    <!-- A placeholder to display messages related to the update operation. -->
+    <div id="deleteAccountResultMsg"></div>
 
     <br><hr><br> <!-- ========================================================================= -->
 
     <!-- ===================================================================================== -->
     <!-- External JavaScript file that contains the functionality/logic for the operations above. -->
-    <script src="attractionInformationScripts.js"></script>
+    <script src="adminScripts.js"></script>
 </body>
 </html>
