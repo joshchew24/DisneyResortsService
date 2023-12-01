@@ -31,6 +31,7 @@
     <br><hr><br> <!-- ========================================================================= -->
 
     <h2> Find Stores in a Theme Park </h2>
+    <h5> Join Query </h5>
     <form id="joinQuery">
         Theme Park ID: <input type="number" id="joinThemeParkId" placeholder="Enter Theme Park ID" required> <br><br>
         <!-- Submit button for the form -->
@@ -56,6 +57,7 @@
     <!-- Aggregation with Group By Query -->
 
     <h2> Find Average Merchandise Price </h2>
+    <h5> Aggregation with Group By Query </h5>
     <form id = "avgPrice">
         Theme Park ID: <input type="number" id="avgPriceThemeParkId" placeholder="Enter Theme Park ID" required> <br><br>
         <!-- Submit button for the form-->
@@ -66,6 +68,7 @@
         <thead>
             <tr>
                 <!--Table head, need to be adjusted accordingly to align with your own.-->
+                <th>Store ID</th>
                 <th>Store Name</th>
                 <th>Average Merchandise Price</th>
             </tr>
@@ -76,6 +79,16 @@
 
     <div id="avgPriceResultMsg"></div>
 
+    <h3> Insert Merchandise </h3>
+    <form id = "aggrWithGBInsertMerchandise">
+        Store ID: <input type="number" id="insertMerchStoreId" placeholder="Enter Store ID" required> <br><br>
+        Item SKU: <input type="number" id="insertMerchSku" placeholder="Enter Item SKU" required> <br><br>
+        Item Name: <input type="text" id="insertMerchName" placeholder="Enter Item Name" required> <br><br>
+        Item Price: <input type="number" id="insertMerchPrice" placeholder="Enter Item Price" required> <br><br>
+        <button id="insertMerchButton" type="button"> Insert </button> <br><br>
+    </form>
+
+    <div id="insertMerchResultMsg"></div>
     <br><hr><br> <!-- ========================================================================= -->
 
     <!-- ===================================================================================== -->

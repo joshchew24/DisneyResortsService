@@ -217,4 +217,17 @@ router.get('/get-all-reservations', async (req, res) => {
     }
 });
 
+router.post("/insert-merchandise", async (req, res) => {
+    const { storeId, sku, name, price } = req.body;
+    try {
+        const insertResult = await storeService.insertMerchandise(storeId, sku, name, price);
+        if (insertResult) {
+            res.json({ success: true });
+        }
+    } catch (error) {
+        res.status(500).json({ success: false, errorMessage: error });
+    }
+});
+
+
 module.exports = router;
