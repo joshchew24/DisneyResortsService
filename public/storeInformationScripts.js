@@ -42,6 +42,13 @@ async function findStoresInThemePark(event) {
         tableBody.innerHTML = '';
     }
 
+    if (storeTuples.length == 0) {
+        document.getElementById('joinQueryResultMsg').textContent = "No Result";
+        return;
+    } else {
+        document.getElementById('joinQueryResultMsg').textContent = "";
+    }
+
     storeTuples.forEach((store) => {
         const row = tableBody.insertRow();
         store.forEach((field, index) => {
@@ -80,6 +87,13 @@ async function findAvgPrices(event) {
     // Always clear old, already fetched data before new fetching process.
     if (tableBody) {
         tableBody.innerHTML = '';
+    }
+
+    if (storeTuples.length == 0) {
+        document.getElementById('avgPriceResultMsg').textContent = "No Result";
+        return;
+    } else {
+        document.getElementById('avgPriceResultMsg').textContent = "";
     }
 
     storeTuples.forEach((store) => {
