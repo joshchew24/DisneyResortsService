@@ -144,7 +144,7 @@ async function findNumberOfRidesAtThemeParkWithMinimumHeightLessThanOrEqualToHei
     });
 
     if (!responseData.success) {
-        alert("Error in Aggregate with Having Query");
+        alert("Error!");
     }
 }
 

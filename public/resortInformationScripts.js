@@ -45,9 +45,9 @@ async function findLandsInAllDisneyResorts() {
     const messageElement = document.getElementById('divisionQueryResultMsg');
 
     if (responseData.success) {
-        messageElement.textContent = `The Lands that appear in all Disney Resorts: ${responseData.result}`;
+        messageElement.textContent = `The Land(s) that appear in all Disney Resorts: ${responseData.result}`;
     } else {
-        alert("Error in find lands that appear in all Disney Resorts!");
+        alert("Error!");
     }
 }
 
@@ -94,7 +94,7 @@ async function findMinAvgWaitTime(event) {
     });
 
     if (!responseData.success) {
-        alert("Error in Nested Aggregation with Group By Query");
+        alert("Error!");
     }
 }
 

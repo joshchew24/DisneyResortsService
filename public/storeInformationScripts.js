@@ -63,7 +63,7 @@ async function findStoresInThemePark(event) {
     });
 
     if (!responseData.success) {
-        alert("Error in Join Query");
+        alert("Error!");
     }
 }
 
@@ -110,7 +110,7 @@ async function findAvgPrices(event) {
     });
 
     if (!responseData.success) {
-        alert("Error in Aggregation with Group By Query");
+        alert("Error!");
     }
 }
 
