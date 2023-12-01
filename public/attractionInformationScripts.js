@@ -83,6 +83,13 @@ async function selectAttraction(event) {
             tableBody.innerHTML = '';
         }
 
+        if (tableContent.length == 0) {
+            document.getElementById('selectAttractionResultMsg').textContent = "No Result";
+            return;
+        } else {
+            document.getElementById('selectAttractionResultMsg').textContent = "";
+        }
+
         tableContent.forEach(user => {
             const row = tableBody.insertRow();
             user.forEach((field, index) => {
@@ -92,7 +99,7 @@ async function selectAttraction(event) {
         });
 
         if (!responseData.success) {
-            alert("Error in Division Query");
+            alert("Error in query");
         }
     }
 }
@@ -119,6 +126,13 @@ async function findNumberOfRidesAtThemeParkWithMinimumHeightLessThanOrEqualToHei
     // Always clear old, already fetched data before new fetching process.
     if (tableBody) {
         tableBody.innerHTML = '';
+    }
+
+    if (tableContent.length == 0) {
+        document.getElementById('aggregateWithHavingQueryResultMsg').textContent = "No Result";
+        return;
+    } else {
+        document.getElementById('aggregateWithHavingQueryResultMsg').textContent = "";
     }
 
     tableContent.forEach(user => {

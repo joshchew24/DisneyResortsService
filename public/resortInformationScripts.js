@@ -73,6 +73,13 @@ async function findMinAvgWaitTime(event) {
         tableBody.innerHTML = '';
     }
 
+    if (landTuples.length == 0) {
+        document.getElementById('minAvgWaitTimeResultMsg').textContent = "No Result";
+        return;
+    } else {
+        document.getElementById('minAvgWaitTimeResultMsg').textContent = "";
+    }
+
     landTuples.forEach((land) => {
         const row = tableBody.insertRow();
         land.forEach((field, index) => {
