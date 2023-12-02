@@ -20,13 +20,25 @@ router.get('/check-db-connection', async (req, res) => {
     }
 });
 
-router.post("/update-reservation", async (req, res) => {
-    const { accountId, restaurantId, newPartySize, newDate, newTime } = req.body;
-    const updateResult = await reservationService.updateReservation(accountId, restaurantId, newPartySize, newDate, newTime);
+// router.post("/update-reservation", async (req, res) => {
+//     const { accountId, restaurantId, newPartySize, newDate, newTime } = req.body;
+//     const updateResult = await reservationService.updateReservation(accountId, restaurantId, newPartySize, newDate, newTime);
+//     if (updateResult) {
+//         res.json({ success: true });
+//         console.log(updateResult);
+//     } else {
+//         res.status(500).json({ success: false });
+//     }
+// });
+
+router.post("/update-ride-minimumHeight-and-avgWaitTime", async (req, res) => {
+    const { attractionId, newMinimumHeight, newAvgWaitTime } = req.body;
+    const updateResult = await attractionService.updateAttractionMinimumHeightAndAvgWaitTime(attractionId, newMinimumHeight, newAvgWaitTime);
     if (updateResult) {
         res.json({ success: true });
         console.log(updateResult);
     } else {
+        console.log("got here error");
         res.status(500).json({ success: false });
     }
 });
@@ -98,6 +110,11 @@ router.get('/project-allTableDropdown', async (req, res) => {
     res.json({data: tableContent});
 });
 
+router.get('/get-minimumHeights', async (req, res) => {
+    const tableContent = await attractionService.getMinimumHeights();
+    res.json({data: tableContent});
+});
+
 
 // Project Selected Table Data
 router.get('/project-selectedTable', async (req, res) => {
@@ -138,17 +155,17 @@ router.get('/selectedTable-description', async (req, res) => {
 });
 
 
-// Delete Reservation
-router.post('/delete-reservation', async (req,res) => {
-    const { accountId, restaurantId } = req.body;
-    const deleteReservationResult = await reservationService.deleteReservationFromDb(accountId,restaurantId);
+// // Delete Reservation
+// router.post('/delete-reservation', async (req,res) => {
+//     const { accountId, restaurantId } = req.body;
+//     const deleteReservationResult = await reservationService.deleteReservationFromDb(accountId,restaurantId);
 
-    if (deleteReservationResult) {
-        res.json({ success: true });
-    } else {
-        res.status(500).json({ success: false });
-    }
-});
+//     if (deleteReservationResult) {
+//         res.json({ success: true });
+//     } else {
+//         res.status(500).json({ success: false });
+//     }
+// });
 
 // Delete Account
 router.delete('/delete-account', async (req,res) => {
@@ -204,13 +221,25 @@ router.get('/find-min-avg-wt', async (req, res) => {
     }
 });
 
-// get all reservations
-router.get('/get-all-reservations', async (req, res) => {
-    const reservationsResult = await reservationService.getAllReservations();
-    if (reservationsResult) {
+// // get all reservations
+// router.get('/get-all-reservations', async (req, res) => {
+//     const reservationsResult = await reservationService.getAllReservations();
+//     if (reservationsResult) {
+//         res.json({
+//             success: true,
+//             result: reservationsResult
+//         });
+//     } else {
+//         res.status(500).json({ success: false });
+//     }
+// });
+
+router.get('/get-all-rides', async (req, res) => {
+    const ridesResult = await attractionService.getAllRides();
+    if (ridesResult) {
         res.json({
             success: true,
-            result: reservationsResult
+            result: ridesResult
         });
     } else {
         res.status(500).json({ success: false });

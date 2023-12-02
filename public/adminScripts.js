@@ -261,16 +261,136 @@ async function deleteAccount(event) {
     }
 }
 
+// refreshes reservation table
+async function refreshRidesTable() {
+    const response = await fetch(`/get-all-rides`, {
+        method: 'GET'
+    });
+    const responseData = await response.json();
+    const ridesTuples = responseData.result;
+
+    const tableElement = document.getElementById('ridesTable');
+    const tableBody = tableElement.querySelector('tbody');
+    // Always clear old, already fetched data before new fetching process.
+    if (tableBody) {
+        tableBody.innerHTML = '';
+    }
+    ridesTuples.forEach((ride) => {
+        const row = tableBody.insertRow();
+        ride.forEach((field, index) => {
+            const cell = row.insertCell(index);
+            cell.textContent = field;
+        });
+    });
+}
+
+async function populateUpdateForm(event) {
+    // for some reason, we can only click cells and not the row
+    if (event.target.tagName === "TD") {
+        const updateForm = document.getElementById("updateRide");
+
+        // get the clicked cell's parent row, then all the sibling cells
+        const clickedRow = event.target.parentNode;
+        const cells = clickedRow.getElementsByTagName("td");
+
+        // get the values from the cells
+        const attractionId = cells[0].textContent;
+        const avgWaitTime = cells[2].textContent;
+
+        // populate update form with the values
+        updateForm.querySelector("#attractionId").value = attractionId;
+        updateForm.querySelector("#newAvgWaitTime").value = avgWaitTime;
+        
+    
+        updateForm.scrollIntoView(
+            {
+                behaviour: "smooth",
+                block: "start",
+            }
+        )
+    }
+}
+
+async function getAllMinimumHeights() {
+    const dropdownElement = document.getElementById('heightDropDown')
+
+    const response = await fetch('/get-minimumHeights', {
+        method: 'GET'
+    });
+
+    const responseData = await response.json();
+    const tableNames = responseData.data; //responseData.data is an array of table names
+
+    console.log("heights: " + tableNames);
+
+    // Clear old options before adding new ones
+    if (dropdownElement) {
+        dropdownElement.innerHTML = '';
+        
+        // Create and add the default disabled option
+        const defaultOption = document.createElement('option');
+        defaultOption.textContent = 'Select an option';
+        defaultOption.value = "";
+        defaultOption.disabled = true;
+        defaultOption.selected = true;
+        dropdownElement.appendChild(defaultOption);
+    }
+
+    // Loop through each table name and create an option element for it
+    tableNames.forEach(tableName => {
+        const option = document.createElement('option'); //create an <option> element
+        option.value = tableName;
+        option.textContent = tableName;
+        dropdownElement.appendChild(option); //append to the dropdownElement
+    });
+}
+
+
+async function updateRide(event) {
+    event.preventDefault();
+
+    const attractionId = document.getElementById('attractionId').value;
+    const newMinimumHeight = document.getElementById('heightDropDown').value;
+    const newAvgWaitTime = document.getElementById('newAvgWaitTime').value;
+
+    // console.log("attractionId: " + attractionId + " minimumHeight: " + newMinimumHeight + " avgWaitTime: " + newAvgWaitTime);
+
+    const response = await fetch('/update-ride-minimumHeight-and-avgWaitTime', {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({
+            attractionId: attractionId,
+            newMinimumHeight: newMinimumHeight,
+            newAvgWaitTime: newAvgWaitTime
+        })
+    });
+
+    const responseData = await response.json();
+    const messageElement = document.getElementById('updateRideResultMsg');
+
+    if (responseData.success) {
+        messageElement.textContent = "Ride updated successfully!";
+    } else {
+        messageElement.textContent = "Error updating ride!";
+    }
+    refreshRidesTable();
+}
+
 // ---------------------------------------------------------------
 // Initializes the webpage functionalities.
 // Add or remove event listeners based on the desired functionalities.88
-window.onload = function () {
-    selectAttractionInputCount = 0;
+window.onload = async function () {
     checkDbConnection();
-    fetchTableData();
+    await fetchTableData();
+    await refreshRidesTable();
+    await getAllMinimumHeights();
 
     document.getElementById('projectButtonNew').addEventListener('click', projectSelectedTable); //Celine: projection
     document.getElementById("deleteAccount").addEventListener("submit", deleteAccount); 
+    document.getElementById("ridesTable").addEventListener("click", populateUpdateForm);
+    document.getElementById("updateRide").addEventListener("submit", updateRide);
 
 };
 

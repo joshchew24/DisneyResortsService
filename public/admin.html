@@ -82,6 +82,38 @@
 
     <br><hr><br> <!-- ========================================================================= -->
 
+    <h2>Current Rides</h2>
+    <table id="ridesTable">
+        <thead>
+            <tr>
+                <th>Attraction ID</th>
+                <th>Minimum Height</th>
+                <th>Average Wait Time</th>
+            </tr>
+        </thead>
+        <tbody>
+        </tbody>
+    </table>
+    
+    <br><hr><br> <!-- ========================================================================= -->
+
+    <h2>Update Ride Minimum Height AND Average Wait Time</h2>
+    <h5> Update Query </h5>
+    <form id="updateRide">
+        Attraction ID: <input type="number" id="attractionId" placeholder="Enter Attraction Id" required>
+        <div class="heightContainer"> 
+            <label for="heightDropDown">Minimum Heights:</label>
+            <select id="heightDropDown" name="options">
+            </select>
+        </div>
+        <!-- New Minimum Height: <input type="number" id="newMinimumHeight" placeholder="Enter New Minimum Height" required> <br><br> -->
+        New Average Wait Time: <input type="number" id="newAvgWaitTime" placeholder="Enter New Average Wait Time" required> <br><br>
+
+        <button type="submit"> update </button> <br>
+    </form>
+    <!-- A placeholder to display messages related to the update operation. -->
+    <div id="updateRideResultMsg"></div>
+
     <!-- ===================================================================================== -->
     <!-- External JavaScript file that contains the functionality/logic for the operations above. -->
     <script src="adminScripts.js"></script>

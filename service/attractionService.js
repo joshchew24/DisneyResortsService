@@ -10,6 +10,66 @@ async function selectAttraction(whereClause) {
     });
 }
 
+async function getMinimumHeights() {
+    return await appService.withOracleDB(async (connection) => {
+        const result = await connection.execute(
+            `
+            SELECT minimumHeight
+            FROM RideTypeMinimumHeight
+            `
+        );
+        console.log("Successfully retrieved all minimum heights from database");
+        return result.rows;
+    })
+    .catch(() => {
+        console.error('Error retrieving all minimum heights:', error);
+        return false; // Return false in case of an error
+    })
+}
+
+async function updateAttractionMinimumHeightAndAvgWaitTime(attractionId, minimumHeight, avgWaitTime) {
+    return await appService.withOracleDB(async (connection) => {
+        const query = 
+
+            `
+            UPDATE RideAvgWaitTime 
+            SET minimumHeight=${minimumHeight}, avgWaitTime=${avgWaitTime}
+            WHERE attractionId=${attractionId}
+            `
+        ;
+        const result = await connection.execute(query);
+
+        await connection.execute("COMMIT");
+
+        console.log("rowsAffected: " + result.rowsAffected);
+
+        return result.rowsAffected && result.rowsAffected > 0;
+    }).catch((error) => {
+        console.log("error: " + error);
+        return false;
+    });
+}
+
+async function getAllRides() {
+    return await appService.withOracleDB(async (connection) => {
+        const result = await connection.execute(
+            `
+            SELECT *
+            FROM RideAvgWaitTime
+            `
+        );
+        console.log("Successfully retrieved all rides from database");
+        return result.rows;
+    })
+    .catch(() => {
+        console.error('Error retrieving all rides:', error);
+        return false; // Return false in case of an error
+    })
+}
+
 module.exports = {
-    selectAttraction
+    selectAttraction,
+    updateAttractionMinimumHeightAndAvgWaitTime,
+    getAllRides,
+    getMinimumHeights
 }

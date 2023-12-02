@@ -169,7 +169,7 @@ CREATE TABLE TicketAtDisneyResortOwnedByAccount(
     PRIMARY KEY (ticketId, disneyResortName),
     FOREIGN KEY (disneyResortName) REFERENCES DisneyResortAddress,
     -- ON UPDATE CASCADE,
-    FOREIGN KEY (accountId) references Account ON DELETE SET NULL
+    FOREIGN KEY (accountId) references Account ON DELETE CASCADE
     -- ON UPDATE CASCADE
 );
 
