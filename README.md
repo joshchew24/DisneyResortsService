@@ -1,4 +1,5 @@
 # CPSC 304 Project Group 90 - 2023 Winter Session Term 1 (Sept-Dec)
+*Based on the provided [starter project](https://github.students.cs.ubc.ca/CPSC304/CPSC304_Node_Project)*
 
 | Name         | Student Number | CS Aliases (Userid) | Preferred E-mail Address  |
 |--------------|----------------|---------------------|---------------------------|
