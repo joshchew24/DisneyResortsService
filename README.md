@@ -1,7 +1,7 @@
 # CPSC 304 Project Group 90 - 2023 Winter Session Term 1 (Sept-Dec)
 *Based on the provided [starter project](https://github.students.cs.ubc.ca/CPSC304/CPSC304_Node_Project)*
 #
-# [Milestone 4 Deliverables Link](https://github.students.cs.ubc.ca/CPSC304-2023W-T1/project_g4l8c_i8w2b_u9b3b/edit/main/README.md#milestone-4-1)
+# [Milestone 4 Deliverables Link](https://github.students.cs.ubc.ca/CPSC304-2023W-T1/project_g4l8c_i8w2b_u9b3b#milestone-4)
 | Name         | Student Number | CS Aliases (Userid) | Preferred E-mail Address  |
 |--------------|----------------|---------------------|---------------------------|
 | Brandon Yuen | 40390817       | i8w2b               | brandonyuen2001@gmail.com |
