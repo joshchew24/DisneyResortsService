@@ -29,15 +29,14 @@ async function getMinimumHeights() {
 
 async function updateAttractionMinimumHeightAndAvgWaitTime(attractionId, minimumHeight, avgWaitTime) {
     return await appService.withOracleDB(async (connection) => {
-        const query = 
-
+        const result = await connection.execute(
             `
             UPDATE RideAvgWaitTime 
-            SET minimumHeight=${minimumHeight}, avgWaitTime=${avgWaitTime}
-            WHERE attractionId=${attractionId}
-            `
-        ;
-        const result = await connection.execute(query);
+            SET minimumHeight=:minimumHeight, avgWaitTime=:avgWaitTime
+            WHERE attractionId=:attractionId
+            `,
+            [minimumHeight, avgWaitTime, attractionId]
+        );
 
         await connection.execute("COMMIT");
 

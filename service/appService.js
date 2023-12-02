@@ -62,13 +62,14 @@ async function fetchAllTablesFromDb() {
 async function fetchMyTableDescription(myOption) {
     try {
         return await withOracleDB(async (connection) => {
-            const query = 
-            `
-            SELECT column_name
-            FROM user_tab_columns
-            WHERE table_name = '${myOption}'
-            `;
-            const result = await connection.execute(query);
+            const result = await connection.execute(
+                `
+                SELECT column_name
+                FROM user_tab_columns
+                WHERE table_name = :myOption
+                `,
+                [myOption]
+            );
             return result.rows;
         });
     } catch (error) {
@@ -87,7 +88,11 @@ async function fetchMyTableFromDb(tableName, attributes) {
 
     try {
         return await withOracleDB(async (connection) => {
+            // cannot use bind variables with identifiers
+            // TODO: this is a vulnerability as a client can modify the values 
+            // of the checkboxes in the frontend to inject SQL here
             const query = `SELECT ${columnsToFetch} FROM ${tableName}`;
+            // console.log(query);
             const result = await connection.execute(query);
             return result.rows;
         });

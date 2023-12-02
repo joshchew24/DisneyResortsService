@@ -37,38 +37,38 @@ async function checkDbConnection() {
 }
 
 // refreshes reservation table
-async function refreshReservationsTable() {
-    const response = await fetch(`/get-all-reservations`, {
-        method: 'GET'
-    });
-    const responseData = await response.json();
-    const reservationTuples = responseData.result;
+// async function refreshReservationsTable() {
+//     const response = await fetch(`/get-all-reservations`, {
+//         method: 'GET'
+//     });
+//     const responseData = await response.json();
+//     const reservationTuples = responseData.result;
 
-    const tableElement = document.getElementById('reservationsTable');
-    const tableBody = tableElement.querySelector('tbody');
-    // Always clear old, already fetched data before new fetching process.
-    if (tableBody) {
-        tableBody.innerHTML = '';
-    }
+//     const tableElement = document.getElementById('reservationsTable');
+//     const tableBody = tableElement.querySelector('tbody');
+//     // Always clear old, already fetched data before new fetching process.
+//     if (tableBody) {
+//         tableBody.innerHTML = '';
+//     }
 
-    let time = "";
-    reservationTuples.forEach((reservation) => {
-        const row = tableBody.insertRow();
-        reservation.forEach((field, index) => {
-            if (index == 3) {
-                let datetime = field.split(" ");
-                field = datetime[0];
-                time = datetime[1];
-            }
-            const cell = row.insertCell(index);
-            cell.textContent = field;
-            if (index == 3) {
-                const timeCell = row.insertCell(4);
-                timeCell.textContent = time;
-            }
-        });
-    });
-}
+//     let time = "";
+//     reservationTuples.forEach((reservation) => {
+//         const row = tableBody.insertRow();
+//         reservation.forEach((field, index) => {
+//             if (index == 3) {
+//                 let datetime = field.split(" ");
+//                 field = datetime[0];
+//                 time = datetime[1];
+//             }
+//             const cell = row.insertCell(index);
+//             cell.textContent = field;
+//             if (index == 3) {
+//                 const timeCell = row.insertCell(4);
+//                 timeCell.textContent = time;
+//             }
+//         });
+//     });
+// }
 
 async function populateUpdateForm(event) {
     // for some reason, we can only click cells and not the row
@@ -105,39 +105,39 @@ async function populateUpdateForm(event) {
 
 
 // updates reservation under accountId/restaurantId with given party size and time
-async function updateReservation(event) {
-    event.preventDefault();
+// async function updateReservation(event) {
+//     event.preventDefault();
 
-    const accountId = document.getElementById('accountId').value;
-    const restaurantId = document.getElementById('restaurantId').value;
-    const newPartySize = document.getElementById('newPartySize').value;
-    const newDate = document.getElementById('newDate').value;
-    const newTime = document.getElementById('newTime').value;
+//     const accountId = document.getElementById('accountId').value;
+//     const restaurantId = document.getElementById('restaurantId').value;
+//     const newPartySize = document.getElementById('newPartySize').value;
+//     const newDate = document.getElementById('newDate').value;
+//     const newTime = document.getElementById('newTime').value;
 
-    const response = await fetch('/update-reservation', {
-        method: 'POST',
-        headers: {
-            'Content-Type': 'application/json'
-        },
-        body: JSON.stringify({
-            accountId: accountId,
-            restaurantId: restaurantId,
-            newPartySize: newPartySize,
-            newDate: newDate,
-            newTime: newTime
-        })
-    });
+//     const response = await fetch('/update-reservation', {
+//         method: 'POST',
+//         headers: {
+//             'Content-Type': 'application/json'
+//         },
+//         body: JSON.stringify({
+//             accountId: accountId,
+//             restaurantId: restaurantId,
+//             newPartySize: newPartySize,
+//             newDate: newDate,
+//             newTime: newTime
+//         })
+//     });
 
-    const responseData = await response.json();
-    const messageElement = document.getElementById('updateReservationResultMsg');
+//     const responseData = await response.json();
+//     const messageElement = document.getElementById('updateReservationResultMsg');
 
-    if (responseData.success) {
-        messageElement.textContent = "Reservation updated successfully!";
-    } else {
-        messageElement.textContent = "Error updating reservation!";
-    }
-    refreshReservationsTable();
-}
+//     if (responseData.success) {
+//         messageElement.textContent = "Reservation updated successfully!";
+//     } else {
+//         messageElement.textContent = "Error updating reservation!";
+//     }
+//     refreshReservationsTable();
+// }
 
 // Inserts new reservation into the table
 async function insertReservation(event) {
@@ -171,7 +171,7 @@ async function insertReservation(event) {
     } else {
         messageElement.textContent = responseData.errorMessage;
     }
-    refreshReservationsTable();
+    // refreshReservationsTable();
 }
 
 // // Delete reservations in the table
@@ -209,9 +209,9 @@ async function insertReservation(event) {
 // Add or remove event listeners based on the desired functionalities.88
 window.onload = function () {
     checkDbConnection();
-    refreshReservationsTable();
-    document.getElementById("reservationsTable").addEventListener("click", populateUpdateForm);
-    document.getElementById("updateReservation").addEventListener("submit", updateReservation);
+    // refreshReservationsTable();
+    // document.getElementById("reservationsTable").addEventListener("click", populateUpdateForm);
+    // document.getElementById("updateReservation").addEventListener("submit", updateReservation);
     document.getElementById("insertionQuery").addEventListener("submit", insertReservation);
     // document.getElementById("deleteReservation").addEventListener("submit",deleteReservation); //Celine: delete reservation
 };

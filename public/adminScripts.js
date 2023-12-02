@@ -399,7 +399,7 @@ window.onload = async function () {
 document.getElementById('myDropdown').addEventListener('change', function () {
     var selectedOption = this.value;
     document.getElementById('selectedDisplayTableName').textContent = selectedOption;
-    console.log("reached here");
+    // console.log("reached here");
     displayAttributesToDisplay(selectedOption);
 });
 
@@ -408,6 +408,6 @@ document.getElementById('myDropdown').addEventListener('change', function () {
 
 // General function to refresh the displayed table data.
 // You can invoke this after any table-modifying operation to keep consistency.
-function fetchTableData() {
-    fetchAndDisplayAllTables();
+async function fetchTableData() {
+    await fetchAndDisplayAllTables();
 }

@@ -87,7 +87,7 @@ async function findMinAvgWaitTime(event) {
             if (index == 0 && field == null) {
                 field = "N/A";
             }
-            console.log(index + ": " + field);
+            // console.log(index + ": " + field);
             const cell = row.insertCell(index);
             cell.textContent = field;
         });

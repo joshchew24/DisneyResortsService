@@ -276,7 +276,7 @@ window.onload = function () {
 document.getElementById('myDropdown').addEventListener('change', function () {
     var selectedOption = this.value;
     document.getElementById('selectedDisplayTableName').textContent = selectedOption;
-    console.log("reached here");
+    // console.log("reached here");
     displayAttributesToDisplay(selectedOption);
 });
 
