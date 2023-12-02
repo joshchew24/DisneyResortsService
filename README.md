@@ -17,6 +17,7 @@ The domain of this application is the entertainment industry, specifically focus
 ### [Milestone 1](https://github.students.cs.ubc.ca/CPSC304-2023W-T1/project_g4l8c_i8w2b_u9b3b/blob/main/docs/Milestone%201.pdf)
 ### [Milestone 2](https://github.students.cs.ubc.ca/CPSC304-2023W-T1/project_g4l8c_i8w2b_u9b3b/blob/main/docs/Milestone%202.pdf)
 ### [Milestone 3](https://github.students.cs.ubc.ca/CPSC304-2023W-T1/project_g4l8c_i8w2b_u9b3b/blob/main/docs/Milestone%203.md)
+### [Milestone 4](https://github.students.cs.ubc.ca/CPSC304-2023W-T1/project_g4l8c_i8w2b_u9b3b/blob/main/docs/Milestone%204.pdf)
 ### [Milestone 4 Cover Page](https://github.students.cs.ubc.ca/CPSC304-2023W-T1/project_g4l8c_i8w2b_u9b3b/blob/main/docs/304%20Project%20Cover%20Page.pdf)
 ### [Milestone 4 SQL Script](https://github.students.cs.ubc.ca/CPSC304-2023W-T1/project_g4l8c_i8w2b_u9b3b/blob/main/disneyResorts.sql)
 
