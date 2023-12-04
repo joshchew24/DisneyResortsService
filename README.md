@@ -25,7 +25,7 @@ The domain of this application is the entertainment industry, specifically focus
 
 #
 ## [Deployment Guide](https://www.students.cs.ubc.ca/~cs-304/resources/javascript-oracle-resources/node-setup.html)
-
+*assumes your ssh is configured for `remote.students.cs.ubc.ca`*
 1. `ssh remote`
 2. navigate to project repo directory
 3. `sh ./remote-start.sh`
